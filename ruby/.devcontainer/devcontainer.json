@@ -8,7 +8,7 @@
 			// Update 'VARIANT' to pick a Ruby version: 3, 3.0, 2, 2.7, 2.6
 			"VARIANT": "3",
 			// Options
-			"INSTALL_NODE": "true",
+			"INSTALL_NODE": "false",
 			"NODE_VERSION": "lts/*"
 		}
 	},

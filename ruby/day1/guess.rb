@@ -4,15 +4,15 @@ rnd = rand(10)
 
 guessed = nil
 
-puts 'Guess the number from 0 to 9:'
+print 'Guess the number from 0 to 9: '
 while guessed != rnd
   guessed = gets.to_i
   if guessed == rnd
     puts 'right!'
     exit
   elsif guessed < rnd
-    puts 'higher:'
+    print 'higher: '
   elsif guessed > rnd
-    puts 'lower:'
+    print 'lower: '
   end
 end

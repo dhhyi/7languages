@@ -1,4 +1,9 @@
 {
-    "editor.defaultFormatter": "rebornix.ruby",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "[ruby]": {
+        "editor.defaultFormatter": "misogi.ruby-rubocop"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }

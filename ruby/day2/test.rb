@@ -3,7 +3,6 @@ puts '------------------------------'
 # animals = ['lion', 'elephant', 'deer']
 # puts animals
 
-
 # a = []
 # # a[0] = 0
 # # a[1] = 'test'
@@ -17,7 +16,6 @@ puts '------------------------------'
 # puts 'nil' if a.pop.nil?
 # print a, "\n"
 
-
 # numbers = {
 #   eins: 'one',
 #   zwei: 'two'
@@ -25,7 +23,6 @@ puts '------------------------------'
 
 # eins = :eins
 # puts numbers[eins]
-
 
 # def tell_the_truth(options = {})
 #   if options[:profession] == :lawyer
@@ -38,17 +35,24 @@ puts '------------------------------'
 # puts tell_the_truth profession: :lawyer
 # puts tell_the_truth
 
-
 # 3.times { puts '1 hiya there, kiddo' }
 # 3.times do
 #   puts '2 hiya there, kiddo'
 # end
 
-
 # animals = ['lions and', 'tigers and', 'bears', 'oh my']
 # animals.each { |a| print a, ' ' }
 
+# (1..7).each { |a| puts "#{a} -> #{a.even? ? 'even' : 'odd'}" }
 
-(1..7).each { |a| puts a % 2 }
+# puts 4.class
+# puts 4.class.superclass
+# puts 4.class.superclass.superclass
+# puts 4.class.superclass.superclass.superclass
+# puts 4.class.superclass.superclass.superclass.superclass.nil?
 
-
+# puts 4.class.class
+# puts 4.class.class.superclass
+# puts 4.class.class.superclass.superclass
+# puts 4.class.class.superclass.superclass.superclass
+# puts 4.class.class.superclass.superclass.superclass.superclass.nil?

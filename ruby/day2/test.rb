@@ -56,3 +56,42 @@ puts '------------------------------'
 # puts 4.class.class.superclass.superclass
 # puts 4.class.class.superclass.superclass.superclass
 # puts 4.class.class.superclass.superclass.superclass.superclass.nil?
+
+# puts 'begin' <=> 'end'
+# puts 'same' <=> 'same'
+
+a = [5, 3, 4, 1]
+puts a.to_s
+# puts a.sort
+# puts a.any? { |i| i > 2 }.to_s
+# puts a.all? { |i| i > 2 }.to_s
+
+# puts a.collect { |i| i * i }.to_s
+# puts a.map { |i| i * i }.to_s
+# puts a.select { |i| i > 2 }.to_s
+# puts a.select { |i| i.even? }.to_s
+# puts a.select(&:even?).to_s
+# puts a.select(&:odd?).to_s
+# puts a.find_all(&:odd?).to_s
+
+# puts a.max
+# puts a.min
+
+# puts a.member?(3)
+# puts a.member?(2)
+
+# (1..6).each { |i| puts "#{i} is#{a.member?(i) ? '' : ' not'} a member" }
+
+# puts a.inject(:+)
+# puts a.inject(0) { |sum, i| sum + i }
+
+# puts a.inject(:*)
+# puts a.inject(1) { |product, i| product * i }
+
+# puts a.inject(100, :*)
+# puts a.inject 100, :*
+
+puts(a.inject(0) do |sum, i|
+  puts "sum: #{sum}, i: #{i}, sum + i: #{sum + i}"
+  sum + i
+end)

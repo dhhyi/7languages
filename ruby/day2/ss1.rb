@@ -16,5 +16,6 @@ end
 puts
 
 a.each_slice(4) do |i|
-  puts i.inject { |sum, x| "#{sum} #{x}" }
+  # puts i.inject { |sum, x| "#{sum} #{x}" }
+  puts i.join(' ')
 end

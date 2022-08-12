@@ -1,20 +1,29 @@
 puts '-----------------'
 
-class CsvRow
-  attr :data, :headers
+class RubyCsv
+  include Enumerable
 
-  def initialize(data, headers)
-    @data = data
-    @headers = headers
+  class CsvRow
+    attr :parent, :index
+
+    def initialize(parent, index)
+      @parent = parent
+      @index = index
+    end
+
+    def method_missing(name)
+      @parent.csv_contents[index][@parent.headers.index(name.to_s)]
+    end
   end
 
-  def method_missing(name)
-    @data[@headers.index(name.to_s)]
-  end
-end
+  attr_reader :headers, :csv_contents
 
-def act_as_csv
-  define_method 'read' do
+  def initialize
+    @csv_contents = []
+    read
+  end
+
+  def read
     file = File.new('csv.txt')
     @headers = file.gets.chomp.split(',')
     file.each do |row|
@@ -22,28 +31,11 @@ def act_as_csv
     end
   end
 
-  define_method 'headers' do
-    @headers
-  end
-
-  define_method 'csv_contents' do
-    @csv_contents
-  end
-
-  define_method 'initialize' do
-    @csv_contents = []
-    read
-  end
-
-  define_method 'each' do |&block|
-    @csv_contents.each do |row|
-      block.call(CsvRow.new(row, @headers))
+  def each(&block)
+    @csv_contents.each_with_index do |_row, index|
+      block.call(CsvRow.new(self, index))
     end
   end
-end
-
-class RubyCsv
-  act_as_csv
 end
 
 m = RubyCsv.new

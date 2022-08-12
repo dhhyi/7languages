@@ -1,23 +1,19 @@
 puts '-----------------'
 
 class ActAsCsv
+  attr_reader :headers, :csv_contents
+
   def read
     File.open('csv.txt') do |file|
       @headers = file.gets.chomp.split(',')
       file.each do |row|
-        @result << row.chomp.split(',')
+        @csv_contents << row.chomp.split(',')
       end
     end
   end
 
-  attr_reader :headers
-
-  def csv_contents
-    @result
-  end
-
   def initialize
-    @result = []
+    @csv_contents = []
     read
   end
 end

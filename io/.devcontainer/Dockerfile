@@ -6,6 +6,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:16
 
 RUN npm install -g onchange 2>&1
 
+RUN echo 'export PS1="$ "' >> /home/node/.bashrc
+
 ADD http://iobin.suspended-chord.info/linux/iobin-linux-x64-deb-current.zip /tmp
 RUN unzip /tmp/iobin*.zip -d /tmp \
     && dpkg -i /tmp/IoLanguage*.deb

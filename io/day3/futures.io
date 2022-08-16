@@ -1,9 +1,11 @@
 "--------------------" println
 
-future := Object clone
-future do := method(wait(3); 5)
+// future := Object clone
+// future do := method(wait(3); 5)
 
-futureResult := future @do
+// futureResult := future @do
+
+futureResult := URL with("http://www.google.com") @fetch
 
 writeln("immediate")
 

@@ -1,16 +1,3 @@
-% four_queens(Board) :-
-%     % Board = [(X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)],
-%     Board = [X1, X2, X3, X4, Y1, Y2, Y3, Y4],
-%     fd_domain([X1, X2, X3, X4, Y1, Y2, Y3, Y4], 1, 4),
-%     fd_all_different([X1, X2, X3, X4]),
-%     fd_all_different([Y1, Y2, Y3, Y4]),
-%     S1 is X1 + Y1, D1 is X1 - Y1,
-%     S2 is X2 + Y2, D2 is X2 - Y2,
-%     S3 is X3 + Y3, D3 is X3 - Y3,
-%     S4 is X4 + Y4, D4 is X4 - Y4,
-%     fd_all_different([S1, S2, S3, S4]),
-%     fd_all_different([D1, D2, D3, D4]).
-
 four_queens(Board) :-
     length(Board, 4),
     valid_board(Board),

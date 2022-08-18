@@ -25,3 +25,4 @@ roman([X|[Y|T]], Sum) :-
 % roman([c,x,l,i,i],X).
 % roman([m,m,x,x,i,i],X).
 % roman([m,c,m,l,x,x,x,v],X).
+% roman([m,c,m,x,c,i,x],X).

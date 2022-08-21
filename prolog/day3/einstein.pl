@@ -57,7 +57,7 @@ einstein(Neighbourhood) :-
     % The German smokes Prince
     member((_, german, _, prince, _), Neighbourhood),
     % The green house is on the left of the white house
-    sublist([(green, _, _, _, _), (white, _, _, _, _)], Neighbourhood),
+    inorder((green, _, _, _, _), (white, _, _, _, _), Neighbourhood),
     % The man who smokes blends lives next to the one who keeps cats
     neighbor((_, _, _, blends, _), (_, _, _, _, cats), Neighbourhood),
     % The man who keeps horses lives next to the man who smokes Dunhill
@@ -66,14 +66,17 @@ einstein(Neighbourhood) :-
     neighbor((_, _, _, blends, _), (_, _, water, _, _), Neighbourhood).
 
 neighbor(A, B, Neighbourhood) :-
-    sublist([A, B], Neighbourhood); sublist([B, A], Neighbourhood).
+    inorder(A, B, Neighbourhood); inorder(B, A, Neighbourhood).
+
+inorder(X, Y, [X, Y|_]).
+inorder(X, Y, [_|List]) :- inorder(X, Y, List).
 
 % einstein(X).
 % X = [
-%     (green,norwegian,coffee,pallmall,birds),
-%     (blue,swede,beer,bluemaster,dogs),
-%     (red,brit,milk,blends,horses),
-%     (yellow,dane,tea,dunhill,cats),
-%     (white,german,water,prince,fish)
+%     (yellow,norwegian,water,dunhill,cats),
+%     (blue,dane,tea,blends,horses),
+%     (red,brit,milk,pallmall,birds),
+%     (green,german,coffee,prince,fish),
+%     (white,swede,beer,bluemaster,dogs)
 % ]
 % ...

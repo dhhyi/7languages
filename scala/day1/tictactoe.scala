@@ -7,6 +7,9 @@ class TicTacToe {
   }
 
   def canPlay(col: Int, row: Int): Boolean = {
+    if (col < 0 || col > 2 || row < 0 || row > 2) {
+      return false
+    }
     if (board(row)(col) == "-") {
       return true
     }
@@ -64,30 +67,64 @@ class TicTacToe {
   }
 }
 
-@main def main() = {
-  val game = new TicTacToe
+class Player(val player: String, val game: TicTacToe) {
+  def play() = {}
+}
+
+class ComputerPlayer(override val player: String, override val game: TicTacToe)
+    extends Player(player, game) {
 
   val r = scala.util.Random
 
-  var player = ""
+  override def play() = {
+    var col = 0
+    var row = 0
+    while {
+      col = r.nextInt(3)
+      row = r.nextInt(3)
+      !game.canPlay(col, row)
+    } do ()
+    game.play(player, col, row)
+  }
+}
+
+class HumanPlayer(override val player: String, override val game: TicTacToe)
+    extends Player(player, game) {
+
+  override def play() = {
+    var col = 0
+    var row = 0
+    while {
+      print(player + " enter column (1-3): ")
+      col = scala.io.StdIn.readInt() - 1
+      print(player + " enter row (1-3): ")
+      row = scala.io.StdIn.readInt() - 1
+      !game.canPlay(col, row)
+    } do ()
+    game.play(player, col, row)
+  }
+}
+
+@main def main() = {
+  val game = new TicTacToe
+
+  val players = List(
+    // new ComputerPlayer("X", game),
+    new HumanPlayer("X", game),
+    // new ComputerPlayer("O", game)
+    new HumanPlayer("O", game)
+  )
+
+  var currentPlayer: Player = null
+  var turn = 0
 
   while (!game.ended()) {
-    if (player == "X") {
-      player = "O"
-    } else {
-      player = "X"
-    }
+    currentPlayer = players(turn % 2)
 
-    var row = -1
-    var col = -1
-    while
-      row = r.nextInt(3)
-      col = r.nextInt(3)
-      !game.canPlay(row, col)
-    do ()
+    currentPlayer.play()
 
-    game.play(player, row, col)
     game.dump()
+    turn += 1
   }
 
   if (game.checkWinner() != "-") {

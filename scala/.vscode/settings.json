@@ -3,4 +3,10 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "[scala]": {
+        "editor.defaultFormatter": "scalameta.metals"
+    },
+    "files.watcherExclude": {
+        "**/target": true
+    },
 }

@@ -1,16 +1,15 @@
-import java.nio.file.Files
-import java.nio.file.Paths
+def csvToMap(fileName: String): Map[String, String] = {
+  scala.io.Source
+    .fromFile(fileName)
+    .getLines()
+    .foldLeft(Map.empty[String, String])((acc, line) => {
+      val parts = line.split(",")
+      acc + (parts(0) -> parts(1))
+    })
+}
 
 trait Censor {
-  val replacements =
-    scala.io.Source
-      .fromFile("day2/censor.csv")
-      .mkString
-      .split("\n")
-      .foldLeft(Map.empty[String, String]) { case (acc, line) =>
-        val parts = line.split(",")
-        acc + (parts(0) -> parts(1))
-      }
+  val replacements = csvToMap("day2/censor.csv")
 
   def censor(text: String): String = {
     replacements.foldLeft(text)((t, kv) => t.replace(kv._1, kv._2))

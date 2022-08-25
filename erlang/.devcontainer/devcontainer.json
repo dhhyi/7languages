@@ -1,0 +1,12 @@
+{
+	"name": "7 languages in 7 weeks: Erlang",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"settings": {},
+	"extensions": [
+		"pgourlain.erlang",
+		"GitHub.copilot"
+	],
+	"remoteUser": "node"
+}

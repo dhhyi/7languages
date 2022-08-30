@@ -1,0 +1,16 @@
+{
+	"Start Method": {
+		"scope": "erlang",
+		"prefix": "start",
+		"body": [
+			"-module(${TM_FILENAME/^(.*).erl$/$1/}).",
+			"",
+			"-export([start/0]).",
+			"",
+			"start() ->",
+			"  $1",
+			""
+		],
+		"description": "Create start method"
+	}
+}

@@ -6,6 +6,7 @@
 	"settings": {},
 	"extensions": [
 		"pgourlain.erlang",
+		"szTheory.erlang-formatter",
 		"GitHub.copilot"
 	],
 	"remoteUser": "node"

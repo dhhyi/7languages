@@ -1,4 +1,5 @@
 -module(cases).
+
 -export([start/0]).
 
 start() ->

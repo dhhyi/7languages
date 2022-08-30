@@ -6,6 +6,6 @@
 
 countwords([]) -> 0;
 countwords([String]) ->
-    [_ | T] = string:split(String, " "),
-    countwords(T) + 1;
+  [_ | T] = string:split(String, " "),
+  countwords(T) + 1;
 countwords(String) -> countwords([String]).

@@ -1,6 +1,6 @@
 {
     "[erlang]": {
-        "editor.tabSize": 4,
+        "editor.tabSize": 2,
         "editor.defaultFormatter": "szTheory.erlang-formatter",
         "editor.formatOnSave": true
     },

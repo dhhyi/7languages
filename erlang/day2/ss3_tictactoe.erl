@@ -22,4 +22,5 @@ tictactoe(Board) ->
 
 start() ->
   Board = [o, x, o, x, x, o, o, o, 0],
-  io:format("~p~nWinner is: ~p~n", [dump(Board), tictactoe(Board)]).
+  dump(Board),
+  io:format("Winner is: ~p~n", [tictactoe(Board)]).

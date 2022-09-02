@@ -1,0 +1,16 @@
+{
+	"name": "7 languages in 7 weeks: Clojure",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"betterthantomorrow.calva",
+				"GitHub.copilot"
+			]
+		}
+	},
+	"remoteUser": "vscode"
+}

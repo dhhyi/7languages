@@ -3,6 +3,7 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
+	"postStartCommand": "lein --version && clojure --version && echo && echo 'use the command \"lein repl\" to start a REPL' && echo 'use the command \"cont <script>\" to continuously evaluate a given script'",
 	"customizations": {
 		"vscode": {
 			"settings": {},

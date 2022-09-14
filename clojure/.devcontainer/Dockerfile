@@ -16,4 +16,4 @@ RUN echo > /conda-notice.txt
 
 USER vscode
 
-RUN echo 'export PS1="\n$ "' >> /home/vscode/.bashrc
+RUN echo 'export PS1="$ "' >> /home/vscode/.bashrc

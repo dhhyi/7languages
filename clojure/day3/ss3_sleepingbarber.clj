@@ -2,6 +2,10 @@
   (:gen-class))
 (println "----------------")
 
+;; Agents are not suitable for synchronized state
+;; TODO: redo with refs
+;; see also https://github.com/cordmata/seven/blob/master/clojure/src/clojure_seven/barber.clj
+
 (def r (java.util.Random. 2))
 (defn random [n] (+ (.nextInt r n) 1))
 
@@ -30,7 +34,7 @@
                         (do
                           (send seats dec)
                           (println "Barber is serving")
-                          (sleep 50)
+                          (sleep 20)
                           (send served-customers inc))
                         (println "Barber is sleeping"))
                       (recur (inc i)))))

@@ -1,0 +1,13 @@
+{
+	"name": "7 languages in 7 weeks: Haskell",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"postStartCommand": "ghc --version && echo && echo 'use the command \"ghci\" to start a REPL' && echo 'use the command \"cont <script>\" to continuously evaluate a given script'",
+	"settings": {},
+	"extensions": [
+		"haskell.haskell",
+		"GitHub.copilot"
+	],
+	"remoteUser": "node"
+}

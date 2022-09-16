@@ -11,6 +11,8 @@ USER root
 RUN npm install -g onchange 2>&1
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont
+COPY disclaimer.sh /
+RUN chmod +x /disclaimer.sh
 
 USER node
 

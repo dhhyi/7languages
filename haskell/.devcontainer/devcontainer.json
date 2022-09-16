@@ -3,8 +3,10 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"postStartCommand": "ghc --version && echo && echo 'use the command \"ghci\" to start a REPL' && echo 'use the command \"cont <script>\" to continuously evaluate a given script'",
-	"settings": {},
+	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"editor.formatOnSave": true
+	},
 	"extensions": [
 		"haskell.haskell",
 		"GitHub.copilot"

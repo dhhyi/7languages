@@ -1,8 +1,5 @@
 module Main where
 
-import Distribution.Compat.CharParsing (CharParsing (string))
-import GHC.PackageDb (BinaryStringRep (toStringRep))
-
 fibNextPair :: (Integer, Integer) -> (Integer, Integer)
 fibNextPair (a, b) = (b, a + b)
 

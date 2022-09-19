@@ -3,15 +3,20 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"postStartCommand": "lein --version && clojure --version && echo && echo 'use the command \"lein repl\" to start a REPL' && echo 'use the command \"cont <script>\" to continuously evaluate a given script'",
-	"customizations": {
-		"vscode": {
-			"settings": {},
-			"extensions": [
-				"betterthantomorrow.calva",
-				"GitHub.copilot"
-			]
-		}
+	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"editor.formatOnSave": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"files.watcherExclude": {
+			"**/target": true
+		},
+		"files.insertFinalNewline": true
 	},
+	"extensions": [
+		"betterthantomorrow.calva",
+		"GitHub.copilot"
+	],
 	"remoteUser": "vscode"
 }

@@ -1,9 +1,0 @@
-{
-    "editor.formatOnSave": true,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "files.watcherExclude": {
-        "**/target": true
-    },
-}

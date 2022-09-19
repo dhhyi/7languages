@@ -4,9 +4,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run file continuously",
+            "label": "Run file continuously",
             "type": "shell",
             "command": "cont ${file}",
+            "problemMatcher": []
+        },
+        {
+            "label": "Start REPL",
+            "type": "shell",
+            "command": "ghci",
             "problemMatcher": []
         }
     ]

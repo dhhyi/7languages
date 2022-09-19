@@ -8,6 +8,8 @@
 
 echo
 cat <<EOF
-use the command "ghci" to start a REPL
-use the command "cont <script>" to continuously evaluate a given script
+Use the command "ghci" to start a REPL.
+Use the command "cont <script>" to continuously evaluate a given script.
+
+Alternatively you can use the VSCode tasks.
 EOF

@@ -17,7 +17,12 @@ wordLengths x = [(x, length x) | x <- x]
 sumWordLengths :: [(String, Int)] -> [(String, Int)]
 sumWordLengths l = [(x, sum (map snd (take y l)) + y -1) | (x, y) <- zip (map fst l) [1 ..]]
 
-brakeLinesWithWords n xs = takeWhile (\x -> snd x < n) (sumWordLengths (wordLengths (breakWords xs)))
+brakeLinesWithWords :: Int -> [(String, Int)] -> [String]
+brakeLinesWithWords _ [] = []
+brakeLinesWithWords n xs = do
+  let line = takeWhile (\x -> snd x < n) (sumWordLengths xs)
+  let s = foldl1 (\acc w -> acc ++ " " ++ w) (map fst line)
+  s : brakeLinesWithWords n (drop (length line) xs)
 
 main = do
   putStrLn "----------------"
@@ -25,5 +30,13 @@ main = do
   putStrLn "----------------"
   mapM_ putStrLn (breakLines 40 loremIpsum)
   putStrLn "----------------"
-  print $ sumWordLengths (wordLengths (breakWords loremIpsum))
-  print $ brakeLinesWithWords 40 loremIpsum
+  let words = wordLengths (breakWords loremIpsum)
+  mapM_ putStrLn (brakeLinesWithWords 40 words)
+  putStrLn "----------------"
+  mapM_
+    ( \l -> do
+        print $ length l
+        putStrLn l
+    )
+    (brakeLinesWithWords 40 words)
+  putStrLn "----------------"

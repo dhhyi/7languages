@@ -10,4 +10,3 @@ backpack(Items, Backpack, Limit) :-
     min_list(Remain, Min),
     Space =< Min,
     nl, write(Backpack), write(' items with remaining space '), write(Space).
-

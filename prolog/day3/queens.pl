@@ -20,7 +20,7 @@ valid_board([Head|Tail]) :-
     valid_board(Tail).
 
 rows([], []).
-rows([(Row, _)|QueensTail], [Row|RowsTail]) :- 
+rows([(Row, _)|QueensTail], [Row|RowsTail]) :-
     rows(QueensTail, RowsTail).
 
 cols([], []).

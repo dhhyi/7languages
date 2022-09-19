@@ -1,19 +1,19 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.189.0/containers/ruby
 {
 	"name": "7 languages in 7 weeks: Prolog",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	// Set *default* container specific settings.json values on container create.
-	"settings": {},
-	// Add the IDs of extensions you want installed when the container is created.
+	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"files.associations": {
+			"*.pl": "prolog"
+		},
+		"files.insertFinalNewline": true,
+		"files.trimTrailingWhitespace": true
+	},
 	"extensions": [
 		"rebornix.prolog",
 		"GitHub.copilot"
-	]
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "ruby --version",
+	],
+	"remoteUser": "vscode"
 }

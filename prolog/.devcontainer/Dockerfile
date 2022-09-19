@@ -7,4 +7,9 @@ ADD http://www.gprolog.org/gprolog-1.5.0.tar.gz /tmp
 RUN cd /tmp && tar -xvvf gprolog-1.5.0.tar.gz
 RUN cd /tmp/gprolog-1.5.0/src && ./configure && make && make install && make check && gprolog --version
 
-RUN echo 'export PS1="$ "\ngprolog --version\n' >> /root/.bashrc
+COPY disclaimer.sh /
+RUN chmod +x /disclaimer.sh
+
+USER vscode
+
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc

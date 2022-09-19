@@ -1,7 +1,7 @@
 module Main where
 
 loremIpsum =
-  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
 
 breakLines :: Int -> String -> [String]
 breakLines _ [] = []
@@ -17,26 +17,34 @@ wordLengths x = [(x, length x) | x <- x]
 sumWordLengths :: [(String, Int)] -> [(String, Int)]
 sumWordLengths l = [(x, sum (map snd (take y l)) + y -1) | (x, y) <- zip (map fst l) [1 ..]]
 
-brakeLinesWithWords :: Int -> [(String, Int)] -> [String]
+concatenate :: [String] -> String
+concatenate = foldl1 (\acc w -> acc ++ " " ++ w)
+
+brakeLinesWithWords :: Int -> [(String, Int)] -> [[String]]
 brakeLinesWithWords _ [] = []
 brakeLinesWithWords n xs = do
   let line = takeWhile (\x -> snd x < n) (sumWordLengths xs)
-  let s = foldl1 (\acc w -> acc ++ " " ++ w) (map fst line)
+  let s = map fst line
   s : brakeLinesWithWords n (drop (length line) xs)
 
+justify :: Int -> [String] -> String
+justify n words = do
+  let space = n - length (concat words)
+  let numWords = length words
+  let spaceD = fromIntegral space / fromIntegral (numWords - 1)
+  let spaces = take numWords (map floor [spaceD, (2 * spaceD) ..])
+  let aligned = [y - x | (x, y) <- zip spaces (drop 1 spaces)] ++ [0]
+  let wordsWithSpaces = zipWith (\x y -> x ++ replicate y ' ') words aligned
+  foldl1 (++) wordsWithSpaces
+
 main = do
+  let p = 40
   putStrLn "----------------"
   putStrLn loremIpsum
   putStrLn "----------------"
-  mapM_ putStrLn (breakLines 40 loremIpsum)
+  mapM_ putStrLn (breakLines p loremIpsum)
   putStrLn "----------------"
   let words = wordLengths (breakWords loremIpsum)
-  mapM_ putStrLn (brakeLinesWithWords 40 words)
+  mapM_ (putStrLn . concatenate) (brakeLinesWithWords p words)
   putStrLn "----------------"
-  mapM_
-    ( \l -> do
-        print $ length l
-        putStrLn l
-    )
-    (brakeLinesWithWords 40 words)
-  putStrLn "----------------"
+  mapM_ (putStrLn . justify p) (brakeLinesWithWords p words)

@@ -5,8 +5,10 @@ RUN npm install -g onchange 2>&1
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends erlang
 
-COPY erlang /usr/local/bin/erlang
-RUN chmod +x /usr/local/bin/erlang
+COPY cont.sh /usr/local/bin/cont
+RUN chmod +x /usr/local/bin/cont
+COPY disclaimer.sh /
+RUN chmod +x /disclaimer.sh
 
 USER node
 
@@ -16,5 +18,4 @@ COPY --chown=node rebar.config /home/node/.config/rebar3/rebar.config
 
 ENV PATH=$PATH:/home/node/.cache/rebar3/bin
 
-RUN echo 'export PS1="$ "' >> /home/node/.bashrc
-RUN echo 'erl +V' >> /home/node/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc

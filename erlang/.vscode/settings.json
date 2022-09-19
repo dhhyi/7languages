@@ -1,8 +1,0 @@
-{
-    "[erlang]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "szTheory.erlang-formatter",
-        "editor.formatOnSave": true
-    },
-    "erlangFormatter.formatter": "rebar3_format",
-}

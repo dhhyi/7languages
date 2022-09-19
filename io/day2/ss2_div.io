@@ -7,4 +7,3 @@ Object div := method(div,
 
 (1 div(0)) println
 (10 div(5)) println
-

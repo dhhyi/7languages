@@ -1,16 +1,16 @@
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:16
 
-# [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends cmake
 
 RUN npm install -g onchange 2>&1
 
-RUN echo 'export PS1="$ "' >> /home/node/.bashrc
+COPY cont.sh /usr/local/bin/cont
+RUN chmod +x /usr/local/bin/cont
+COPY disclaimer.sh /
+RUN chmod +x /disclaimer.sh
 
-# ADD http://iobin.suspended-chord.info/linux/iobin-linux-x64-deb-current.zip /tmp
-# RUN unzip /tmp/iobin*.zip -d /tmp \
-#     && dpkg -i /tmp/IoLanguage*.deb
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc
 
 RUN git clone --recursive https://github.com/IoLanguage/io.git /tmp/io
 RUN cd /tmp/io \

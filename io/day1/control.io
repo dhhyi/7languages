@@ -17,5 +17,3 @@ mike := Highlander clone
 carl := Highlander clone
 
 (mike == carl) println
-
-

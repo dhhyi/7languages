@@ -1,4 +1,6 @@
-val regex = """(F|f)\w*""".r
+@main def main() = {
+  val regex = """(F|f)\w*""".r
 
-println(regex.findAllIn("Foo Foo").toList)
-println(regex.findAllIn("No Bar").toList)
+  println(regex.findAllIn("Foo Foo").toList)
+  println(regex.findAllIn("No Bar").toList)
+}

@@ -1,13 +1,5 @@
 {
-    "editor.formatOnSave": true,
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[scala]": {
-        "editor.defaultFormatter": "scalameta.metals",
-        "editor.tabSize": 2
-    },
     "files.watcherExclude": {
         "**/target": true
-    },
+    }
 }

@@ -1,4 +1,3 @@
-
 @main def main() = {
-    println("Hello, world")
+  println("Hello, world")
 }

@@ -3,14 +3,21 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"customizations": {
-		"vscode": {
-			"settings": {},
-			"extensions": [
-				"scalameta.metals",
-				"GitHub.copilot"
-			]
-		}
+	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"editor.formatOnSave": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"[scala]": {
+			"editor.defaultFormatter": "scalameta.metals",
+			"editor.tabSize": 2
+		},
+		"files.insertFinalNewline": true
 	},
+	"extensions": [
+		"scalameta.metals",
+		"GitHub.copilot"
+	],
 	"remoteUser": "vscode"
 }

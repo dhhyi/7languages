@@ -77,13 +77,12 @@ class ComputerPlayer(override val player: String, override val game: TicTacToe)
   val r = scala.util.Random
 
   override def play() = {
-    var col = 0
-    var row = 0
-    while {
+    var col = -1
+    var row = -1
+    while (!game.canPlay(col, row)) {
       col = r.nextInt(3)
       row = r.nextInt(3)
-      !game.canPlay(col, row)
-    } do ()
+    }
     game.play(player, col, row)
   }
 }
@@ -92,15 +91,14 @@ class HumanPlayer(override val player: String, override val game: TicTacToe)
     extends Player(player, game) {
 
   override def play() = {
-    var col = 0
-    var row = 0
-    while {
+    var col = -1
+    var row = -1
+    while (!game.canPlay(col, row)) {
       print(player + " enter column (1-3): ")
       col = scala.io.StdIn.readInt() - 1
       print(player + " enter row (1-3): ")
       row = scala.io.StdIn.readInt() - 1
-      !game.canPlay(col, row)
-    } do ()
+    }
     game.play(player, col, row)
   }
 }
@@ -109,10 +107,10 @@ class HumanPlayer(override val player: String, override val game: TicTacToe)
   val game = new TicTacToe
 
   val players = List(
-    // new ComputerPlayer("X", game),
-    new HumanPlayer("X", game),
-    // new ComputerPlayer("O", game)
-    new HumanPlayer("O", game)
+    new ComputerPlayer("X", game),
+    // new HumanPlayer("X", game),
+    new ComputerPlayer("O", game)
+    // new HumanPlayer("O", game)
   )
 
   var currentPlayer: Player = null

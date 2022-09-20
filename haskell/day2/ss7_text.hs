@@ -26,20 +26,25 @@ brakeLinesWithWords n xs = do
   let s = map fst line
   s : brakeLinesWithWords n (drop (length line) xs)
 
+concatenate :: [String] -> String
+concatenate = foldl1 (\acc w -> acc ++ " " ++ w)
+
 alignedLeft :: [String] -> String
-alignedLeft = foldl1 (\acc w -> acc ++ " " ++ w)
+alignedLeft = concatenate
 
 alignedRight :: Int -> [String] -> String
 alignedRight n words = do
-  let space = n - length (concat words) - length words + 1
-  replicate space ' ' ++ foldl1 (\acc w -> acc ++ " " ++ w) words
+  replicate space ' ' ++ concatenate words
+  where
+    space = n - length (concat words) - length words + 1
 
 centered :: Int -> [String] -> String
-centered n words = do
-  let space = n - length (concat words) - length words + 1
-  let left = space `div` 2
-  let right = space - left
-  replicate left ' ' ++ foldl1 (\acc w -> acc ++ " " ++ w) words ++ replicate right ' '
+centered n words =
+  replicate left ' ' ++ concatenate words ++ replicate right ' '
+  where
+    space = n - length (concat words) - length words + 1
+    left = space `div` 2
+    right = space - left
 
 justify :: Int -> [String] -> String
 justify n words = do
@@ -52,9 +57,10 @@ justify n words = do
   foldl1 (++) wordsWithSpaces
 
 addLineNumbers :: [String] -> [String]
-addLineNumbers = do
-  let alignNumber n = if n < 10 then " " ++ show n else show n
+addLineNumbers =
   zipWith (\x y -> alignNumber x ++ " " ++ y) [1 ..]
+  where
+    alignNumber n = if n < 10 then " " ++ show n else show n
 
 main = do
   let p = 40

@@ -39,21 +39,27 @@ instance Eq Rank where
 instance Ord Rank where
   compare a b = compare (value a) (value b)
 
-data Card = Card Rank Suit
+newtype Card = Card (Rank, Suit)
 
 instance Show Card where
-  show (Card rank suit) = show suit ++ show rank
+  show (Card (rank, suit)) = show suit ++ show rank
 
 instance Eq Card where
-  (==) (Card rank1 _) (Card rank2 _) = rank1 == rank2
+  (==) (Card (rank1, _)) (Card (rank2, _)) = rank1 == rank2
 
 instance Ord Card where
-  compare (Card rank1 _) (Card rank2 _) = compare rank1 rank2
+  compare (Card (rank1, _)) (Card (rank2, _)) = compare rank1 rank2
 
 type Hand = [Card]
 
+rank :: Card -> Rank
+rank (Card (r, _)) = r
+
+suit :: Card -> Suit
+suit (Card (_, s)) = s
+
 cardValue :: Card -> Int
-cardValue (Card rank _) = value rank
+cardValue (Card (rank, _)) = value rank
 
 handValue :: Hand -> Int
 handValue hand = sum (map cardValue hand)
@@ -65,14 +71,17 @@ backwards :: [a] -> [a]
 backwards [] = []
 backwards (x : xs) = backwards xs ++ [x]
 
+compareCards :: (Card, Card) -> String
+compareCards comb = show (fst comb) ++ " " ++ show (snd comb) ++ " -> " ++ show (uncurry compare comb)
+
 main = do
   putStrLn "----------------"
-  let card = Card Ace Spades
+  let card = Card (Ace, Spades)
   print $ cardValue card
-  print $ cardValue (Card Ten Hearts)
-  print $ cardValue (Card Seven Diamonds)
+  print $ cardValue (Card (Ten, Hearts))
+  print $ cardValue (Card (Seven, Diamonds))
   putStrLn "----------------"
-  let hand = [Card King Clubs, Card Ace Spades, Card Seven Diamonds]
+  let hand = [Card (King, Clubs), Card (Ace, Spades), Card (Seven, Diamonds), Card (King, Hearts)]
   print hand
   print $ handValue hand
   print $ handSort hand
@@ -81,7 +90,13 @@ main = do
   putStrLn "----------------"
   print $ typeOf hand
   print $ (typeOf . head) hand
+  print $ (typeOf . rank . head) hand
+  print $ (typeOf . suit . head) hand
+  print $ (typeOf . cardValue . head) hand
   putStrLn "----------------"
   print $ Ace == Ace
   print $ Queen == Ace
   print $ Queen == Ten
+  putStrLn "----------------"
+  let combinations = [(x, y) | x <- hand, y <- hand]
+  mapM_ (putStrLn . compareCards) combinations

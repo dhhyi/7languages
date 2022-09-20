@@ -1,7 +1,9 @@
 module Main where
 
+import Data.Text (justifyRight)
+
 loremIpsum =
-  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 
 breakLines :: Int -> String -> [String]
 breakLines _ [] = []
@@ -49,6 +51,11 @@ justify n words = do
   let wordsWithSpaces = zipWith (\x y -> x ++ replicate y ' ') words aligned
   foldl1 (++) wordsWithSpaces
 
+addLineNumbers :: [String] -> [String]
+addLineNumbers = do
+  let alignNumber n = if n < 10 then " " ++ show n else show n
+  zipWith (\x y -> alignNumber x ++ " " ++ y) [1 ..]
+
 main = do
   let p = 40
   putStrLn "----------------"
@@ -56,11 +63,16 @@ main = do
   putStrLn "----------------"
   mapM_ putStrLn (breakLines p loremIpsum)
   putStrLn "----------------"
-  let words = wordLengths (breakWords loremIpsum)
-  mapM_ (putStrLn . alignedLeft) (brakeLinesWithWords p words)
+  let lines = brakeLinesWithWords p (wordLengths (breakWords loremIpsum))
+  mapM_ (putStrLn . alignedLeft) lines
   putStrLn "----------------"
-  mapM_ (putStrLn . alignedRight p) (brakeLinesWithWords p words)
+  mapM_ (putStrLn . alignedRight p) lines
   putStrLn "----------------"
-  mapM_ (putStrLn . centered p) (brakeLinesWithWords p words)
+  mapM_ putStrLn (addLineNumbers (map (alignedRight p) lines))
   putStrLn "----------------"
-  mapM_ (putStrLn . justify p) (brakeLinesWithWords p words)
+  mapM_ (putStrLn . centered p) lines
+  putStrLn "----------------"
+  mapM_ (putStrLn . justify p) lines
+  putStrLn "----------------"
+  mapM_ putStrLn (addLineNumbers (map (justify p) lines))
+  putStrLn "----------------"

@@ -17,9 +17,6 @@ wordLengths x = [(x, length x) | x <- x]
 sumWordLengths :: [(String, Int)] -> [(String, Int)]
 sumWordLengths l = [(x, sum (map snd (take y l)) + y -1) | (x, y) <- zip (map fst l) [1 ..]]
 
-concatenate :: [String] -> String
-concatenate = foldl1 (\acc w -> acc ++ " " ++ w)
-
 brakeLinesWithWords :: Int -> [(String, Int)] -> [[String]]
 brakeLinesWithWords _ [] = []
 brakeLinesWithWords n xs = do
@@ -27,12 +24,27 @@ brakeLinesWithWords n xs = do
   let s = map fst line
   s : brakeLinesWithWords n (drop (length line) xs)
 
+alignedLeft :: [String] -> String
+alignedLeft = foldl1 (\acc w -> acc ++ " " ++ w)
+
+alignedRight :: Int -> [String] -> String
+alignedRight n words = do
+  let space = n - length (concat words) - length words + 1
+  replicate space ' ' ++ foldl1 (\acc w -> acc ++ " " ++ w) words
+
+centered :: Int -> [String] -> String
+centered n words = do
+  let space = n - length (concat words) - length words + 1
+  let left = space `div` 2
+  let right = space - left
+  replicate left ' ' ++ foldl1 (\acc w -> acc ++ " " ++ w) words ++ replicate right ' '
+
 justify :: Int -> [String] -> String
 justify n words = do
   let space = n - length (concat words)
   let numWords = length words
-  let spaceD = fromIntegral space / fromIntegral (numWords - 1)
-  let spaces = take numWords (map floor [spaceD, (2 * spaceD) ..])
+  let spaceFraction = fromIntegral space / fromIntegral (numWords - 1)
+  let spaces = take numWords (map floor [spaceFraction, (2 * spaceFraction) ..])
   let aligned = [y - x | (x, y) <- zip spaces (drop 1 spaces)] ++ [0]
   let wordsWithSpaces = zipWith (\x y -> x ++ replicate y ' ') words aligned
   foldl1 (++) wordsWithSpaces
@@ -45,6 +57,10 @@ main = do
   mapM_ putStrLn (breakLines p loremIpsum)
   putStrLn "----------------"
   let words = wordLengths (breakWords loremIpsum)
-  mapM_ (putStrLn . concatenate) (brakeLinesWithWords p words)
+  mapM_ (putStrLn . alignedLeft) (brakeLinesWithWords p words)
+  putStrLn "----------------"
+  mapM_ (putStrLn . alignedRight p) (brakeLinesWithWords p words)
+  putStrLn "----------------"
+  mapM_ (putStrLn . centered p) (brakeLinesWithWords p words)
   putStrLn "----------------"
   mapM_ (putStrLn . justify p) (brakeLinesWithWords p words)

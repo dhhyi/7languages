@@ -1,3 +1,2 @@
-- Devcontainer as non-root
 - Day 3
   - XML formatting is not perfect

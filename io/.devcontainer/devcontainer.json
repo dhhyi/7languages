@@ -6,13 +6,14 @@
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
 		"editor.formatOnSave": true,
+		"files.insertFinalNewline": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
-		},
-		"files.insertFinalNewline": true
+		}
 	},
 	"extensions": [
 		"kennethceyer.io",
 		"GitHub.copilot"
-	]
+	],
+	"remoteUser": "vscode"
 }

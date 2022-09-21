@@ -1,0 +1,4 @@
+- Day 2
+  - Write type using defrecord implementing a protocol
+- Day 3
+  - fix sleeping barber (using refs)

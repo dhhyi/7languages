@@ -1,0 +1,5 @@
+- Day 1
+  - Musicians and Authors
+- Day 3
+  - Sudoku 6x6 and 9x9
+  - Sudoku pretty print

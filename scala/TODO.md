@@ -1,0 +1,3 @@
+- Day 3
+  - make the actors example run in Ammonite
+  - sizer application

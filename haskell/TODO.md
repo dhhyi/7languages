@@ -1,0 +1,7 @@
+- Day 3
+  - understand Monads
+  - hashtable with more layers
+  - maze
+    - implement with own types
+    - use List monad to solve it
+  - implement monad in non-functional language

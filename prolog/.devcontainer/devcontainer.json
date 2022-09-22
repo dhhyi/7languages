@@ -5,15 +5,19 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
-		"files.associations": {
-			"*.pl": "prolog"
-		},
+		"editor.formatOnSave": true,
 		"files.insertFinalNewline": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"files.associations": {
+		  "*.pl": "prolog"
+		},
 		"files.trimTrailingWhitespace": true
 	},
 	"extensions": [
-		"rebornix.prolog",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"rebornix.prolog"
 	],
 	"remoteUser": "vscode"
 }

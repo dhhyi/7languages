@@ -16,6 +16,12 @@
             "type": "shell",
             "command": "{{ $L.language.repl }}",
             "problemMatcher": []
-        }
+        }{{ if and (has $L "vscode") (has $L.vscode "tasks") }}{{ range $L.vscode.tasks }},
+        {
+            "label": "{{ .label }}",
+            "type": "shell",
+            "command": "{{ .command }}",
+            "problemMatcher": []
+        }{{ end }}{{ end }}
     ]
 }

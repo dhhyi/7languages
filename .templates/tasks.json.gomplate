@@ -1,27 +1,27 @@
 {{- $L := (datasource "language") -}}
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {{- if (has $L.language "binary") }}
-        {
-            "label": "Run file continuously",
-            "type": "shell",
-            "command": "cont ${file}",
-            "problemMatcher": []
-        },{{ end }}
-        {
-            "label": "Start REPL",
-            "type": "shell",
-            "command": "{{ $L.language.repl }}",
-            "problemMatcher": []
-        }{{ if and (has $L "vscode") (has $L.vscode "tasks") }}{{ range $L.vscode.tasks }},
-        {
-            "label": "{{ .label }}",
-            "type": "shell",
-            "command": "{{ .command }}",
-            "problemMatcher": []
-        }{{ end }}{{ end }}
-    ]
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{{- if (has $L.language "binary") }}
+		{
+			"label": "Run file continuously",
+			"type": "shell",
+			"command": "cont ${file}",
+			"problemMatcher": []
+		},{{ end }}
+		{
+			"label": "Start REPL",
+			"type": "shell",
+			"command": "{{ $L.language.repl }}",
+			"problemMatcher": []
+		}{{ if and (has $L "vscode") (has $L.vscode "tasks") }}{{ range $L.vscode.tasks }},
+		{
+			"label": "{{ .label }}",
+			"type": "shell",
+			"command": "{{ .command }}",
+			"problemMatcher": []
+		}{{ end }}{{ end }}
+	]
 }

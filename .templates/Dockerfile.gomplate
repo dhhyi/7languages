@@ -28,7 +28,9 @@ COPY disclaimer.sh /
 RUN chmod +x /disclaimer.sh
 
 USER {{ $remoteUser }}
+{{- if and (has $L.devcontainer "userBuild") ($L.devcontainer.userBuild | strings.Contains "HOME") }}
 ENV HOME=/home/{{ $remoteUser }}
+{{- end }}
 
 {{- if (has $L.devcontainer "userBuild") }}
 {{ range split ($L.devcontainer.userBuild | strings.TrimSpace) "\n" }}
@@ -36,4 +38,4 @@ ENV HOME=/home/{{ $remoteUser }}
 {{- end -}}
 {{- end }}
 
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

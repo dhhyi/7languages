@@ -21,4 +21,4 @@ ENV PATH="${HOME}/.ghcup/bin:${PATH}"
 RUN ghcup install hls
 RUN ghcup install stack
 
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

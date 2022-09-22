@@ -7,8 +7,7 @@ devcontainer:
   settings: |
     "files.associations": {
       "*.pl": "prolog"
-    },
-    "files.trimTrailingWhitespace": true
+    }
   extensions:
     - rebornix.prolog
   packages:

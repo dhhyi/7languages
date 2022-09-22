@@ -21,4 +21,4 @@ RUN git clone https://github.com/erlang/rebar3.git /tmp/rebar3 && cd /tmp/rebar3
 COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
 ENV PATH=${PATH}:${HOME}/.cache/rebar3/bin
 
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

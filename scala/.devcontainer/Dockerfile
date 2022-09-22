@@ -14,8 +14,7 @@ COPY disclaimer.sh /
 RUN chmod +x /disclaimer.sh
 
 USER vscode
-ENV HOME=/home/vscode
 
 # RUN cs setup -y
 
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

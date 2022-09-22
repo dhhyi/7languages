@@ -30,4 +30,4 @@ WORKDIR ${HOME}
 RUN eerie install https://github.com/IoLanguage/Regex.git
 RUN eerie install https://github.com/IoLanguage/Random.git
 
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

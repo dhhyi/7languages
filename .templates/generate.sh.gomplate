@@ -6,26 +6,44 @@ mkdir -p {{ $folder }}/.devcontainer
 
 alias gomplate="docker run -i -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
 
-[ -f "{{ $folder }}/.devcontainer/cont.sh" ] && rm "{{ $folder }}/.devcontainer/cont.sh"
+if [ -f "{{ $folder }}/.devcontainer/cont.sh" ]
+then
+  rm "{{ $folder }}/.devcontainer/cont.sh"
+fi
 {{- if (has $L.language "binary") }}
 cat .templates/cont.sh.gomplate | gomplate > {{ $folder }}/.devcontainer/cont.sh
 {{- end }}
 
-[ -f "{{ $folder }}/.devcontainer/disclaimer.sh" ] && rm "{{ $folder }}/.devcontainer/disclaimer.sh"
+if [ -f "{{ $folder }}/.devcontainer/disclaimer.sh" ]
+then
+  rm "{{ $folder }}/.devcontainer/disclaimer.sh"
+fi
 cat .templates/disclaimer.sh.gomplate | gomplate > {{ $folder }}/.devcontainer/disclaimer.sh
 
-[ -f "{{ $folder }}/.devcontainer/devcontainer.json" ] && rm "{{ $folder }}/.devcontainer/devcontainer.json"
+if [ -f "{{ $folder }}/.devcontainer/devcontainer.json" ]
+then
+  rm "{{ $folder }}/.devcontainer/devcontainer.json"
+fi
 cat .templates/devcontainer.json.gomplate | gomplate > {{ $folder }}/.devcontainer/devcontainer.json
 
-[ -f "{{ $folder }}/.devcontainer/Dockerfile" ] && rm "{{ $folder }}/.devcontainer/Dockerfile"
+if [ -f "{{ $folder }}/.devcontainer/Dockerfile" ]
+then
+  rm "{{ $folder }}/.devcontainer/Dockerfile"
+fi
 cat .templates/Dockerfile.gomplate | gomplate > {{ $folder }}/.devcontainer/Dockerfile
 
 mkdir -p {{ $folder }}/.vscode
 
-[ -f "{{ $folder }}/.vscode/tasks.json" ] && rm "{{ $folder }}/.vscode/tasks.json"
+if [ -f "{{ $folder }}/.vscode/tasks.json" ]
+then
+  rm "{{ $folder }}/.vscode/tasks.json"
+fi
 cat .templates/tasks.json.gomplate | gomplate > {{ $folder }}/.vscode/tasks.json
 
-[ -f "{{ $folder }}/.vscode/vscode.code-snippets" ] && rm "{{ $folder }}/.vscode/vscode.code-snippets"
+if [ -f "{{ $folder }}/.vscode/vscode.code-snippets" ]
+then
+  rm "{{ $folder }}/.vscode/vscode.code-snippets"
+fi
 {{- if and (has $L "vscode") (has $L.vscode "script") }}
 cat .templates/vscode.code-snippets.gomplate | gomplate > {{ $folder }}/.vscode/vscode.code-snippets
 {{ end }}

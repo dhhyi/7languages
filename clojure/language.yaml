@@ -22,8 +22,8 @@ devcontainer:
     RUN echo > /conda-notice.txt
 vscode:
   script: |
-      (ns ${TM_FILENAME/^(.*).clj$/$1/}
-        (:gen-class))
-      (println \"----------------\")
-      
-      $1
+    (ns ${TM_FILENAME/^(.*).clj$/$1/}
+      (:gen-class))
+    (println \"----------------\")
+    
+    $1

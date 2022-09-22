@@ -9,8 +9,11 @@ FROM mcr.microsoft.com/vscode/devcontainers/base
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
     inotify-tools 
-    {{- if (has $L.devcontainer "packages") }}{{ range $L.devcontainer.packages }} {{ . }}{{ end }}{{ end }}
-
+{{- if (has $L.devcontainer "packages") }}
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+   {{ range $L.devcontainer.packages }} {{ . }}{{ end }}
+{{- end }}
 
 {{- if (has $L.devcontainer "rootBuild") }}
 {{ range split ($L.devcontainer.rootBuild | strings.TrimSpace) "\n" }}
@@ -25,6 +28,7 @@ COPY disclaimer.sh /
 RUN chmod +x /disclaimer.sh
 
 USER {{ $remoteUser }}
+ENV HOME=/home/{{ $remoteUser }}
 
 {{- if (has $L.devcontainer "userBuild") }}
 {{ range split ($L.devcontainer.userBuild | strings.TrimSpace) "\n" }}

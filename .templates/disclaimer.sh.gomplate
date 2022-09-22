@@ -4,7 +4,9 @@
 (
     set -x
     {{- if (has $L.language "version") }}
-    {{ $L.language.version }}
+    {{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+    {{ . }}
+    {{- end -}}
     {{- else if (has $L.language "binary") }}
     {{ $L.language.binary }} --version
     {{- end }}

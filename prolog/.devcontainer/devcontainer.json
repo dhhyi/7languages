@@ -5,15 +5,26 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
-		"files.associations": {
-			"*.pl": "prolog"
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"path": "zsh",
+				"args": ["-l"]
+			}
 		},
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"editor.formatOnSave": true,
 		"files.insertFinalNewline": true,
-		"files.trimTrailingWhitespace": true
+		"files.trimTrailingWhitespace": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"files.associations": {
+		  "*.pl": "prolog"
+		}
 	},
 	"extensions": [
-		"rebornix.prolog",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"rebornix.prolog"
 	],
 	"remoteUser": "vscode"
 }

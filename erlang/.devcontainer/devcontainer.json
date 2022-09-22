@@ -5,17 +5,29 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"path": "zsh",
+				"args": ["-l"]
+			}
+		},
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"editor.formatOnSave": true,
+		"files.insertFinalNewline": true,
+		"files.trimTrailingWhitespace": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
 		"[erlang]": {
-			"editor.tabSize": 2,
-			"editor.defaultFormatter": "szTheory.erlang-formatter",
-			"editor.formatOnSave": true
+		  "editor.tabSize": 2,
+		  "editor.defaultFormatter": "szTheory.erlang-formatter"
 		},
 		"erlangFormatter.formatter": "rebar3_format"
 	},
 	"extensions": [
+		"GitHub.copilot",
 		"pgourlain.erlang",
-		"szTheory.erlang-formatter",
-		"GitHub.copilot"
+		"szTheory.erlang-formatter"
 	],
-	"remoteUser": "node"
+	"remoteUser": "vscode"
 }

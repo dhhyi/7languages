@@ -5,12 +5,23 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"path": "zsh",
+				"args": ["-l"]
+			}
+		},
+		"terminal.integrated.defaultProfile.linux": "zsh",
 		"editor.formatOnSave": true,
-		"files.insertFinalNewline": true
+		"files.insertFinalNewline": true,
+		"files.trimTrailingWhitespace": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		}
 	},
 	"extensions": [
-		"haskell.haskell",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"haskell.haskell"
 	],
-	"remoteUser": "node"
+	"remoteUser": "vscode"
 }

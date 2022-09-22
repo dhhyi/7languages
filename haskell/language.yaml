@@ -1,0 +1,32 @@
+language:
+  name: haskell
+  binary: runhaskell
+  repl: ghci
+  version: |
+    ghcup --version
+    ghc --version
+devcontainer:
+  name: '7 languages in 7 weeks: Haskell'
+  extensions:
+    - haskell.haskell
+  packages:
+    - build-essential
+    - libffi-dev
+    - libffi7
+    - libgmp-dev
+    - libgmp10
+    - libncurses-dev
+    - libncurses5
+    - libtinfo5
+  userBuild: |
+    RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+    ENV PATH="${HOME}/.ghcup/bin:${PATH}"
+    RUN ghcup install hls
+    RUN ghcup install stack
+vscode:
+  script: |
+    module Main where
+    
+    main = do
+      putStrLn \"----------------\"
+      $1

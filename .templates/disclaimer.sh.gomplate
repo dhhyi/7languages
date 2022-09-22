@@ -1,0 +1,23 @@
+{{- $L := (datasource "language") -}}
+#!/bin/sh
+
+(
+    set -x
+    {{- if (has $L.language "version") }}
+    {{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+    {{ . }}
+    {{- end -}}
+    {{- else if (has $L.language "binary") }}
+    {{ $L.language.binary }} --version
+    {{- end }}
+)
+
+echo
+cat <<EOF
+Use the command "{{ (datasource "language").language.repl }}" to start a REPL.
+{{- if (has $L.language "binary") }}
+Use the command "cont <script>" to continuously evaluate a given script.
+{{- end }}
+
+Alternatively you can use the VSCode tasks.
+EOF

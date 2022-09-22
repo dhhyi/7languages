@@ -1,6 +1,6 @@
 -module(ss1_languages).
 
--export([start/0]).
+-export([main/1]).
 
 languages() ->
   [{erlang, "A functional language"},
@@ -15,6 +15,6 @@ find(Lang) ->
     _ -> "Not found"
   end.
 
-start() ->
+main(_) ->
   Key = erlang,
   io:format("~p: ~p~n", [Key, find(Key)]).

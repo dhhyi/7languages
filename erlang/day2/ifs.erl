@@ -1,8 +1,8 @@
 -module(ifs).
 
--export([start/0]).
+-export([main/1]).
 
-start() ->
+main(_) ->
   {ok, [X]} = io:fread("Enter a number: ", "~d"),
 
   if X > 0 -> io:format("X is greater than 0~n");

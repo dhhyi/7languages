@@ -1,0 +1,39 @@
+name: io
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - io/language.yaml
+      - io/.devcontainer/**
+      - io/.vscode/**
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: sh generate.sh io
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder io --image-name img
+
+      - name: Show Disclaimer
+        run: docker run --rm img sh /disclaimer.sh

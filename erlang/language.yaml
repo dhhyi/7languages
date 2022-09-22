@@ -1,0 +1,31 @@
+language:
+  name: erlang
+  binary: escript
+  repl: erl
+  version: erl +V
+devcontainer:
+  name: '7 languages in 7 weeks: Erlang'
+  settings: |
+    "[erlang]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "szTheory.erlang-formatter"
+    },
+    "erlangFormatter.formatter": "rebar3_format"
+  extensions:
+    - pgourlain.erlang
+    - szTheory.erlang-formatter
+  packages:
+    - erlang
+  userBuild: |
+    # https://elixirforum.com/t/erlang-blog-post-formatting-your-erlang-code-in-visual-studio-code/35284
+    RUN git clone https://github.com/erlang/rebar3.git /tmp/rebar3 && cd /tmp/rebar3 && ./bootstrap && ./rebar3 local install
+    COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
+    ENV PATH=${PATH}:${HOME}/.cache/rebar3/bin
+vscode:
+  script: |
+    -module(${TM_FILENAME/^(.*).erl$/$1/}).
+    
+    -export([main/1]).
+    
+    main(_) ->
+      $1

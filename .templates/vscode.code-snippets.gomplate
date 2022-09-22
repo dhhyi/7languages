@@ -1,0 +1,16 @@
+{{- $L := (datasource "language") -}}
+{
+	"Script": {
+		"scope": "{{ $L.language.name }}",
+		"prefix": "script",
+		"body": [
+			{{- if (has $L.vscode "script") }}
+			{{- range split ($L.vscode.script | strings.TrimSpace) "\n" }}
+			"{{ . }}",
+			{{- end -}}
+			{{- end }}
+			""
+		],
+		"description": "Script template"
+	}
+}

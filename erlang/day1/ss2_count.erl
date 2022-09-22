@@ -1,6 +1,6 @@
 -module(ss2_count).
 
--export([start/0]).
+-export([main/1]).
 
 counttoten(10) -> io:format("10~n");
 counttoten(N) ->
@@ -9,4 +9,4 @@ counttoten(N) ->
        counttoten(N + 1)
   end.
 
-start() -> counttoten(-100).
+main(_) -> counttoten(-100).

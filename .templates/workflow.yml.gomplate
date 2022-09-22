@@ -1,0 +1,40 @@
+{{- $folder := .Env.FOLDER -}}
+name: {{ $folder }}
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - {{ $folder }}/language.yaml
+      - {{ $folder }}/.devcontainer/**
+      - {{ $folder }}/.vscode/**
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ "{{" }} secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: sh generate.sh {{ $folder }}
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder {{ $folder }} --image-name img
+
+      - name: Show Disclaimer
+        run: docker run --rm img sh /disclaimer.sh

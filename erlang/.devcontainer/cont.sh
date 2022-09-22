@@ -1,12 +1,13 @@
 #!/bin/sh
 
-[ -z "$1" ] && echo "Usage: $0 <erlang-file>" && exit 1
+file="$1"
 
-dir=`dirname $1`
-file=`basename $1 .erl`
+[ -z "$file" ] && echo "Usage: $0 <file>" && exit 1
+[ ! -f "$file" ] && echo "File not found: $file" && exit 1
 
-echo "using $file in $dir"
+run () {
+    escript "$file"
+}
 
-trap "git clean -Xf" EXIT INT TERM
-
-onchange --await-write-finish 500 -ik "$dir/**" -- sh -c "echo 'compiling...' && erlc $dir/$file.erl && echo '--------------' && erl -noshell -s $file start -s init stop"
+run
+while inotifywait -qq -e close_write "$file"; do run; done

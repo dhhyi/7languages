@@ -1,5 +1,5 @@
 {{- $L := (datasource "language") -}}
-{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{end}}
+{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
 {
 	"name": "{{ $L.devcontainer.name }}",
 	"build": {

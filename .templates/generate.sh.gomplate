@@ -2,8 +2,6 @@
 {{- $L := (datasource "language") -}}
 #!/bin/sh
 
-trap 'rm {{ $folder }}/generate.sh' EXIT
-
 mkdir -p {{ $folder }}/.devcontainer
 
 alias gomplate="docker run -i -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"

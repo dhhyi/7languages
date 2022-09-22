@@ -1,5 +1,5 @@
 {{- $L := (datasource "language") -}}
-{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{end}}
+{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
 {{- if (has $L.devcontainer "baseImage") -}}
 FROM {{ $L.devcontainer.baseImage }}
 {{- else -}}

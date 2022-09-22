@@ -7,7 +7,7 @@ file="$1"
 [ ! -f "$file" ] && echo "File not found: $file" && exit 1
 
 run () {
-    {{ (datasource "language").language.binary }} "$file"
+    {{ $L.language.binary }}{{ if (has $L.language "binaryArgs") }} {{ $L.language.binaryArgs }}{{ end }} "$file"
 }
 
 run

@@ -6,17 +6,17 @@
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
 		"editor.formatOnSave": true,
+		"files.insertFinalNewline": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
 		"files.watcherExclude": {
-			"**/target": true
-		},
-		"files.insertFinalNewline": true
+		  "**/target": true
+		}
 	},
 	"extensions": [
-		"betterthantomorrow.calva",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"betterthantomorrow.calva"
 	],
 	"remoteUser": "vscode"
 }

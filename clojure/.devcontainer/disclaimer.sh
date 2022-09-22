@@ -2,7 +2,6 @@
 
 (
     set -x
-    lein --version
     clojure --version
 )
 

@@ -26,6 +26,6 @@ mkdir -p {{ $folder }}/.vscode
 cat .templates/tasks.json.gomplate | gomplate > {{ $folder }}/.vscode/tasks.json
 
 [ -f "{{ $folder }}/.vscode/vscode.code-snippets" ] && rm "{{ $folder }}/.vscode/vscode.code-snippets"
-{{- if (has $L.vscode "script") }}
+{{- if and (has $L "vscode") (has $L.vscode "script") }}
 cat .templates/vscode.code-snippets.gomplate | gomplate > {{ $folder }}/.vscode/vscode.code-snippets
 {{ end }}

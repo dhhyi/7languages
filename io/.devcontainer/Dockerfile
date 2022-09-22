@@ -2,15 +2,19 @@ FROM mcr.microsoft.com/vscode/devcontainers/base
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools build-essential libpcre3-dev libevent-dev cmake
+    inotify-tools
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    build-essential libpcre3-dev libevent-dev cmake
 
 COPY cont.sh /usr/local/bin/cont
+RUN chmod +x /usr/local/bin/cont
+
 COPY disclaimer.sh /
-RUN chmod +x /usr/local/bin/cont /disclaimer.sh
+RUN chmod +x /disclaimer.sh
 
 USER vscode
-
-RUN echo 'export PS1="$ "' >> $HOME/.bashrc
+ENV HOME=/home/vscode
 
 RUN git clone --recursive https://github.com/IoLanguage/io.git /tmp/io
 RUN cd /tmp/io \
@@ -21,7 +25,9 @@ RUN cd /tmp/io \
 && sudo make install \
 && io setup.io
 
-ENV EERIEDIR=/home/vscode/.eerie PATH=$PATH:/home/vscode/.eerie/base/bin:/home/vscode/.eerie/activeEnv/bin
-WORKDIR /home/vscode
+ENV EERIEDIR=${HOME}/.eerie PATH=${PATH}:${HOME}/.eerie/base/bin:${HOME}/.eerie/activeEnv/bin
+WORKDIR ${HOME}
 RUN eerie install https://github.com/IoLanguage/Regex.git
 RUN eerie install https://github.com/IoLanguage/Random.git
+
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc

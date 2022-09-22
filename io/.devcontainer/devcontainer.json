@@ -12,8 +12,8 @@
 		}
 	},
 	"extensions": [
-		"kennethceyer.io",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"kennethceyer.io"
 	],
 	"remoteUser": "vscode"
 }

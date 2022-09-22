@@ -1,0 +1,33 @@
+{{- $folder := getenv "FOLDER" -}}
+{{- $L := (datasource "language") -}}
+#!/bin/sh
+
+trap 'rm {{ $folder }}/generate.sh' EXIT
+
+mkdir -p {{ $folder }}/.devcontainer
+
+alias gomplate="docker run -i -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
+
+[ -f "{{ $folder }}/.devcontainer/cont.sh" ] && rm "{{ $folder }}/.devcontainer/cont.sh"
+{{- if (has $L.language "binary") }}
+cat .templates/cont.sh.gomplate | gomplate > {{ $folder }}/.devcontainer/cont.sh
+{{- end }}
+
+[ -f "{{ $folder }}/.devcontainer/disclaimer.sh" ] && rm "{{ $folder }}/.devcontainer/disclaimer.sh"
+cat .templates/disclaimer.sh.gomplate | gomplate > {{ $folder }}/.devcontainer/disclaimer.sh
+
+[ -f "{{ $folder }}/.devcontainer/devcontainer.json" ] && rm "{{ $folder }}/.devcontainer/devcontainer.json"
+cat .templates/devcontainer.json.gomplate | gomplate > {{ $folder }}/.devcontainer/devcontainer.json
+
+[ -f "{{ $folder }}/.devcontainer/Dockerfile" ] && rm "{{ $folder }}/.devcontainer/Dockerfile"
+cat .templates/Dockerfile.gomplate | gomplate > {{ $folder }}/.devcontainer/Dockerfile
+
+mkdir -p {{ $folder }}/.vscode
+
+[ -f "{{ $folder }}/.vscode/tasks.json" ] && rm "{{ $folder }}/.vscode/tasks.json"
+cat .templates/tasks.json.gomplate | gomplate > {{ $folder }}/.vscode/tasks.json
+
+[ -f "{{ $folder }}/.vscode/vscode.code-snippets.json" ] && rm "{{ $folder }}/.vscode/vscode.code-snippets.json"
+{{- if (has $L.vscode "script") }}
+cat .templates/vscode.code-snippets.json.gomplate | gomplate > {{ $folder }}/.vscode/vscode.code-snippets.json
+{{ end }}

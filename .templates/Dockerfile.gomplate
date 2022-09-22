@@ -1,0 +1,35 @@
+{{- $L := (datasource "language") -}}
+{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{end}}
+{{- if (has $L.devcontainer "baseImage") -}}
+FROM {{ $L.devcontainer.baseImage }}
+{{- else -}}
+FROM mcr.microsoft.com/vscode/devcontainers/base
+{{- end }}
+
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    inotify-tools 
+    {{- if (has $L.devcontainer "packages") }}{{ range $L.devcontainer.packages }} {{ . }}{{ end }}{{ end }}
+
+
+{{- if (has $L.devcontainer "rootBuild") }}
+{{ range split ($L.devcontainer.rootBuild | strings.TrimSpace) "\n" }}
+{{ . }}
+{{- end -}}
+{{- end }}
+{{ if (has $L.language "binary") }}
+COPY cont.sh /usr/local/bin/cont
+RUN chmod +x /usr/local/bin/cont
+{{ end }}
+COPY disclaimer.sh /
+RUN chmod +x /disclaimer.sh
+
+USER {{ $remoteUser }}
+
+{{- if (has $L.devcontainer "userBuild") }}
+{{ range split ($L.devcontainer.userBuild | strings.TrimSpace) "\n" }}
+{{ . }}
+{{- end -}}
+{{- end }}
+
+RUN echo 'export PS1="$ "' >> $HOME/.bashrc

@@ -1,0 +1,30 @@
+{{- $L := (datasource "language") -}}
+{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{end}}
+{
+	"name": "{{ $L.devcontainer.name }}",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"editor.formatOnSave": true,
+		"files.insertFinalNewline": true,
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		}
+		{{- if (has $L.devcontainer "settings") }},
+		{{- range split ($L.devcontainer.settings | strings.TrimSpace) "\n" }}
+		{{ . }}
+		{{- end -}}
+		{{- end }}
+	},
+	"extensions": [
+		"GitHub.copilot"
+		{{- if (has $L.devcontainer "extensions") }}
+		{{- range $L.devcontainer.extensions }},
+		"{{ . }}"
+		{{- end -}}
+		{{- end }}
+	],
+	"remoteUser": "{{ $remoteUser }}"
+}

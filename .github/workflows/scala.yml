@@ -34,4 +34,6 @@ jobs:
         run: |
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder scala --image-name img
-          docker run -it --rm img sh /disclaimer.sh
+
+      - name: Show Disclaimer
+        run: docker run --rm img sh /disclaimer.sh

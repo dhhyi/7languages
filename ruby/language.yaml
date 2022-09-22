@@ -1,0 +1,16 @@
+language:
+  name: ruby
+  binary: ruby
+  repl: irb
+devcontainer:
+  name: '7 languages in 7 weeks: Ruby'
+  settings: |
+    "[ruby]": {
+      "editor.defaultFormatter": "misogi.ruby-rubocop"
+    }
+  extensions:
+    - rebornix.Ruby
+    - misogi.ruby-rubocop
+  baseImage: mcr.microsoft.com/vscode/devcontainers/ruby:0-3
+  rootBuild: |
+    RUN gem install rubocop

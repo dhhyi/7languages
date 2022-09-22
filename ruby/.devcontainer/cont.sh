@@ -1,6 +1,13 @@
-#!/bin/sh
+#! /bin/sh
 
-[ -z "$1" ] && echo "Usage: $0 <script>" && exit 1
-[ ! -f "$1" ] && echo "File not found: $1" && exit 1
+file="$1"
 
-onchange -ik '**/*.rb' -- sh -c "ruby $1"
+[ -z "$file" ] && echo "Usage: $0 <file>" && exit 1
+[ ! -f "$file" ] && echo "File not found: $file" && exit 1
+
+run () {
+    ruby "$file"
+}
+
+run
+while inotifywait -qq -e close_write "$file"; do run; done

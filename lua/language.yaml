@@ -1,0 +1,14 @@
+language:
+  name: lua
+  binary: lua
+  repl: lua
+  version: lua -v
+devcontainer:
+  name: '7 more languages in 7 weeks: Lua'
+  extensions:
+    - sumneko.lua
+  packages:
+    - build-essential
+  rootBuild: |
+    ARG LUA_VERSION=5.4.4
+    RUN cd /tmp && curl -R -O http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz && tar zxf lua-${LUA_VERSION}.tar.gz && cd lua-${LUA_VERSION} && make all test && make install

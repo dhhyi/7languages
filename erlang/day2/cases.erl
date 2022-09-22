@@ -1,8 +1,8 @@
 -module(cases).
 
--export([start/0]).
+-export([main/1]).
 
-start() ->
+main(_) ->
   Animal = fox,
   case Animal of
     dog -> io:format("Woof~n");

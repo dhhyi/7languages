@@ -14,7 +14,7 @@
         {
             "label": "Start REPL",
             "type": "shell",
-            "command": "lein repl",
+            "command": "{{ $L.language.repl }}",
             "problemMatcher": []
         }
     ]

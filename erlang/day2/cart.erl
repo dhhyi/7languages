@@ -1,12 +1,12 @@
 -module(cart).
 
--export([start/0]).
+-export([main/1]).
 
 roundup(X) -> math:ceil(X * 100) / 100.
 
 sum(List) -> roundup(lists:foldl(fun(Acc, X) -> Acc + X end, 0, List)).
 
-start() ->
+main(_) ->
   Cart = [{pencil, 3, 0.40}, {pen, 1, 0.50}, {paper, 10, 0.20}],
   TaxedCart = [{I, Q, P, roundup(P * 1.19)} || {I, Q, P} <- Cart],
   Prices = [roundup(P * Q) || {_, Q, _, P} <- TaxedCart],

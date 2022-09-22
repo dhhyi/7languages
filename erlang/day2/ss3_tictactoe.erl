@@ -1,6 +1,6 @@
 -module(ss3_tictactoe).
 
--export([start/0]).
+-export([main/1]).
 
 dump(Board) -> io:format("~p ~p ~p~n~p ~p ~p~n~p ~p ~p~n", Board).
 
@@ -20,7 +20,7 @@ tictactoe(Board) ->
     false -> undecided
   end.
 
-start() ->
+main(_) ->
   Board = [o, x, o, x, x, o, o, o, 0],
   dump(Board),
   io:format("Winner is: ~p~n", [tictactoe(Board)]).

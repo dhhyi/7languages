@@ -1,6 +1,6 @@
 -module(roulette).
 
--export([start/0, roulette/1]).
+-export([main/1, roulette/1]).
 
 roulette(Bullet) ->
   receive
@@ -11,7 +11,7 @@ roulette(Bullet) ->
   end,
   roulette(Bullet).
 
-start() ->
+main(_) ->
   Rand = round(rand:uniform() * 5 + 1),
   Pistol = spawn(fun() -> roulette(Rand) end),
   Pistol ! 1,

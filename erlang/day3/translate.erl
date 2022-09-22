@@ -1,6 +1,6 @@
 -module(translate).
 
--export([start/0]).
+-export([main/1]).
 
 loop() ->
   receive
@@ -11,7 +11,7 @@ loop() ->
   end,
   loop().
 
-start() ->
+main(_) ->
   Pid = spawn(fun loop/0),
   Pid ! "casa",
   Pid ! "blanca",

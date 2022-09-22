@@ -1,0 +1,16 @@
+{
+	"Script": {
+		"scope": "erlang",
+		"prefix": "script",
+		"body": [
+			"-module(${TM_FILENAME/^(.*).erl$/$1/}).",
+			"",
+			"-export([main/1]).",
+			"",
+			"main(_) ->",
+			"  $1",
+			""
+		],
+		"description": "Script template"
+	}
+}

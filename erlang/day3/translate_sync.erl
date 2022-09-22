@@ -1,6 +1,6 @@
 -module(translate_sync).
 
--export([start/0]).
+-export([main/1]).
 
 loop() ->
   receive
@@ -19,7 +19,7 @@ translate(To, Word) ->
       T
   end.
 
-start() ->
+main(_) ->
   Tranlator = spawn(fun loop/0),
   translate(Tranlator, "casa"),
   Tr = translate(Tranlator, "blanca"),

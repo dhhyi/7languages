@@ -1,5 +1,5 @@
 {{- $L := (datasource "language") -}}
-#! /bin/sh
+#!/bin/sh
 
 file="$1"
 

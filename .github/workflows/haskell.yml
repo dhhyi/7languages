@@ -1,0 +1,37 @@
+name: haskell
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - haskell/language.yaml
+      - haskell/.devcontainer/**
+      - haskell/.vscode/**
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: sh generate.sh haskell
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder haskell --image-name img
+          docker run -it --rm img sh /disclaimer.sh

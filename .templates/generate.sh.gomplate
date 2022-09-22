@@ -2,9 +2,17 @@
 {{- $L := (datasource "language") -}}
 #!/bin/sh
 
-mkdir -p {{ $folder }}/.devcontainer
+alias gomplate="docker run -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
 
-alias gomplate="docker run -i -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
+mkdir -p .github/workflows
+
+if [ -f ".github/workflows/{{ $folder }}.yml" ]
+then
+  rm ".github/workflows/{{ $folder }}.yml"
+fi
+cat .templates/workflow.yml.gomplate | gomplate > .github/workflows/{{ $folder }}.yml
+
+mkdir -p {{ $folder }}/.devcontainer
 
 if [ -f "{{ $folder }}/.devcontainer/cont.sh" ]
 then

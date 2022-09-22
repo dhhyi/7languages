@@ -1,0 +1,37 @@
+name: ruby
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - ruby/language.yaml
+      - ruby/.devcontainer/**
+      - ruby/.vscode/**
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: sh generate.sh ruby
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder ruby --image-name img
+          docker run -it --rm img sh /disclaimer.sh

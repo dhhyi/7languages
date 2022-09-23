@@ -50,10 +50,10 @@ o1 test := method(for(n, 1, 3, n print; yield))
 o2 := o1 clone
 
 // @ means send an asynchronous message
-o1 @test; o2 @test 
+o1 @test; o2 @test
 
 // wait for the messages to get processed
-while(Scheduler activeActorCount > 1, yield) 
+while(Scheduler activeActorCount > 1, yield)
 
 #Look up a class/prototype given its name as a string
 
@@ -83,8 +83,8 @@ MyList := List clone // Same as creating an instance
 
 #Iterate through an inheritance hierarchy
 
-Object printAllSlots := method(  
-  self slotNames foreach(i, slotName, 
+Object printAllSlots := method(
+  self slotNames foreach(i, slotName,
     writeln(slotName)
     if(self hasSlot("proto"), self proto printAllSlots
   )
@@ -158,7 +158,7 @@ Object forward := method(
 #A simple whois client
 
 whois := method(host,
-  socket := Socket clone setHostName("rs.internic.net") setPort(43) 
+  socket := Socket clone setHostName("rs.internic.net") setPort(43)
   socket connect write(host, "\n")
   while(socket readNextChunk, nil) // socket read auto yields to other coroutines
   return socket readBuffer
@@ -168,15 +168,15 @@ whois := method(host,
 
 Echo := Object clone
 Echo handleSocket := method(socket,
-  while(socket isOpen, 
+  while(socket isOpen,
     if(socket read, socket write(socket readBuffer))
     socket readBuffer empty
   )
 )
 
-EchoServer := Server clone setPort(8456) 
+EchoServer := Server clone setPort(8456)
 EchoServer handleSocket := method(socket,
-  Echo clone @handleSocket(socket) 
+  Echo clone @handleSocket(socket)
   // async message so it's handled in separate coroutine
 )
 EchoServer start

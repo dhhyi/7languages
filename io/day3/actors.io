@@ -10,4 +10,4 @@ slower @@start
 faster @@start
 
 writeln("done")
-Coroutine currentCoroutine pause  
+Coroutine currentCoroutine pause

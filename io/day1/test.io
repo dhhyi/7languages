@@ -2,7 +2,7 @@
 
 Vehicle := Object clone
 Vehicle description := "Test"
-Vehicle description println 
+Vehicle description println
 Vehicle description = "Changed"
 Vehicle description println
 

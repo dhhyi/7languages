@@ -2,7 +2,7 @@
 
 // fib := method(num, if(num < 2, 1, fib(num - 1) + fib(num - 2)))
 
-fib := method(num, 
+fib := method(num,
     if(num < 2, return 1)
     prevprev := 1
     prev := 1

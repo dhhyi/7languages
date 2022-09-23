@@ -1,7 +1,7 @@
 "--------------" println
 
 OperatorTable addOperator("div", 2)
-Object div := method(div, 
+Object div := method(div,
     if(div == 0, 0, self / div)
 )
 

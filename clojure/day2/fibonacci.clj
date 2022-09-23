@@ -24,7 +24,7 @@
 ;; (println "----------------")
 
 ;; https://medium.com/@omarnyte/understanding-function-returns-and-recursion-in-clojure-dc457480a386
-;; 
+;;
 ;; (defn fib-seq
 ;;   ([n]
 ;;    (fib-seq n [1 1]))

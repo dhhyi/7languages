@@ -18,7 +18,7 @@ matrixFromFile := method(name,
   matrix
 )
 
-List get := method(x, y, 
+List get := method(x, y,
   self at(x) at(y)
 )
 
@@ -29,8 +29,8 @@ List set := method(x, y, val,
 
 List transpose := method(
   new := matrix(self at(0) size, self size)
-  for(x, 0, self size - 1, 
-    for(y, 0, self at(0) size - 1, 
+  for(x, 0, self size - 1,
+    for(y, 0, self at(0) size - 1,
       new set(y, x, self get(x, y))
     )
   )
@@ -38,8 +38,8 @@ List transpose := method(
 
 List toString := method(
   s := ""
-  for(x, 0, self size - 1, 
-    for(y, 0, self at(0) size - 1, 
+  for(x, 0, self size - 1,
+    for(y, 0, self at(0) size - 1,
       v := self get(x, y)
       s = "#{s} #{v}" interpolate
     )
@@ -57,8 +57,8 @@ List toFile := method(name,
 
 matrix := matrix(4,3)
 count := 1
-for(x, 0, matrix size - 1, 
-  for(y, 0, matrix at(0) size - 1, 
+for(x, 0, matrix size - 1,
+  for(y, 0, matrix at(0) size - 1,
     matrix set(x, y, count)
     count = count + 1
   )

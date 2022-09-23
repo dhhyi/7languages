@@ -6,9 +6,9 @@ Builder := Object clone
 
 curlyBrackets := method(
     m := Map clone
-    call message arguments map(a, a asString split(" : ")) foreach(v, 
+    call message arguments map(a, a asString split(" : ")) foreach(v,
         m atPut(
-            v at(0) removePrefix("\"") removeSuffix("\""), 
+            v at(0) removePrefix("\"") removeSuffix("\""),
             v at(1) removePrefix("\"") removeSuffix("\"")
         )
     )

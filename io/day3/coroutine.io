@@ -12,4 +12,4 @@ fezzik rhyme := method(
 fezzik @@rhyme
 vizzini @@talk
 
-Coroutine currentCoroutine pause  
+Coroutine currentCoroutine pause

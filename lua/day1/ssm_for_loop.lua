@@ -1,18 +1,31 @@
 print "---------------------"
 
-function for_loop(func, start, stop, step)
+print "-- if"
+
+function for_loop_if(func, start, stop, step)
     if (start <= stop) then
         func(start)
-        for_loop(func, start + (step or 1), stop, step)
+        for_loop_if(func, start + (step or 1), stop, step)
     end
 end
 
-for_loop(function(i) print('at', i) end, 1, 4)
+for_loop_if(function(i) print('at', i) end, 1, 4)
 
-print "---------------------"
+print "--"
 
-for_loop(print, 1, 4)
+for_loop_if(print, 1, 10, 3)
 
-print "---------------------"
+print "-- while"
 
-for_loop(print, 1, 10, 3)
+function for_loop_while(func, start, stop, step)
+    while (start <= stop) do
+        func(start)
+        start = start + (step or 1)
+    end
+end
+
+for_loop_while(function(i) print('at', i) end, 1, 4)
+
+print "--"
+
+for_loop_while(print, 1, 10, 3)

@@ -1,5 +1,22 @@
 {{- $folder := getenv "FOLDER" -}}
 {{- $L := (datasource "language") -}}
+
+{{- define "DELETE" }}
+{{- $folder := getenv "FOLDER" -}}
+if [ -f "{{ path.Join $folder . }}" ]
+then
+  rm "{{ path.Join $folder . }}"
+fi
+{{- end -}}
+
+{{- define "GENERATE" }}
+{{- $folder := getenv "FOLDER" -}}
+{{- $in := .out | path.Base -}}
+{{- if has . "in" -}}{{ $in = .in }}{{ end }}
+echo "generating" {{ path.Join $folder .out }}
+cat .templates/{{ $in }}.gomplate | $gomplate > {{ path.Join $folder .out }}
+{{- end -}}
+
 #!/bin/bash
 
 set -e
@@ -9,52 +26,37 @@ gomplate="docker run --rm -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/langu
 
 mkdir -p .github/workflows
 
-if [ -f ".github/workflows/{{ $folder }}.yml" ]
-then
-  rm ".github/workflows/{{ $folder }}.yml"
-fi
-cat .templates/workflow.yml.gomplate | $gomplate > .github/workflows/{{ $folder }}.yml
+{{ $github := conv.Join (slice "../.github/workflows/" $folder ".yml") "" -}}
+{{ tmpl.Exec "DELETE" $github }}
+{{ tmpl.Exec "GENERATE" (dict "in" "workflow.yml" "out" $github) }}
 
 mkdir -p {{ $folder }}/.devcontainer
 
-if [ -f "{{ $folder }}/.devcontainer/cont.sh" ]
-then
-  rm "{{ $folder }}/.devcontainer/cont.sh"
-fi
+{{ tmpl.Exec "DELETE" ".devcontainer/cont.sh" }}
 {{- if (has $L.language "binary") }}
-cat .templates/cont.sh.gomplate | $gomplate > {{ $folder }}/.devcontainer/cont.sh
+{{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/cont.sh") }}
 {{- end }}
 
-if [ -f "{{ $folder }}/.devcontainer/disclaimer.sh" ]
-then
-  rm "{{ $folder }}/.devcontainer/disclaimer.sh"
-fi
-cat .templates/disclaimer.sh.gomplate | $gomplate > {{ $folder }}/.devcontainer/disclaimer.sh
+{{ tmpl.Exec "DELETE" ".devcontainer/disclaimer.sh" }}
+{{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/disclaimer.sh") }}
 
-if [ -f "{{ $folder }}/.devcontainer/devcontainer.json" ]
-then
-  rm "{{ $folder }}/.devcontainer/devcontainer.json"
-fi
-cat .templates/devcontainer.json.gomplate | $gomplate > {{ $folder }}/.devcontainer/devcontainer.json
+{{ tmpl.Exec "DELETE" ".devcontainer/devcontainer.json" }}
+{{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/devcontainer.json") }}
 
-if [ -f "{{ $folder }}/.devcontainer/Dockerfile" ]
-then
-  rm "{{ $folder }}/.devcontainer/Dockerfile"
-fi
-cat .templates/Dockerfile.gomplate | $gomplate > {{ $folder }}/.devcontainer/Dockerfile
+{{ tmpl.Exec "DELETE" ".devcontainer/Dockerfile" }}
+{{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/Dockerfile") }}
 
 mkdir -p {{ $folder }}/.vscode
 
-if [ -f "{{ $folder }}/.vscode/tasks.json" ]
-then
-  rm "{{ $folder }}/.vscode/tasks.json"
-fi
-cat .templates/tasks.json.gomplate | $gomplate > {{ $folder }}/.vscode/tasks.json
+{{ tmpl.Exec "DELETE" ".vscode/tasks.json" }}
+{{ tmpl.Exec "GENERATE" (dict "out" ".vscode/tasks.json") }}
 
-if [ -f "{{ $folder }}/.vscode/vscode.code-snippets" ]
-then
-  rm "{{ $folder }}/.vscode/vscode.code-snippets"
-fi
+{{ tmpl.Exec "DELETE" ".vscode/vscode.code-snippets" }}
 {{- if and (has $L "vscode") (has $L.vscode "script") }}
-cat .templates/vscode.code-snippets.gomplate | $gomplate > {{ $folder }}/.vscode/vscode.code-snippets
+{{ tmpl.Exec "GENERATE" (dict "out" ".vscode/vscode.code-snippets") }}
 {{ end }}
+
+if [ -z "$DEBUG" ]
+then
+  rm $0
+fi

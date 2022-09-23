@@ -11,7 +11,7 @@ fi
 
 {{- define "GENERATE" }}
 {{- $folder := getenv "FOLDER" -}}
-{{- $in := .out | path.Base -}}
+{{- $in := .out -}}
 {{- if has . "in" -}}{{ $in = .in }}{{ end }}
 echo "generating" {{ path.Join $folder .out }}
 cat .templates/{{ $in }}.gomplate | $gomplate > {{ path.Join $folder .out }}

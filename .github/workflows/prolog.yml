@@ -33,7 +33,7 @@ jobs:
       - name: Build Devcontainer
         run: |
           npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder prolog --image-name img
+          devcontainer build --workspace-folder prolog --image-name prolog-devcontainer
 
       - name: Show Disclaimer
-        run: docker run --rm img sh /disclaimer.sh
+        run: docker run --rm prolog-devcontainer sh /disclaimer.sh

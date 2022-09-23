@@ -33,7 +33,7 @@ jobs:
       - name: Build Devcontainer
         run: |
           npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder io --image-name img
+          devcontainer build --workspace-folder io --image-name io-devcontainer
 
       - name: Show Disclaimer
-        run: docker run --rm img sh /disclaimer.sh
+        run: docker run --rm io-devcontainer sh /disclaimer.sh

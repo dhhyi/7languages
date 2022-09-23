@@ -2,7 +2,7 @@
 {{- $L := (datasource "language") -}}
 #!/bin/sh
 
-alias gomplate="docker run -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
+alias gomplate="docker run --rm -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
 
 mkdir -p .github/workflows
 

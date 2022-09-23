@@ -7,6 +7,7 @@ on:
       - haskell/language.yaml
       - haskell/.devcontainer/**
       - haskell/.vscode/**
+      - .github/workflows/haskell.yml
 
 jobs:
   CancelPrevious:

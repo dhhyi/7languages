@@ -7,6 +7,7 @@ on:
       - prolog/language.yaml
       - prolog/.devcontainer/**
       - prolog/.vscode/**
+      - .github/workflows/prolog.yml
 
 jobs:
   CancelPrevious:

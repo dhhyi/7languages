@@ -7,6 +7,7 @@ on:
       - scala/language.yaml
       - scala/.devcontainer/**
       - scala/.vscode/**
+      - .github/workflows/scala.yml
 
 jobs:
   CancelPrevious:

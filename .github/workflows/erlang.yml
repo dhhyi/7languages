@@ -7,6 +7,7 @@ on:
       - erlang/language.yaml
       - erlang/.devcontainer/**
       - erlang/.vscode/**
+      - .github/workflows/erlang.yml
 
 jobs:
   CancelPrevious:

@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 print "----------------"
 
 function reverse(s, t)

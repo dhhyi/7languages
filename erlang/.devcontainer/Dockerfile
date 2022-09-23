@@ -16,7 +16,6 @@ RUN chmod +x /disclaimer.sh
 USER vscode
 ENV HOME=/home/vscode
 
-# https://elixirforum.com/t/erlang-blog-post-formatting-your-erlang-code-in-visual-studio-code/35284
 RUN git clone https://github.com/erlang/rebar3.git /tmp/rebar3 && cd /tmp/rebar3 && ./bootstrap && ./rebar3 local install
 COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
 ENV PATH=${PATH}:${HOME}/.cache/rebar3/bin

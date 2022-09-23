@@ -16,3 +16,4 @@ devcontainer:
     COPY --from=mileschou/lua /usr/local/bin/lua /usr/local/bin
     # COPY --from=mileschou/lua /usr/local/bin/luac /usr/local/bin
     # COPY --from=mileschou/lua /usr/local/lib/liblua.a /usr/local/lib
+  selftest: lua -e 'print("Hello World!")'

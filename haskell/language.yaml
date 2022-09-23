@@ -23,10 +23,15 @@ devcontainer:
     ENV PATH="${HOME}/.ghcup/bin:${PATH}"
     RUN ghcup install hls
     RUN ghcup install stack
+  selftest: |
+    cat > /tmp/helloworld.hs <<EOF
+    main = putStrLn "Hello World!"
+    EOF
+    runhaskell /tmp/helloworld.hs
 vscode:
   script: |
     module Main where
-    
+
     main = do
       putStrLn \"----------------\"
       $1

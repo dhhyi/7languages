@@ -9,8 +9,8 @@ RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/A
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont
 
-COPY disclaimer.sh /
-RUN chmod +x /disclaimer.sh
+COPY disclaimer.sh selftest.sh /
+RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
 

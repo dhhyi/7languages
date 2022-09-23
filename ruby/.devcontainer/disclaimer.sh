@@ -2,6 +2,7 @@
 
 (
     set -x
+    rubocop --version
     ruby --version
 )
 

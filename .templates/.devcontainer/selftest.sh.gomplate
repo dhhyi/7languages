@@ -1,0 +1,18 @@
+{{- $L := (datasource "language") -}}
+#!/bin/sh
+
+set -e
+set -x
+{{- if (has $L.language "version") }}
+{{- range split ($L.language.version | strings.TrimSpace) "\n" }}
+{{ . }}
+{{- end -}}
+{{- else if (has $L.language "binary") }}
+{{ $L.language.binary }} --version
+{{- end }}
+
+{{- if (has $L.devcontainer "selftest") }}
+{{- range split ($L.devcontainer.selftest | strings.TrimSpace) "\n" }}
+{{ . }}
+{{- end -}}
+{{- end }}

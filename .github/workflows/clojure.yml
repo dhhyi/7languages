@@ -38,3 +38,6 @@ jobs:
 
       - name: Show Disclaimer
         run: docker run --rm clojure-devcontainer sh /disclaimer.sh
+
+      - name: Run Selftest
+        run: docker run --rm clojure-devcontainer sh /selftest.sh

@@ -17,3 +17,10 @@ devcontainer:
     # RUN curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > /bin/cs && chmod +x /bin/cs
   userBuild: |
     # RUN cs setup -y
+  selftest: |
+    cat >/tmp/helloworld.scala <<EOF
+    @main def main() = {
+        println("Hello World!")
+    }
+    EOF
+    amm /tmp/helloworld.scala

@@ -20,10 +20,11 @@ devcontainer:
     RUN cd /usr/local/bin && curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && chmod +x lein
 
     RUN echo > /conda-notice.txt
+  selftest: clojure -M -e '(println "Hello World!")'
 vscode:
   script: |
     (ns ${TM_FILENAME/^(.*).clj$/$1/}
       (:gen-class))
     (println \"----------------\")
-    
+
     $1

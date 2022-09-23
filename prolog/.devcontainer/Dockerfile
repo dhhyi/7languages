@@ -12,8 +12,8 @@ ADD http://www.gprolog.org/gprolog-${PROLOG_VERSION}.tar.gz /tmp
 RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
 RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
 
-COPY disclaimer.sh /
-RUN chmod +x /disclaimer.sh
+COPY disclaimer.sh selftest.sh /
+RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
 

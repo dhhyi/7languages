@@ -21,11 +21,18 @@ devcontainer:
     RUN git clone https://github.com/erlang/rebar3.git /tmp/rebar3 && cd /tmp/rebar3 && ./bootstrap && ./rebar3 local install
     COPY --chown=vscode rebar.config ${HOME}/.config/rebar3/rebar.config
     ENV PATH=${PATH}:${HOME}/.cache/rebar3/bin
+  selftest: |
+    cat > /tmp/helloworld.erl <<EOF
+    -export([main/1]).
+
+    main(_) -> io:format("Hello World!\n").
+    EOF
+    escript /tmp/helloworld.erl
 vscode:
   script: |
     -module(${TM_FILENAME/^(.*).erl$/$1/}).
-    
+
     -export([main/1]).
-    
+
     main(_) ->
       $1

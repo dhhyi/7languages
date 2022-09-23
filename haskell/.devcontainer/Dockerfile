@@ -10,8 +10,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont
 
-COPY disclaimer.sh /
-RUN chmod +x /disclaimer.sh
+COPY disclaimer.sh selftest.sh /
+RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
 ENV HOME=/home/vscode

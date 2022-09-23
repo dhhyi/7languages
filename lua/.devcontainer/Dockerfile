@@ -12,8 +12,8 @@ COPY --from=mileschou/lua /usr/local/bin/lua /usr/local/bin
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont
 
-COPY disclaimer.sh /
-RUN chmod +x /disclaimer.sh
+COPY disclaimer.sh selftest.sh /
+RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
 

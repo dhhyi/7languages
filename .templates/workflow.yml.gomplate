@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Generate Devcontainer Files
-        run: sh generate.sh {{ $folder }}
+        run: bash generate.sh {{ $folder }}
 
       - name: Check no changes
         run: git diff --exit-code --raw -p --stat

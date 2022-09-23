@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, lowercase-global
 print "------------------"
 
 while math.random(100) > 3 do

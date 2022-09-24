@@ -5,7 +5,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     inotify-tools \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.4/2.13-2.5.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm'
+ARG AMMONITE_VERSION
+
+ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm
+RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
 
 COPY cont.sh /usr/local/bin/cont
 RUN chmod +x /usr/local/bin/cont

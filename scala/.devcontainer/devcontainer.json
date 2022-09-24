@@ -1,7 +1,10 @@
 {
 	"name": "7 languages in 7 weeks: Scala",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+			"AMMONITE_VERSION": "2.5.4/2.13-2.5.4"
+		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {

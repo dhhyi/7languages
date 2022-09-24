@@ -6,11 +6,11 @@ devcontainer:
   name: "7 languages in 7 weeks: Scala"
   build:
     base: mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
+    args:
+      AMMONITE_VERSION: 2.5.4/2.13-2.5.4
     root:
-      - RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.4/2.13-2.5.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm'
-    #   - RUN curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > /bin/cs && chmod +x /bin/cs
-    # user:
-    #   - RUN cs setup -y
+      - ADD https://github.com/com-lihaoyi/Ammonite/releases/download/${AMMONITE_VERSION} /usr/local/bin/amm
+      - RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
   selftest: |
     cat >/tmp/helloworld.scala <<EOF
     @main def main() = {

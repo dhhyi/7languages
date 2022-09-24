@@ -1,7 +1,10 @@
 {
 	"name": "7 languages in 7 weeks: Clojure",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+			"CLOJURE_VERSION": "1.11.1.1155"
+		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {

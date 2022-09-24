@@ -1,7 +1,10 @@
 {
 	"name": "7 languages in 7 weeks: Io",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+			"IO_VERSION": "2019.05.22-alpha"
+		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {

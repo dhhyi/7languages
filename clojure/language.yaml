@@ -7,12 +7,14 @@ devcontainer:
   name: "7 languages in 7 weeks: Clojure"
   build:
     base: mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
+    args:
+      CLOJURE_VERSION: 1.11.1.1155
     root:
-      - ARG CLOJURE_VERSION=1.11.1.1155
-      - RUN cd /tmp && curl -O https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh && chmod +x linux-install-${CLOJURE_VERSION}.sh
-      - RUN /tmp/linux-install-${CLOJURE_VERSION}.sh
+      - ADD https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh /tmp
+      - RUN chmod +x /tmp/linux-install-${CLOJURE_VERSION}.sh && /tmp/linux-install-${CLOJURE_VERSION}.sh
 
-      - RUN cd /usr/local/bin && curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && chmod +x lein
+      - ADD https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein /usr/local/bin
+      - RUN chmod +x /usr/local/bin/lein
 
       - RUN echo > /conda-notice.txt
   selftest: clojure -M -e '(println "Hello World!")'

@@ -4,6 +4,9 @@
 	"name": "{{ $L.devcontainer.name }}",
 	"build": {
 		"dockerfile": "Dockerfile"
+		{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
+		"args": {{ $L.devcontainer.build.args | data.ToJSONPretty "\t" | strings.Indent "\t\t" | strings.Trim "\t" }}
+		{{- end }}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {

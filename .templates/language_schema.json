@@ -80,7 +80,7 @@
                     }
                 },
                 "settings": {
-                    "type": "string"
+                    "type": "object"
                 },
                 "tasks": {
                     "type": "array",

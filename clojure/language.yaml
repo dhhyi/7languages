@@ -16,10 +16,9 @@ devcontainer:
     RUN echo > /conda-notice.txt
   selftest: clojure -M -e '(println "Hello World!")'
 vscode:
-  settings: |
-    "files.watcherExclude": {
+  settings:
+    files.watcherExclude:
       "**/target": true
-    }
   extensions:
     - betterthantomorrow.calva
   script: |

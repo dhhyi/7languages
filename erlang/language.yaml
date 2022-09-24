@@ -20,12 +20,11 @@ devcontainer:
     EOF
     escript /tmp/helloworld.erl
 vscode:
-  settings: |
-    "[erlang]": {
-      "editor.tabSize": 2,
-      "editor.defaultFormatter": "szTheory.erlang-formatter"
-    },
-    "erlangFormatter.formatter": "rebar3_format"
+  settings:
+    "[erlang]":
+      editor.tabSize: 2
+      editor.defaultFormatter: szTheory.erlang-formatter
+    erlangFormatter.formatter: rebar3_format
   extensions:
     - pgourlain.erlang
     - szTheory.erlang-formatter

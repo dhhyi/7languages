@@ -20,7 +20,7 @@
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
 		"files.watcherExclude": {
-		  "**/target": true
+			"**/target": true
 		}
 	},
 	"extensions": [

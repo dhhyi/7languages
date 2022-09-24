@@ -20,7 +20,7 @@
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
 		"files.associations": {
-		  "*.pl": "prolog"
+			"*.pl": "prolog"
 		}
 	},
 	"extensions": [

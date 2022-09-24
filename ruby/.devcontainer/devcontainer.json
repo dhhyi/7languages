@@ -20,7 +20,7 @@
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
 		"[ruby]": {
-		  "editor.defaultFormatter": "misogi.ruby-rubocop"
+			"editor.defaultFormatter": "misogi.ruby-rubocop"
 		}
 	},
 	"extensions": [

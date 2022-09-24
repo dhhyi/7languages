@@ -20,8 +20,8 @@
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
 		"[scala]": {
-		  "editor.defaultFormatter": "scalameta.metals",
-		  "editor.tabSize": 2
+			"editor.defaultFormatter": "scalameta.metals",
+			"editor.tabSize": 2
 		}
 	},
 	"extensions": [

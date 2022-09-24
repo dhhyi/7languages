@@ -18,10 +18,9 @@ devcontainer:
     EOF
     amm /tmp/helloworld.scala
 vscode:
-  settings: |
-    "[scala]": {
-      "editor.defaultFormatter": "scalameta.metals",
-      "editor.tabSize": 2
-    }
+  settings:
+    "[scala]":
+      editor.defaultFormatter: scalameta.metals
+      editor.tabSize: 2
   extensions:
     - scalameta.metals

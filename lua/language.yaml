@@ -7,13 +7,13 @@ devcontainer:
   name: "7 more languages in 7 weeks: Lua"
   packages:
     - build-essential
-  # rootBuild: |
-  #   ARG LUA_VERSION=5.4.4
-  #   RUN cd /tmp && curl -R -O http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz && tar zxf lua-${LUA_VERSION}.tar.gz && cd lua-${LUA_VERSION} && make all test && make install
-  rootBuild: |
-    COPY --from=mileschou/lua /usr/local/bin/lua /usr/local/bin
-    # COPY --from=mileschou/lua /usr/local/bin/luac /usr/local/bin
-    # COPY --from=mileschou/lua /usr/local/lib/liblua.a /usr/local/lib
+  # rootBuild:
+  #   - ARG LUA_VERSION=5.4.4
+  #   - RUN cd /tmp && curl -R -O http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz && tar zxf lua-${LUA_VERSION}.tar.gz && cd lua-${LUA_VERSION} && make all test && make install
+  rootBuild:
+    - COPY --from=mileschou/lua /usr/local/bin/lua /usr/local/bin
+    # - COPY --from=mileschou/lua /usr/local/bin/luac /usr/local/bin
+    # - COPY --from=mileschou/lua /usr/local/lib/liblua.a /usr/local/lib
   selftest: lua -e 'print("Hello World!")'
 vscode:
   extensions:

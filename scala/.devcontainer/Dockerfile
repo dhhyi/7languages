@@ -14,5 +14,4 @@ RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
 
-
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

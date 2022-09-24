@@ -16,9 +16,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 {{- end }}
 
 {{- if (has $L.devcontainer "rootBuild") }}
-{{ range split ($L.devcontainer.rootBuild | strings.TrimSpace) "\n" }}{{ if not (strings.HasPrefix "#" .) }}
+{{ range $L.devcontainer.rootBuild }}
 {{ . }}
-{{- end -}}{{- end -}}
+{{- end -}}
 {{- end }}
 {{ if (has $L.language "binary") }}
 COPY cont.sh /usr/local/bin/cont
@@ -33,9 +33,9 @@ ENV HOME=/home/{{ $remoteUser }}
 {{- end }}
 
 {{- if (has $L.devcontainer "userBuild") }}
-{{ range split ($L.devcontainer.userBuild | strings.TrimSpace) "\n" }}{{ if not (strings.HasPrefix "#" .) }}
+{{ range $L.devcontainer.userBuild }}
 {{ . }}
-{{- end -}}{{- end -}}
+{{- end -}}
 {{- end }}
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

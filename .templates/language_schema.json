@@ -1,5 +1,6 @@
 {
     "$id": "https://example.com/language.schema.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Language",
     "type": "object",
     "additionalProperties": false,
@@ -53,10 +54,16 @@
                     }
                 },
                 "userBuild": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "rootBuild": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "selftest": {
                     "type": "string"

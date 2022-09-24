@@ -7,9 +7,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 ARG CLOJURE_VERSION=1.11.1.1155
 RUN cd /tmp && curl -O https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh && chmod +x linux-install-${CLOJURE_VERSION}.sh
 RUN /tmp/linux-install-${CLOJURE_VERSION}.sh
-
 RUN cd /usr/local/bin && curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && chmod +x lein
-
 RUN echo > /conda-notice.txt
 
 COPY cont.sh /usr/local/bin/cont

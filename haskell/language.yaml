@@ -16,11 +16,11 @@ devcontainer:
     - libncurses-dev
     - libncurses5
     - libtinfo5
-  userBuild: |
-    RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-    ENV PATH="${HOME}/.ghcup/bin:${PATH}"
-    RUN ghcup install hls
-    RUN ghcup install stack
+  userBuild:
+    - RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+    - ENV PATH="${HOME}/.ghcup/bin:${PATH}"
+    - RUN ghcup install hls
+    - RUN ghcup install stack
   selftest: |
     cat > /tmp/helloworld.hs <<EOF
     main = putStrLn "Hello World!"

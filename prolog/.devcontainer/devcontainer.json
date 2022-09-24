@@ -8,7 +8,9 @@
 		"terminal.integrated.profiles.linux": {
 			"zsh": {
 				"path": "zsh",
-				"args": ["-l"]
+				"args": [
+					"-l"
+				]
 			}
 		},
 		"terminal.integrated.defaultProfile.linux": "zsh",

@@ -7,9 +7,10 @@ language:
     ruby --version
 devcontainer:
   name: "7 languages in 7 weeks: Ruby"
-  baseImage: mcr.microsoft.com/vscode/devcontainers/ruby:0-3
-  rootBuild:
-    - RUN gem install rubocop
+  build:
+    base: mcr.microsoft.com/vscode/devcontainers/ruby:0-3
+    root:
+      - RUN gem install rubocop
   selftest: ruby -e 'puts "Hello World!"'
 vscode:
   settings:

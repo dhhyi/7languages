@@ -2,10 +2,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/base
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    build-essential
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ARG PROLOG_VERSION=1.5.0
 ADD http://www.gprolog.org/gprolog-${PROLOG_VERSION}.tar.gz /tmp

@@ -1,22 +1,23 @@
 {{- $L := (datasource "language") -}}
 {{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
-{{- if (has $L.devcontainer "baseImage") -}}
-FROM {{ $L.devcontainer.baseImage }}
+{{- $notify := (has $L.language "binary") -}}
+{{- $packages := and (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
+
+{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
+FROM {{ $L.devcontainer.build.base }}
 {{- else -}}
 FROM mcr.microsoft.com/vscode/devcontainers/base
 {{- end }}
 
+{{ if or $notify $packages -}}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools
-{{- if (has $L.devcontainer "packages") }}
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-   {{ range $L.devcontainer.packages }} {{ . }}{{ end }}
+    {{ if $notify }}inotify-tools{{ if $packages }} {{ end }}{{ end }}{{ if $packages }}{{ conv.Join $L.devcontainer.build.packages " " }}{{ end }} \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 {{- end }}
 
-{{- if (has $L.devcontainer "rootBuild") }}
-{{ range $L.devcontainer.rootBuild }}
+{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
+{{ range $L.devcontainer.build.root }}
 {{ . }}
 {{- end -}}
 {{- end }}
@@ -28,12 +29,12 @@ COPY disclaimer.sh selftest.sh /
 RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER {{ $remoteUser }}
-{{- if and (has $L.devcontainer "userBuild") ($L.devcontainer.userBuild | strings.Contains "HOME") }}
+{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") }}
 ENV HOME=/home/{{ $remoteUser }}
 {{- end }}
 
-{{- if (has $L.devcontainer "userBuild") }}
-{{ range $L.devcontainer.userBuild }}
+{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "user") }}
+{{ range $L.devcontainer.build.user }}
 {{ . }}
 {{- end -}}
 {{- end }}

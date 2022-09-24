@@ -44,25 +44,31 @@
                 "name": {
                     "type": "string"
                 },
-                "baseImage": {
-                    "type": "string"
-                },
-                "packages": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "userBuild": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "rootBuild": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
+                "build": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "base": {
+                            "type": "string"
+                        },
+                        "packages": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "user": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "root": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "selftest": {

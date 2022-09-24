@@ -7,20 +7,21 @@ language:
     ghc --version
 devcontainer:
   name: "7 languages in 7 weeks: Haskell"
-  packages:
-    - build-essential
-    - libffi-dev
-    - libffi7
-    - libgmp-dev
-    - libgmp10
-    - libncurses-dev
-    - libncurses5
-    - libtinfo5
-  userBuild:
-    - RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-    - ENV PATH="${HOME}/.ghcup/bin:${PATH}"
-    - RUN ghcup install hls
-    - RUN ghcup install stack
+  build:
+    packages:
+      - build-essential
+      - libffi-dev
+      - libffi7
+      - libgmp-dev
+      - libgmp10
+      - libncurses-dev
+      - libncurses5
+      - libtinfo5
+    user:
+      - RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+      - ENV PATH="${HOME}/.ghcup/bin:${PATH}"
+      - RUN ghcup install hls
+      - RUN ghcup install stack
   selftest: |
     cat > /tmp/helloworld.hs <<EOF
     main = putStrLn "Hello World!"

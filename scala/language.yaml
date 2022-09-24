@@ -4,12 +4,13 @@ language:
   repl: amm
 devcontainer:
   name: "7 languages in 7 weeks: Scala"
-  baseImage: mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
-  rootBuild:
-    - RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.4/2.13-2.5.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm'
-    # - RUN curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > /bin/cs && chmod +x /bin/cs
-  # userBuild:
-  #   - RUN cs setup -y
+  build:
+    base: mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
+    root:
+      - RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.4/2.13-2.5.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm'
+    #   - RUN curl -fL https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz | gzip -d > /bin/cs && chmod +x /bin/cs
+    # user:
+    #   - RUN cs setup -y
   selftest: |
     cat >/tmp/helloworld.scala <<EOF
     @main def main() = {

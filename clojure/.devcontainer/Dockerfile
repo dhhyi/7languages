@@ -2,7 +2,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools
+    inotify-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ARG CLOJURE_VERSION=1.11.1.1155
 RUN cd /tmp && curl -O https://download.clojure.org/install/linux-install-${CLOJURE_VERSION}.sh && chmod +x linux-install-${CLOJURE_VERSION}.sh

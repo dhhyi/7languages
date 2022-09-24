@@ -2,10 +2,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/base
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    build-essential
+    inotify-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=mileschou/lua /usr/local/bin/lua /usr/local/bin
 

@@ -2,7 +2,8 @@ FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-3
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    inotify-tools
+    inotify-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN gem install rubocop
 

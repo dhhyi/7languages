@@ -3,6 +3,7 @@
 (
     set -x
     lua -v
+    luarocks --version
 )
 
 echo

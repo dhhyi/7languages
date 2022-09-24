@@ -3,7 +3,7 @@ language:
   repl: gprolog
   version: gprolog --version
 devcontainer:
-  name: '7 languages in 7 weeks: Prolog'
+  name: "7 languages in 7 weeks: Prolog"
   settings: |
     "files.associations": {
       "*.pl": "prolog"

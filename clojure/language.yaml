@@ -4,7 +4,7 @@ language:
   repl: lein repl
   binaryArgs: -M
 devcontainer:
-  name: '7 languages in 7 weeks: Clojure'
+  name: "7 languages in 7 weeks: Clojure"
   settings: |
     "files.watcherExclude": {
       "**/target": true

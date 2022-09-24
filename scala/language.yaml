@@ -3,7 +3,7 @@ language:
   binary: amm
   repl: amm
 devcontainer:
-  name: '7 languages in 7 weeks: Scala'
+  name: "7 languages in 7 weeks: Scala"
   settings: |
     "[scala]": {
       "editor.defaultFormatter": "scalameta.metals",

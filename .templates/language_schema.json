@@ -1,0 +1,107 @@
+{
+    "$id": "https://example.com/language.schema.json",
+    "title": "Language",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "language",
+        "devcontainer"
+    ],
+    "properties": {
+        "language": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "name",
+                "repl"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "binary": {
+                    "type": "string"
+                },
+                "binaryArgs": {
+                    "type": "string"
+                },
+                "repl": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "devcontainer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "extensions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "settings": {
+                    "type": "string"
+                },
+                "baseImage": {
+                    "type": "string"
+                },
+                "packages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "userBuild": {
+                    "type": "string"
+                },
+                "rootBuild": {
+                    "type": "string"
+                },
+                "selftest": {
+                    "type": "string"
+                },
+                "remoteUser": {
+                    "type": "string"
+                }
+            }
+        },
+        "vscode": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "script": {
+                    "type": "string"
+                },
+                "tasks": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                            "label",
+                            "command"
+                        ],
+                        "properties": {
+                            "label": {
+                                "type": "string"
+                            },
+                            "command": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

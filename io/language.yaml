@@ -3,7 +3,7 @@ language:
   binary: io
   repl: io
 devcontainer:
-  name: '7 languages in 7 weeks: Io'
+  name: "7 languages in 7 weeks: Io"
   extensions:
     - kennethceyer.io
   packages:

@@ -5,5 +5,10 @@
     "files.trimTrailingWhitespace": true,
     "files.associations": {
         "*.gomplate": "gomplate"
+    },
+    "yaml.schemas": {
+        ".templates/language_schema.json": [
+            "language.yaml"
+        ],
     }
 }

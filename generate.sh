@@ -14,6 +14,8 @@ set -o pipefail
 [ ! -d "$1" ] && echo "Error: $1 is not a folder" && exit 1
 [ ! -f "$1/language.yaml" ] && echo "Error: $1/language.yaml does not exist" && exit 1
 
+npx pajv validate -s .templates/language_schema.json -d $1/language.yaml --errors=text --verbose
+
 GOMPLATE_IMAGE=hairyhenderson/gomplate:stable
 
 docker inspect "$GOMPLATE_IMAGE" >/dev/null || docker pull "$GOMPLATE_IMAGE"

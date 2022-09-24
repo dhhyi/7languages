@@ -4,7 +4,7 @@ language:
   repl: erl
   version: erl +V
 devcontainer:
-  name: '7 languages in 7 weeks: Erlang'
+  name: "7 languages in 7 weeks: Erlang"
   settings: |
     "[erlang]": {
       "editor.tabSize": 2,

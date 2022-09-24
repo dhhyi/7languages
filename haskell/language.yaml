@@ -6,7 +6,7 @@ language:
     ghcup --version
     ghc --version
 devcontainer:
-  name: '7 languages in 7 weeks: Haskell'
+  name: "7 languages in 7 weeks: Haskell"
   extensions:
     - haskell.haskell
   packages:

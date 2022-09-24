@@ -4,7 +4,7 @@ language:
   repl: lua
   version: lua -v
 devcontainer:
-  name: '7 more languages in 7 weeks: Lua'
+  name: "7 more languages in 7 weeks: Lua"
   extensions:
     - sumneko.lua
   packages:

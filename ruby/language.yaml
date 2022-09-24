@@ -6,7 +6,7 @@ language:
     rubocop --version
     ruby --version
 devcontainer:
-  name: '7 languages in 7 weeks: Ruby'
+  name: "7 languages in 7 weeks: Ruby"
   settings: |
     "[ruby]": {
       "editor.defaultFormatter": "misogi.ruby-rubocop"

@@ -5,8 +5,6 @@ language:
   version: lua -v
 devcontainer:
   name: "7 more languages in 7 weeks: Lua"
-  extensions:
-    - sumneko.lua
   packages:
     - build-essential
   # rootBuild: |
@@ -17,3 +15,6 @@ devcontainer:
     # COPY --from=mileschou/lua /usr/local/bin/luac /usr/local/bin
     # COPY --from=mileschou/lua /usr/local/lib/liblua.a /usr/local/lib
   selftest: lua -e 'print("Hello World!")'
+vscode:
+  extensions:
+    - sumneko.lua

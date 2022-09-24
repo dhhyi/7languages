@@ -7,8 +7,6 @@ language:
     ghc --version
 devcontainer:
   name: "7 languages in 7 weeks: Haskell"
-  extensions:
-    - haskell.haskell
   packages:
     - build-essential
     - libffi-dev
@@ -29,6 +27,8 @@ devcontainer:
     EOF
     runhaskell /tmp/helloworld.hs
 vscode:
+  extensions:
+    - haskell.haskell
   script: |
     module Main where
 

@@ -43,15 +43,6 @@
                 "name": {
                     "type": "string"
                 },
-                "extensions": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "settings": {
-                    "type": "string"
-                },
                 "baseImage": {
                     "type": "string"
                 },
@@ -80,6 +71,15 @@
             "additionalProperties": false,
             "properties": {
                 "script": {
+                    "type": "string"
+                },
+                "extensions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "settings": {
                     "type": "string"
                 },
                 "tasks": {

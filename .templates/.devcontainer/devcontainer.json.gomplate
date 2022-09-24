@@ -21,16 +21,16 @@
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		}
-		{{- if (has $L.devcontainer "settings") }},
-		{{- range split ($L.devcontainer.settings | strings.TrimSpace) "\n" }}
+		{{- if and (has $L "vscode") (has $L.vscode "settings") }},
+		{{- range split ($L.vscode.settings | strings.TrimSpace) "\n" }}
 		{{ . }}
 		{{- end -}}
 		{{- end }}
 	},
 	"extensions": [
 		"GitHub.copilot"
-		{{- if (has $L.devcontainer "extensions") }}
-		{{- range $L.devcontainer.extensions }},
+		{{- if and (has $L "vscode") (has $L.vscode "extensions") }}
+		{{- range $L.vscode.extensions }},
 		"{{ . }}"
 		{{- end -}}
 		{{- end }}

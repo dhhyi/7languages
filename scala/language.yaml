@@ -4,13 +4,6 @@ language:
   repl: amm
 devcontainer:
   name: "7 languages in 7 weeks: Scala"
-  settings: |
-    "[scala]": {
-      "editor.defaultFormatter": "scalameta.metals",
-      "editor.tabSize": 2
-    }
-  extensions:
-    - scalameta.metals
   baseImage: mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
   rootBuild: |
     RUN sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/com-lihaoyi/Ammonite/releases/download/2.5.4/2.13-2.5.4) > /usr/local/bin/amm && chmod +x /usr/local/bin/amm'
@@ -24,3 +17,11 @@ devcontainer:
     }
     EOF
     amm /tmp/helloworld.scala
+vscode:
+  settings: |
+    "[scala]": {
+      "editor.defaultFormatter": "scalameta.metals",
+      "editor.tabSize": 2
+    }
+  extensions:
+    - scalameta.metals

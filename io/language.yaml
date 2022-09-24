@@ -4,8 +4,6 @@ language:
   repl: io
 devcontainer:
   name: "7 languages in 7 weeks: Io"
-  extensions:
-    - kennethceyer.io
   packages:
     - build-essential
     - libpcre3-dev
@@ -26,3 +24,6 @@ devcontainer:
     RUN eerie install https://github.com/IoLanguage/Regex.git
     RUN eerie install https://github.com/IoLanguage/Random.git
   selftest: io -e '"Hello World!" println'
+vscode:
+  extensions:
+    - kennethceyer.io

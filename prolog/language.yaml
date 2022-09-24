@@ -4,12 +4,6 @@ language:
   version: gprolog --version
 devcontainer:
   name: "7 languages in 7 weeks: Prolog"
-  settings: |
-    "files.associations": {
-      "*.pl": "prolog"
-    }
-  extensions:
-    - rebornix.prolog
   packages:
     - build-essential
   rootBuild: |
@@ -19,6 +13,12 @@ devcontainer:
     RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
   selftest: gprolog --query-goal "write('Hello World!\n'),halt"
 vscode:
+  settings: |
+    "files.associations": {
+      "*.pl": "prolog"
+    }
+  extensions:
+    - rebornix.prolog
   tasks:
     - label: Start REPL on current file
       command: gprolog --consult-file ${file}

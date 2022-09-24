@@ -5,15 +5,6 @@ language:
   version: erl +V
 devcontainer:
   name: "7 languages in 7 weeks: Erlang"
-  settings: |
-    "[erlang]": {
-      "editor.tabSize": 2,
-      "editor.defaultFormatter": "szTheory.erlang-formatter"
-    },
-    "erlangFormatter.formatter": "rebar3_format"
-  extensions:
-    - pgourlain.erlang
-    - szTheory.erlang-formatter
   packages:
     - erlang
   userBuild: |
@@ -29,6 +20,15 @@ devcontainer:
     EOF
     escript /tmp/helloworld.erl
 vscode:
+  settings: |
+    "[erlang]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "szTheory.erlang-formatter"
+    },
+    "erlangFormatter.formatter": "rebar3_format"
+  extensions:
+    - pgourlain.erlang
+    - szTheory.erlang-formatter
   script: |
     -module(${TM_FILENAME/^(.*).erl$/$1/}).
 

@@ -1,5 +1,17 @@
 {{- $L := (datasource "language") -}}
+
 {{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
+
+{{- $settings := (datasource "vscodesettings") -}}
+{{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
+  {{ $settings = coll.Merge $settings $L.vscode.settings }}
+{{- end -}}
+
+{{- $extensions := slice "GitHub.copilot" -}}
+{{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
+  {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
+{{- end -}}
+
 {
 	"name": "{{ $L.devcontainer.name }}",
 	"build": {
@@ -9,42 +21,7 @@
 		{{- end }}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
-	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"path": "zsh",
-				"args": [
-					"-l"
-				]
-			}
-		},
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"editor.formatOnSave": true,
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
-		"[jsonc]": {
-			"editor.defaultFormatter": "vscode.json-language-features"
-		},
-		"task.autoDetect": "off",
-		"files.exclude": {
-			".devcontainer": true,
-			".vscode": true,
-			"language.yaml": true
-		}
-		{{- if and (has $L "vscode") (has $L.vscode "settings") }}
-		{{- range $key, $value := $L.vscode.settings }},
-		"{{ $key }}": {{ $value | data.ToJSONPretty "\t" | strings.Indent "\t\t" | strings.Trim "\t" }}
-		{{- end }}
-		{{- end }}
-	},
-	"extensions": [
-		"GitHub.copilot"
-		{{- if and (has $L "vscode") (has $L.vscode "extensions") }}
-		{{- range $L.vscode.extensions }},
-		"{{ . }}"
-		{{- end -}}
-		{{- end }}
-	],
+	"settings": {{ $settings | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
+	"extensions": {{ $extensions | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
 	"remoteUser": "{{ $remoteUser }}"
 }

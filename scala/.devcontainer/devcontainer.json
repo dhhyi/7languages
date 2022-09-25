@@ -8,36 +8,36 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"path": "zsh",
-				"args": [
-					"-l"
-				]
-			}
-		},
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"editor.formatOnSave": true,
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
-		"task.autoDetect": "off",
+		"[scala]": {
+			"editor.defaultFormatter": "scalameta.metals",
+			"editor.tabSize": 2
+		},
+		"editor.formatOnSave": true,
 		"files.exclude": {
 			".devcontainer": true,
 			".vscode": true,
 			"language.yaml": true
 		},
-		"[scala]": {
-			"editor.defaultFormatter": "scalameta.metals",
-			"editor.tabSize": 2
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"task.autoDetect": "off",
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"args": [
+					"-l"
+				],
+				"path": "zsh"
+			}
 		}
 	},
 	"extensions": [
-		"GitHub.copilot",
-		"scalameta.metals"
+		"scalameta.metals",
+		"GitHub.copilot"
 	],
 	"remoteUser": "vscode"
 }

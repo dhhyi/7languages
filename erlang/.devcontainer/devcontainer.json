@@ -5,38 +5,38 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"path": "zsh",
-				"args": [
-					"-l"
-				]
-			}
+		"[erlang]": {
+			"editor.defaultFormatter": "szTheory.erlang-formatter",
+			"editor.tabSize": 2
 		},
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"editor.formatOnSave": true,
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
-		"task.autoDetect": "off",
+		"editor.formatOnSave": true,
+		"erlangFormatter.formatter": "rebar3_format",
 		"files.exclude": {
 			".devcontainer": true,
 			".vscode": true,
 			"language.yaml": true
 		},
-		"[erlang]": {
-			"editor.defaultFormatter": "szTheory.erlang-formatter",
-			"editor.tabSize": 2
-		},
-		"erlangFormatter.formatter": "rebar3_format"
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"task.autoDetect": "off",
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"args": [
+					"-l"
+				],
+				"path": "zsh"
+			}
+		}
 	},
 	"extensions": [
-		"GitHub.copilot",
 		"pgourlain.erlang",
-		"szTheory.erlang-formatter"
+		"szTheory.erlang-formatter",
+		"GitHub.copilot"
 	],
 	"remoteUser": "vscode"
 }

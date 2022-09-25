@@ -22,7 +22,7 @@ cat .templates/{{ $in }}.gomplate | $gomplate > {{ path.Join $folder .out }}
 set -e
 set -o pipefail
 
-gomplate="docker run --rm -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro hairyhenderson/gomplate:stable -d language=/language.yaml -f -"
+gomplate="docker run --rm -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro -v $PWD/.templates/.devcontainer/vscode.default.settings.json:/vscode.default.settings.json:ro hairyhenderson/gomplate:stable -d language=/language.yaml -d vscodesettings=/vscode.default.settings.json -f -"
 
 mkdir -p .github/workflows
 

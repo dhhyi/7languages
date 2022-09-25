@@ -5,36 +5,36 @@
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"path": "zsh",
-				"args": [
-					"-l"
-				]
-			}
-		},
-		"terminal.integrated.defaultProfile.linux": "zsh",
-		"editor.formatOnSave": true,
-		"files.insertFinalNewline": true,
-		"files.trimFinalNewlines": true,
-		"files.trimTrailingWhitespace": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
-		"task.autoDetect": "off",
+		"[ruby]": {
+			"editor.defaultFormatter": "misogi.ruby-rubocop"
+		},
+		"editor.formatOnSave": true,
 		"files.exclude": {
 			".devcontainer": true,
 			".vscode": true,
 			"language.yaml": true
 		},
-		"[ruby]": {
-			"editor.defaultFormatter": "misogi.ruby-rubocop"
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"task.autoDetect": "off",
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"args": [
+					"-l"
+				],
+				"path": "zsh"
+			}
 		}
 	},
 	"extensions": [
-		"GitHub.copilot",
 		"rebornix.Ruby",
-		"misogi.ruby-rubocop"
+		"misogi.ruby-rubocop",
+		"GitHub.copilot"
 	],
 	"remoteUser": "vscode"
 }

@@ -25,6 +25,12 @@
 		"files.trimTrailingWhitespace": true,
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"task.autoDetect": "off",
+		"files.exclude": {
+			".devcontainer": true,
+			".vscode": true,
+			"language.yaml": true
 		}
 		{{- if and (has $L "vscode") (has $L.vscode "settings") }}
 		{{- range $key, $value := $L.vscode.settings }},

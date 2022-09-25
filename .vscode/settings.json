@@ -4,7 +4,7 @@
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "files.associations": {
-        "*.gomplate": "gomplate"
+        "*.gomplate": "plaintext"
     },
     "yaml.schemas": {
         ".templates/language_schema.json": [

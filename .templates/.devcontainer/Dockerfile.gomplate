@@ -1,30 +1,38 @@
 {{- $L := (datasource "language") -}}
+
 {{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
-{{- $notify := (has $L.language "binary") -}}
-{{- $packages := and (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
 
+{{- $from := "mcr.microsoft.com/vscode/devcontainers/base" -}}
 {{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
-FROM {{ $L.devcontainer.build.base }}
-{{- else -}}
-FROM mcr.microsoft.com/vscode/devcontainers/base
-{{- end }}
+  {{ $from = $L.devcontainer.build.base }}
+{{- end -}}
 
-{{ if or $notify $packages -}}
+{{- $packages := slice -}}
+{{- if (has $L.language "binary") -}}
+  {{ $packages = coll.Append "inotify-tools" $packages }}
+{{- end -}}
+{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
+  {{ $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten }}
+{{- end -}}
+
+{{- $insertHome := and (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
+
+FROM {{ $from }}
+
+{{ if $packages -}}
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    {{ if $notify }}inotify-tools{{ if $packages }} {{ end }}{{ end }}{{ if $packages }}{{ conv.Join $L.devcontainer.build.packages " " }}{{ end }} \
+    {{ conv.Join $packages " " }} \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-{{- end }}
+{{- end -}}
 
 {{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
 {{ if and (has $L.devcontainer "build") (has $L.devcontainer.build "args") }}
 {{ range $arg, $v := $L.devcontainer.build.args }}{{ if $L.devcontainer.build.root | strings.Contains $arg }}ARG {{ $arg }}
 {{ end }}
 {{- end }}
-{{- end -}}
-{{ range $L.devcontainer.build.root }}
-{{ . }}
-{{- end -}}
+{{- end }}
+{{ conv.Join $L.devcontainer.build.root "\n" }}
 {{- end }}
 {{ if (has $L.language "binary") }}
 COPY cont.sh /usr/local/bin/cont
@@ -34,7 +42,7 @@ COPY disclaimer.sh selftest.sh /
 RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER {{ $remoteUser }}
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") }}
+{{- if $insertHome }}
 ENV HOME=/home/{{ $remoteUser }}
 {{- end }}
 
@@ -46,10 +54,8 @@ ENV HOME=/home/{{ $remoteUser }}
 }}ARG {{ $arg }}
 {{ end }}
 {{- end }}
-{{- end -}}
-{{ range $L.devcontainer.build.user }}
-{{ . }}
-{{- end -}}
+{{- end }}
+{{ conv.Join $L.devcontainer.build.user "\n" }}
 {{- end }}
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

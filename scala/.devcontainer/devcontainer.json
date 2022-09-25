@@ -3,7 +3,8 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"AMMONITE_VERSION": "2.5.4/2.13-2.5.4"
+			"AMMONITE_VERSION": "2.5.4/2.13-2.5.4",
+			"JAVA_VERSION": "17"
 		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",

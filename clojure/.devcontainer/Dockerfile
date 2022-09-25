@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/java:0-17-bullseye
+ARG JAVA_VERSION
+
+FROM mcr.microsoft.com/vscode/devcontainers/java:0-${JAVA_VERSION}
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \

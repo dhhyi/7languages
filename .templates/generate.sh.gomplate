@@ -45,6 +45,7 @@ mkdir -p {{ $folder }}/.devcontainer
 
 {{ tmpl.Exec "DELETE" ".devcontainer/Dockerfile" }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/Dockerfile") }}
+
 {{ tmpl.Exec "DELETE" ".devcontainer/selftest.sh" }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/selftest.sh") }}
 

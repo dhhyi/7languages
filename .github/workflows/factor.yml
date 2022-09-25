@@ -1,0 +1,43 @@
+name: factor
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - factor/language.yaml
+      - factor/.devcontainer/**
+      - factor/.vscode/**
+      - .github/workflows/factor.yml
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: bash generate.sh factor
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder factor --image-name factor-devcontainer
+
+      - name: Show Disclaimer
+        run: docker run --rm factor-devcontainer sh /disclaimer.sh
+
+      - name: Run Selftest
+        run: docker run --rm factor-devcontainer sh /selftest.sh

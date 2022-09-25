@@ -1,0 +1,24 @@
+language:
+  name: factor
+  binary: factor
+  binaryArgs: -run
+  repl: factor
+  version: factor </dev/null ; echo
+devcontainer:
+  name: "7 more languages in 7 weeks: Factor"
+  build:
+    args:
+      FACTOR_VERSION: "0.98"
+    root:
+      - ADD https://downloads.factorcode.org/releases/${FACTOR_VERSION}/factor-linux-x86-64-${FACTOR_VERSION}.tar.gz /opt
+      - RUN cd /opt && tar zxpf factor-linux-x86-64-${FACTOR_VERSION}.tar.gz
+      - ENV PATH=/opt/factor:${PATH}
+  selftest: |
+    cat >/tmp/helloworld.factor <<EOF
+    USE: io
+    "Hello World!" print
+    EOF
+    factor -run /tmp/helloworld.factor
+vscode:
+  extensions:
+    - dexterhaslem.factor

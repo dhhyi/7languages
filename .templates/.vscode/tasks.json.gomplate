@@ -7,7 +7,7 @@
 	"problemMatcher": []
 }
 {{- end -}}
-{{- $tasks := slice -}}
+{{- $tasks := coll.Slice -}}
 {{- if (has $L.language "binary") -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" "cont ${file}"))) $tasks -}}
 {{- end -}}
@@ -20,9 +20,9 @@
   {{- end -}}
 {{- end -}}
 
-{
+{{- if $tasks }}{
 	// See https://go.microsoft.com/fwlink/?LinkId=733558
 	// for the documentation about the tasks.json format
 	"version": "2.0.0",
 	"tasks": {{ $tasks | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }}
-}
+}{{ end }}

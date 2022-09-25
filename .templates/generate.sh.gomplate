@@ -13,8 +13,16 @@ fi
 {{- $folder := getenv "FOLDER" -}}
 {{- $in := .out -}}
 {{- if has . "in" -}}{{ $in = .in }}{{ end }}
-echo "generating" {{ path.Join $folder .out }}
-cat .templates/{{ $in }}.gomplate | $gomplate > {{ path.Join $folder .out }}
+{{- $file := path.Join $folder .out -}}
+echo -n  "generating" {{ $file }}
+cat .templates/{{ $in }}.gomplate | $gomplate > {{ $file }}
+if [ -s "{{ $file }}" ]
+then
+  echo " - Done"
+else
+  echo " - empty"
+  rm -f {{ $file }}
+fi
 {{- end -}}
 
 #!/bin/bash
@@ -22,20 +30,22 @@ cat .templates/{{ $in }}.gomplate | $gomplate > {{ path.Join $folder .out }}
 set -e
 set -o pipefail
 
-gomplate="docker run --rm -i -e FOLDER={{ $folder }} -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro -v $PWD/.templates/.devcontainer/vscode.default.settings.json:/vscode.default.settings.json:ro hairyhenderson/gomplate:stable -d language=/language.yaml -d vscodesettings=/vscode.default.settings.json -f -"
+trap 'docker rm -f gomplate-container >/dev/null' EXIT INT TERM
+
+docker run --rm --name gomplate-container -d --entrypoint "" -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro -v $PWD/.templates/.devcontainer/vscode.default.settings.json:/vscode.default.settings.json:ro hairyhenderson/gomplate:alpine sh -c 'while [ true ] ; do sleep 10 ; echo "PING" ; done'
+
+gomplate="docker exec -i -e GOMPLATE_SUPPRESS_EMPTY=true -e FOLDER={{ $folder }} gomplate-container gomplate -d language=/language.yaml -d vscodesettings=/vscode.default.settings.json -f -"
 
 mkdir -p .github/workflows
 
-{{ $github := conv.Join (slice "../.github/workflows/" $folder ".yml") "" -}}
+{{ $github := conv.Join (coll.Slice "../.github/workflows/" $folder ".yml") "" -}}
 {{ tmpl.Exec "DELETE" $github }}
 {{ tmpl.Exec "GENERATE" (dict "in" "workflow.yml" "out" $github) }}
 
 mkdir -p {{ $folder }}/.devcontainer
 
 {{ tmpl.Exec "DELETE" ".devcontainer/cont.sh" }}
-{{- if (has $L.language "binary") }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/cont.sh") }}
-{{- end }}
 
 {{ tmpl.Exec "DELETE" ".devcontainer/disclaimer.sh" }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/disclaimer.sh") }}
@@ -55,9 +65,7 @@ mkdir -p {{ $folder }}/.vscode
 {{ tmpl.Exec "GENERATE" (dict "out" ".vscode/tasks.json") }}
 
 {{ tmpl.Exec "DELETE" ".vscode/vscode.code-snippets" }}
-{{- if and (has $L "vscode") (has $L.vscode "script") }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".vscode/vscode.code-snippets") }}
-{{ end }}
 
 if [ -z "$DEBUG" ]
 then

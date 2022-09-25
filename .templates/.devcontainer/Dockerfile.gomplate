@@ -10,7 +10,7 @@
   {{- $from = $L.devcontainer.build.base -}}
 {{- end -}}
 
-{{- $packages := slice -}}
+{{- $packages := coll.Slice -}}
 {{- if (has $L.language "binary") -}}
   {{- $packages = coll.Append "inotify-tools" $packages -}}
 {{- end -}}
@@ -20,9 +20,9 @@
 
 {{- $insertHome := and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
-{{- $fromArgs := slice -}}
-{{- $rootBuildArgs := slice -}}
-{{- $userBuildArgs := slice -}}
+{{- $fromArgs := coll.Slice -}}
+{{- $rootBuildArgs := coll.Slice -}}
+{{- $userBuildArgs := coll.Slice -}}
 {{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
   {{- range $arg, $v := $L.devcontainer.build.args -}}
     {{- if and (has $L.devcontainer "build")

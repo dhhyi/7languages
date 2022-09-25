@@ -1,5 +1,5 @@
 {{- $L := (datasource "language") -}}
-{
+{{- if and (has $L "vscode") (has $L.vscode "script") }}{
 	"Script": {
 		"scope": "{{ $L.language.name }}",
 		"prefix": "script",
@@ -13,4 +13,4 @@
 		],
 		"description": "Script template"
 	}
-}
+}{{ end }}

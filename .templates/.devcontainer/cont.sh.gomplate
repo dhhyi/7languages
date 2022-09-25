@@ -1,4 +1,5 @@
 {{- $L := (datasource "language") -}}
+{{- if (has $L.language "binary") -}}
 #!/bin/sh
 
 file="$1"
@@ -12,3 +13,4 @@ run () {
 
 run
 while inotifywait -qq -e close_write "$file"; do run; done
+{{- end }}

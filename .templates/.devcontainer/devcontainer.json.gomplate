@@ -7,7 +7,7 @@
   {{ $settings = coll.Merge $settings $L.vscode.settings }}
 {{- end -}}
 
-{{- $extensions := slice "GitHub.copilot" -}}
+{{- $extensions := coll.Slice "GitHub.copilot" -}}
 {{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
 {{- end -}}

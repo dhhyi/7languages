@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - ruby/.devcontainer/**
-      - ruby/.vscode/**
       - .github/workflows/ruby.yml
 
 jobs:

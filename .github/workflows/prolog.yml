@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - prolog/.devcontainer/**
-      - prolog/.vscode/**
       - .github/workflows/prolog.yml
 
 jobs:

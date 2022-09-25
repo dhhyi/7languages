@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - io/.devcontainer/**
-      - io/.vscode/**
       - .github/workflows/io.yml
 
 jobs:

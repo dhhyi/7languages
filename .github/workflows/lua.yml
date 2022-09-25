@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - lua/.devcontainer/**
-      - lua/.vscode/**
       - .github/workflows/lua.yml
 
 jobs:

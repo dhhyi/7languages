@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - factor/.devcontainer/**
-      - factor/.vscode/**
       - .github/workflows/factor.yml
 
 jobs:

@@ -14,7 +14,9 @@
 
 echo
 cat <<EOF
-Use the command "{{ (datasource "language").language.repl }}" to start a REPL.
+{{- if (has $L.language "repl") }}
+Use the command "{{ $L.language.repl }}" to start a REPL.
+{{- end }}
 {{- if (has $L.language "binary") }}
 Use the command "cont <script>" to continuously evaluate a given script.
 {{- end }}

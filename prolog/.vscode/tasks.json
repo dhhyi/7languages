@@ -4,16 +4,16 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Start REPL",
-			"type": "shell",
 			"command": "gprolog",
-			"problemMatcher": []
+			"label": "Start REPL",
+			"problemMatcher": [],
+			"type": "shell"
 		},
 		{
-			"label": "Start REPL on current file",
-			"type": "shell",
 			"command": "gprolog --consult-file ${file}",
-			"problemMatcher": []
+			"label": "Start REPL on current file",
+			"problemMatcher": [],
+			"type": "shell"
 		}
 	]
 }

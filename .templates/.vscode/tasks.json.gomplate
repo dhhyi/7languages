@@ -1,27 +1,28 @@
 {{- $L := (datasource "language") -}}
+{{- define "TASK" -}}
+{
+	"label": "{{ .label }}",
+	"type": "shell",
+	"command": "{{ .command }}",
+	"problemMatcher": []
+}
+{{- end -}}
+{{- $tasks := slice -}}
+{{- if (has $L.language "binary") -}}
+  {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" "cont ${file}"))) $tasks -}}
+{{- end -}}
+{{- if (has $L.language "repl") -}}
+  {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Start REPL" "command" $L.language.repl))) $tasks -}}
+{{- end -}}
+{{- if and (has $L "vscode") (has $L.vscode "tasks") -}}
+  {{- range $L.vscode.tasks -}}
+    {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" .label "command" .command))) $tasks -}}
+  {{- end -}}
+{{- end -}}
+
 {
 	// See https://go.microsoft.com/fwlink/?LinkId=733558
 	// for the documentation about the tasks.json format
 	"version": "2.0.0",
-	"tasks": [
-		{{- if (has $L.language "binary") }}
-		{
-			"label": "Run file continuously",
-			"type": "shell",
-			"command": "cont ${file}",
-			"problemMatcher": []
-		},{{ end }}
-		{
-			"label": "Start REPL",
-			"type": "shell",
-			"command": "{{ $L.language.repl }}",
-			"problemMatcher": []
-		}{{ if and (has $L "vscode") (has $L.vscode "tasks") }}{{ range $L.vscode.tasks }},
-		{
-			"label": "{{ .label }}",
-			"type": "shell",
-			"command": "{{ .command }}",
-			"problemMatcher": []
-		}{{ end }}{{ end }}
-	]
+	"tasks": {{ $tasks | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }}
 }

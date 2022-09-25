@@ -3,8 +3,6 @@ name: prolog
 on:
   push:
     paths:
-      - .templates/**
-      - prolog/language.yaml
       - prolog/.devcontainer/**
       - prolog/.vscode/**
       - .github/workflows/prolog.yml
@@ -24,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh prolog
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

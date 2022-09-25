@@ -3,8 +3,6 @@ name: ruby
 on:
   push:
     paths:
-      - .templates/**
-      - ruby/language.yaml
       - ruby/.devcontainer/**
       - ruby/.vscode/**
       - .github/workflows/ruby.yml
@@ -24,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh ruby
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

@@ -1,0 +1,33 @@
+name: synchronization
+
+on:
+  push:
+    paths:
+      - .templates/**
+      - "**/language.yaml"
+
+jobs:
+  CancelPrevious:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Old Pipeline
+        uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  BuildDevcontainer:
+    needs: [CancelPrevious]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer Files
+        run: |
+          for d in */language.yaml
+          do
+            bash generate.sh $(dirname $d) || exit 1
+          done
+
+      - name: Check no changes
+        run: git diff --exit-code --raw -p --stat

@@ -3,8 +3,6 @@ name: factor
 on:
   push:
     paths:
-      - .templates/**
-      - factor/language.yaml
       - factor/.devcontainer/**
       - factor/.vscode/**
       - .github/workflows/factor.yml
@@ -24,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh factor
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

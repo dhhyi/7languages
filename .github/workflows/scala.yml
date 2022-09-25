@@ -3,8 +3,6 @@ name: scala
 on:
   push:
     paths:
-      - .templates/**
-      - scala/language.yaml
       - scala/.devcontainer/**
       - scala/.vscode/**
       - .github/workflows/scala.yml
@@ -24,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh scala
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

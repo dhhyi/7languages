@@ -3,8 +3,6 @@ name: io
 on:
   push:
     paths:
-      - .templates/**
-      - io/language.yaml
       - io/.devcontainer/**
       - io/.vscode/**
       - .github/workflows/io.yml
@@ -24,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh io
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

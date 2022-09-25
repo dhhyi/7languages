@@ -4,8 +4,6 @@ name: {{ $folder }}
 on:
   push:
     paths:
-      - .templates/**
-      - {{ $folder }}/language.yaml
       - {{ $folder }}/.devcontainer/**
       - {{ $folder }}/.vscode/**
       - .github/workflows/{{ $folder }}.yml
@@ -25,12 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Generate Devcontainer Files
-        run: bash generate.sh {{ $folder }}
-
-      - name: Check no changes
-        run: git diff --exit-code --raw -p --stat
 
       - name: Build Devcontainer
         run: |

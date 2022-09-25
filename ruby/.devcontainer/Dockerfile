@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-3
+ARG RUBY_VERSION
+
+FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-${RUBY_VERSION}
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \

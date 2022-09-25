@@ -1,7 +1,10 @@
 {
 	"name": "7 languages in 7 weeks: Ruby",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"args": {
+			"RUBY_VERSION": "3"
+		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
 	"settings": {

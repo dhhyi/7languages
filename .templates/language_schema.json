@@ -5,8 +5,7 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "language",
-        "devcontainer"
+        "language"
     ],
     "properties": {
         "language": {
@@ -37,9 +36,6 @@
         "devcontainer": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-                "name"
-            ],
             "properties": {
                 "name": {
                     "type": "string"

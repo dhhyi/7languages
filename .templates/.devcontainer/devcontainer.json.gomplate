@@ -1,6 +1,6 @@
 {{- $L := (datasource "language") -}}
 
-{{- $remoteUser := "vscode"}}{{ if (has $L.devcontainer "remoteUser")}}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
+{{- $remoteUser := "vscode"}}{{ if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") }}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
 
 {{- $settings := (datasource "vscodesettings") -}}
 {{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
@@ -13,10 +13,11 @@
 {{- end -}}
 
 {
-	"name": "{{ $L.devcontainer.name }}",
+	{{ if and (has $L "devcontainer") (has $L.devcontainer "name") }}"name": "{{ $L.devcontainer.name }}",
+	{{ end -}}
 	"build": {
 		"dockerfile": "Dockerfile"
-		{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
+		{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") }},
 		"args": {{ $L.devcontainer.build.args | data.ToJSONPretty "\t" | strings.Indent "\t\t" | strings.Trim "\t" }}
 		{{- end }}
 	},

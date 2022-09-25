@@ -1,12 +1,12 @@
 {{- $L := (datasource "language") -}}
 
 {{- $remoteUser := "vscode" -}}
-{{- if (has $L.devcontainer "remoteUser") -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") -}}
   {{- $remoteUser = $L.devcontainer.remoteUser -}}
 {{- end -}}
 
 {{- $from := "mcr.microsoft.com/vscode/devcontainers/base" -}}
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "base") -}}
   {{- $from = $L.devcontainer.build.base -}}
 {{- end -}}
 
@@ -14,16 +14,16 @@
 {{- if (has $L.language "binary") -}}
   {{- $packages = coll.Append "inotify-tools" $packages -}}
 {{- end -}}
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "packages") -}}
   {{- $packages = (coll.Append $packages $L.devcontainer.build.packages) | coll.Flatten -}}
 {{- end -}}
 
-{{- $insertHome := and (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
+{{- $insertHome := and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") ($L.devcontainer.build.user | strings.Contains "HOME") -}}
 
 {{- $fromArgs := slice -}}
 {{- $rootBuildArgs := slice -}}
 {{- $userBuildArgs := slice -}}
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "args") -}}
   {{- range $arg, $v := $L.devcontainer.build.args -}}
     {{- if and (has $L.devcontainer "build")
                (has $L.devcontainer.build "base")
@@ -64,7 +64,7 @@ ARG {{ . }}
 {{- end }}
 {{ end }}
 
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "root") }}
 {{ conv.Join $L.devcontainer.build.root "\n" }}
 {{ end }}
 
@@ -92,7 +92,7 @@ ARG {{ . }}
 {{- end }}
 {{ end }}
 
-{{- if and (has $L.devcontainer "build") (has $L.devcontainer.build "user") }}
+{{- if and (has $L "devcontainer") (has $L.devcontainer "build") (has $L.devcontainer.build "user") }}
 {{ conv.Join $L.devcontainer.build.user "\n" }}
 {{ end }}
 

@@ -1,5 +1,4 @@
 ---@diagnostic disable: undefined-global
-song = require 'notation'
 
 song.setTempo(30)
 

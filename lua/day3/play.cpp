@@ -77,7 +77,16 @@ int main(int argc, char *argv[])
     lua_pushcfunction(L, midi_send);
     lua_setglobal(L, "midi_send");
 
-    luaL_dofile(L, argv[1]);
+    luaL_dostring(L, "song = require 'notation'");
+
+    int ret = luaL_dofile(L, argv[1]);
+    if (ret != 0)
+    {
+        cerr << "Error occured when calling luaL_dofile(): " << ret << endl
+             << "Error" << lua_tostring(L, -1) << endl
+             << flush;
+        return -1;
+    }
 
     lua_close(L);
 

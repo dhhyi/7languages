@@ -38,6 +38,7 @@
 	},
 	"extensions": [
 		"sumneko.lua",
+		"bubuabu.busted-test-explorer",
 		"ms-vscode.cpptools-extension-pack",
 		"GitHub.copilot"
 	],

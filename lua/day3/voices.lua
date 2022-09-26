@@ -1,7 +1,6 @@
 ---@diagnostic disable: undefined-global
-notation = require 'notation'
 
-notation.play({
+song.play({
     D3q,
     A2q,
     B2q,

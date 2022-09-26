@@ -12,6 +12,7 @@ ADD http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz /tmp
 RUN cd /tmp && tar zxf lua-${LUA_VERSION}.tar.gz && cd lua-${LUA_VERSION} && make all test && make install
 ADD https://luarocks.org/releases/luarocks-${LUAROCKS_VERSION}.tar.gz /tmp
 RUN cd /tmp && tar zxpf luarocks-${LUAROCKS_VERSION}.tar.gz && cd luarocks-${LUAROCKS_VERSION} && ./configure && make && make install
+RUN luarocks install busted
 RUN git clone https://github.com/craigsapp/midifile /tmp/midifile
 RUN cd /tmp/midifile && make library
 RUN mkdir -p /usr/include/midifile && cp -Rfv /tmp/midifile/include/*.h /usr/include/midifile

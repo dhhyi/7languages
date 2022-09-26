@@ -1,0 +1,4 @@
+- Day 3
+  - actually play music in devcontainer
+  - compose adventure music
+  - volume control

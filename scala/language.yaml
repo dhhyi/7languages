@@ -24,7 +24,5 @@ vscode:
     "[scala]":
       editor.defaultFormatter: scalameta.metals
       editor.tabSize: 2
-    files.watcherExclude:
-      "**/target": true
   extensions:
     - scalameta.metals

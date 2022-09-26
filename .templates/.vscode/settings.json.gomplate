@@ -1,8 +1,0 @@
-{{- $L := (datasource "language") -}}
-
-{{- $settings := (datasource "vscodesettings") -}}
-{{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
-  {{ $settings = coll.Merge $settings $L.vscode.settings }}
-{{- end -}}
-
-{{ $settings | data.ToJSONPretty "\t" }}

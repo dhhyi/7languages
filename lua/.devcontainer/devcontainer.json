@@ -8,6 +8,34 @@
 		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"cmake.configureOnOpen": false,
+		"editor.formatOnSave": true,
+		"files.associations": {
+			"ostream": "cpp"
+		},
+		"files.exclude": {
+			".devcontainer": true,
+			".vscode": true,
+			"language.yaml": true
+		},
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"task.autoDetect": "off",
+		"terminal.integrated.defaultProfile.linux": "zsh",
+		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"args": [
+					"-l"
+				],
+				"path": "zsh"
+			}
+		}
+	},
 	"extensions": [
 		"sumneko.lua",
 		"ms-vscode.cpptools-extension-pack",

@@ -2,6 +2,11 @@
 
 {{- $remoteUser := "vscode"}}{{ if and (has $L "devcontainer") (has $L.devcontainer "remoteUser") }}{{ $remoteUser = $L.devcontainer.remoteUser }}{{ end -}}
 
+{{- $settings := (datasource "vscodesettings") -}}
+{{- if  and (has $L "vscode") (has $L.vscode "settings") -}}
+  {{ $settings = coll.Merge $settings $L.vscode.settings }}
+{{- end -}}
+
 {{- $extensions := coll.Slice "GitHub.copilot" -}}
 {{- if and (has $L "vscode") (has $L.vscode "extensions") -}}
   {{ $extensions = (coll.Append $extensions $L.vscode.extensions) | coll.Flatten }}
@@ -17,6 +22,7 @@
 		{{- end }}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",
+	"settings": {{ $settings | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
 	"extensions": {{ $extensions | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
 	"remoteUser": "{{ $remoteUser }}"
 }

@@ -6,4 +6,4 @@ end
 
 print "playing note"
 
-play(60)
+play(60, 4)

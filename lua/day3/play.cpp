@@ -17,7 +17,7 @@ static MidiFile midifile;
 
 static int track = 0;
 static int channel = 0;
-static int position = 0;
+static double position = 0;
 
 int midi_send(lua_State *L)
 {

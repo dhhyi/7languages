@@ -29,6 +29,8 @@ devcontainer:
 vscode:
   settings:
     cmake.configureOnOpen: false
+    files.associations:
+      ostream: cpp
   extensions:
     - sumneko.lua
     - ms-vscode.cpptools-extension-pack

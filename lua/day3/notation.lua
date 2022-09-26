@@ -9,6 +9,10 @@ end
 
 local tempo = 60
 
+local function setTempo(v)
+    tempo = v
+end
+
 local function duration(value)
     local quarter = 60 / tempo
     local durations = {
@@ -17,7 +21,10 @@ local function duration(value)
     return durations[value] * quarter
 end
 
-local function parseNotes(t)
+local function parse_note(t)
+    if (type(t) == "table") then
+        return t
+    end
     local letter, octave, value = t:match("([A-Gs]+)(%d+)(%a+)")
     if not (letter and octave and value) then
         return nil
@@ -28,19 +35,30 @@ local function parseNotes(t)
     }
 end
 
+setmetatable(_G, {
+    __index = function(t, s)
+        local result = parse_note(s)
+        return result or rawget(t, s)
+    end
+})
+
 local VELOCITY = 0x7f
 
-local function play(notes)
-    for i = 1, #notes do
-        local symbol = parseNotes(notes[i])
-        if symbol then
-            midi_send(symbol.note, VELOCITY, symbol.duration)
-        else
-            print('Invalid note number ' .. i)
+local function play(...)
+    local sheets = { ... }
+    for s, notes in ipairs(sheets) do
+        for n = 1, #notes do
+            local symbol = parse_note(notes[n])
+            if symbol then
+                midi_send(s, symbol.note, VELOCITY, symbol.duration)
+            else
+                print('Invalid note number ' .. n)
+            end
         end
     end
 end
 
 return {
-    play = play
+    play = play,
+    setTempo = setTempo
 }

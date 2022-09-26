@@ -2,11 +2,10 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
-	"[scala]": {
-		"editor.defaultFormatter": "scalameta.metals",
-		"editor.tabSize": 2
-	},
 	"editor.formatOnSave": true,
+	"files.associations": {
+		"*.pl": "prolog"
+	},
 	"files.exclude": {
 		".devcontainer": true,
 		".vscode": true,
@@ -15,9 +14,6 @@
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
 	"files.trimTrailingWhitespace": true,
-	"files.watcherExclude": {
-		"**/target": true
-	},
 	"task.autoDetect": "off",
 	"terminal.integrated.defaultProfile.linux": "zsh",
 	"terminal.integrated.profiles.linux": {

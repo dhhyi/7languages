@@ -32,7 +32,7 @@ set -o pipefail
 
 trap 'docker rm -f gomplate-container >/dev/null' EXIT INT TERM
 
-docker run --rm --name gomplate-container -d --entrypoint "" -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro -v $PWD/.templates/.devcontainer/vscode.default.settings.json:/vscode.default.settings.json:ro hairyhenderson/gomplate:alpine sh -c 'while [ true ] ; do sleep 10 ; echo "PING" ; done'
+docker run --rm --name gomplate-container -d --entrypoint "" -v $PWD/{{ $folder }}/language.yaml:/language.yaml:ro -v $PWD/.templates/.vscode/settings.json:/vscode.default.settings.json:ro hairyhenderson/gomplate:alpine sh -c 'while [ true ] ; do sleep 10 ; echo "PING" ; done'
 
 gomplate="docker exec -i -e GOMPLATE_SUPPRESS_EMPTY=true -e FOLDER={{ $folder }} gomplate-container gomplate -d language=/language.yaml -d vscodesettings=/vscode.default.settings.json -f -"
 
@@ -60,6 +60,9 @@ mkdir -p {{ $folder }}/.devcontainer
 {{ tmpl.Exec "GENERATE" (dict "out" ".devcontainer/selftest.sh") }}
 
 mkdir -p {{ $folder }}/.vscode
+
+{{ tmpl.Exec "DELETE" ".vscode/settings.json" }}
+{{ tmpl.Exec "GENERATE" (dict "out" ".vscode/settings.json") }}
 
 {{ tmpl.Exec "DELETE" ".vscode/tasks.json" }}
 {{ tmpl.Exec "GENERATE" (dict "out" ".vscode/tasks.json") }}

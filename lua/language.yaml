@@ -13,6 +13,11 @@ devcontainer:
       LUAROCKS_VERSION: 3.9.1
     packages:
       - build-essential
+      - cmake
+      - librtmidi5
+      - librtmidi-dev
+      - zynaddsubfx
+      - pulseaudio-utils
     root:
       - ADD http://www.lua.org/ftp/lua-${LUA_VERSION}.tar.gz /tmp
       - RUN cd /tmp && tar zxf lua-${LUA_VERSION}.tar.gz && cd lua-${LUA_VERSION} && make all test && make install
@@ -22,3 +27,4 @@ devcontainer:
 vscode:
   extensions:
     - sumneko.lua
+    - ms-vscode.cpptools-extension-pack

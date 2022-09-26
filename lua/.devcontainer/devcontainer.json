@@ -34,6 +34,7 @@
 	},
 	"extensions": [
 		"sumneko.lua",
+		"ms-vscode.cpptools-extension-pack",
 		"GitHub.copilot"
 	],
 	"remoteUser": "vscode"

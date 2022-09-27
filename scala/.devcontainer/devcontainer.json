@@ -25,6 +25,9 @@
 		"files.insertFinalNewline": true,
 		"files.trimFinalNewlines": true,
 		"files.trimTrailingWhitespace": true,
+		"files.watcherExclude": {
+			"**/target": true
+		},
 		"task.autoDetect": "off",
 		"terminal.integrated.defaultProfile.linux": "zsh",
 		"terminal.integrated.profiles.linux": {

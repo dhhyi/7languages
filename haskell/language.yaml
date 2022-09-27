@@ -34,5 +34,5 @@ vscode:
     module Main where
 
     main = do
-      putStrLn \"----------------\"
+      putStrLn "----------------"
       $1

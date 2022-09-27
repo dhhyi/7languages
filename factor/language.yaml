@@ -25,6 +25,6 @@ vscode:
   script: |
     USING: io kernel math prettyprint ;
 
-    \"------------------------\" print
+    "------------------------" print
 
     $1

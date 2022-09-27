@@ -28,6 +28,6 @@ vscode:
   script: |
     (ns ${TM_FILENAME/^(.*).clj$/$1/}
       (:gen-class))
-    (println \"----------------\")
+    (println "----------------")
 
     $1

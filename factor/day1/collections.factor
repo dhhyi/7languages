@@ -1,4 +1,4 @@
-USING: io kernel math math.intervals prettyprint sequences assocs ;
+USING: arrays io kernel math math.intervals prettyprint sequences assocs ;
 
 "------------------------" print
 
@@ -11,3 +11,8 @@ USING: io kernel math math.intervals prettyprint sequences assocs ;
 { { "one" 1 } { "two" 2 } { "three" 3 } } "two" of .
 
 5 10 [a,b] .
+
+1 2 3 4 4array .
+1 2 3 4 4array { 1 2 3 4 } = .
+
+2 { 5 6 7 8 } nth .

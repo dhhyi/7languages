@@ -9,7 +9,13 @@
 {{- end -}}
 {{- $tasks := coll.Slice -}}
 {{- if (has $L.language "binary") -}}
-  {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" "cont ${file}"))) $tasks -}}
+  {{- $command := slice $L.language.binary -}}
+  {{- if has $L.language "binaryArgs" -}}
+    {{- $command = coll.Append $L.language.binaryArgs $command -}}
+  {{- end -}}
+  {{- $command = coll.Prepend "cont '${fileDirname}/**'" $command -}}
+  {{- $command = coll.Append "${file}" $command -}}
+  {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" (conv.Join $command " ")))) $tasks -}}
 {{- end -}}
 {{- if (has $L.language "repl") -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Start REPL" "command" $L.language.repl))) $tasks -}}

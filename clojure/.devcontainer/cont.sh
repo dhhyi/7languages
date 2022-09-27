@@ -1,13 +1,18 @@
 #!/bin/sh
 
-file="$1"
+[ -z "$*" ] && echo "Usage: $0 <watch> <command>..." && exit 1
 
-[ -z "$file" ] && echo "Usage: $0 <file>" && exit 1
-[ ! -f "$file" ] && echo "File not found: $file" && exit 1
+if [ "$#" -eq "1" ]
+then
+    watch=$1
+    command="clojure -M $1"
+else
+    watch="$1"
+    shift
+    command="$*"
+fi
 
-run () {
-    clojure -M "$file"
-}
+echo "continuously running '$command' watching '$watch'"
 
-run
-while inotifywait -qq -e close_write "$file"; do run; done
+$command
+while inotifywait -qq -e close_write $watch; do $command; done

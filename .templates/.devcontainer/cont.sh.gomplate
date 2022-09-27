@@ -1,16 +1,27 @@
 {{- $L := (datasource "language") -}}
 {{- if (has $L.language "binary") -}}
+
+{{- $command := slice $L.language.binary -}}
+{{- if has $L.language "binaryArgs" -}}
+{{- $command = coll.Append $L.language.binaryArgs $command -}}
+{{- end -}}
+
 #!/bin/sh
 
-file="$1"
+[ -z "$*" ] && echo "Usage: $0 <watch> <command>..." && exit 1
 
-[ -z "$file" ] && echo "Usage: $0 <file>" && exit 1
-[ ! -f "$file" ] && echo "File not found: $file" && exit 1
+if [ "$#" -eq "1" ]
+then
+    watch=$1
+    command="{{ conv.Join $command " " }} $1"
+else
+    watch="$1"
+    shift
+    command="$*"
+fi
 
-run () {
-    {{ $L.language.binary }}{{ if (has $L.language "binaryArgs") }} {{ $L.language.binaryArgs }}{{ end }} "$file"
-}
+echo "continuously running '$command' watching '$watch'"
 
-run
-while inotifywait -qq -e close_write "$file"; do run; done
+$command
+while inotifywait -qq -e close_write $watch; do $command; done
 {{- end }}

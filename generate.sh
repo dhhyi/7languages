@@ -14,14 +14,43 @@ set -o pipefail
 [ ! -d "$1" ] && echo "Error: $1 is not a folder" && exit 1
 [ ! -f "$1/language.yaml" ] && echo "Error: $1/language.yaml does not exist" && exit 1
 
-npx pajv validate -s .templates/language_schema.json -d $1/language.yaml --errors=text --verbose
+export FOLDER=$1
 
-GOMPLATE_IMAGE=hairyhenderson/gomplate:stable
+if [ ! -d node_modules ]
+then
+    echo "Installing dependencies..."
+    npm i --no-save gomplate pajv &> /dev/null
+fi
 
-docker inspect "$GOMPLATE_IMAGE" >/dev/null || docker pull "$GOMPLATE_IMAGE"
+pajv=$(find node_modules -name pajv -type l -print | head -n 1)
+[ -z "$pajv" ] && echo "Error: could not install pajv" && exit 1
 
-cat .templates/generate.sh.gomplate | docker run --rm -i -e FOLDER=$1 -v $PWD/$1/language.yaml:/language.yaml:ro $GOMPLATE_IMAGE -d language=/language.yaml -f - > $1/generate.sh~
+gomplate=$(find node_modules -name gomplate -type f -print | head -n 1)
+[ -z "$gomplate" ] && echo "Error: could not install gomplate" && exit 1
 
-bash $1/generate.sh~
+
+$pajv validate -s .templates/language_schema.json -d $FOLDER/language.yaml --errors=text --verbose
+
+
+echo "Generating $FOLDER"
+
+find .templates -type f -name "*.gomplate" | while read -r template
+do
+    file=$(echo "$template" | sed -e 's/^.templates//g' -e 's/\.gomplate$//g')
+    if [ -f "$FOLDER$file" ]
+    then
+        rm "$FOLDER$file"
+    fi
+done
+
+export GOMPLATE_SUPPRESS_EMPTY=true
+
+$gomplate --input-dir .templates \
+          --include "**/*.gomplate" \
+          --output-map=$FOLDER'/{{ .in | strings.TrimSuffix ".gomplate" }}' \
+          -d language=$FOLDER/language.yaml \
+          -d vscodesettings=.templates/.devcontainer/vscode.default.settings.json
+
+mv -f $FOLDER/workflow.yml .github/workflows/$FOLDER.yml
 
 echo "Done"

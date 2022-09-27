@@ -7,16 +7,7 @@ on:
       - .github/workflows/scala.yml
 
 jobs:
-  CancelPrevious:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Old Pipeline
-        uses: rokroskar/workflow-run-cleanup-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   BuildDevcontainer:
-    needs: [CancelPrevious]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

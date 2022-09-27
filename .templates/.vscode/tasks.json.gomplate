@@ -13,7 +13,7 @@
   {{- if has $L.language "binaryArgs" -}}
     {{- $command = coll.Append $L.language.binaryArgs $command -}}
   {{- end -}}
-  {{- $command = coll.Prepend "cont '${fileDirname}/**'" $command -}}
+  {{- $command = coll.Prepend "cont ${fileDirname}" $command -}}
   {{- $command = coll.Append "${file}" $command -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" (conv.Join $command " ")))) $tasks -}}
 {{- end -}}

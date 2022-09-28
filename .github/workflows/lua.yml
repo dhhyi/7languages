@@ -3,8 +3,10 @@ name: lua
 on:
   push:
     paths:
+      - lua/language.yaml
       - lua/.devcontainer/**
       - .github/workflows/lua.yml
+      - .templates/**
 
 jobs:
   BuildDevcontainer:
@@ -12,6 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Generate Devcontainer
+        run: bash generate.sh lua
 
       - name: Build Devcontainer
         run: |

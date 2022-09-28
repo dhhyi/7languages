@@ -1,6 +1,15 @@
 node_modules
 *~
 
+# generated
+/*/.devcontainer/cont.sh
+/*/.devcontainer/devcontainer.json
+/*/.devcontainer/disclaimer.sh
+/*/.devcontainer/Dockerfile
+/*/.devcontainer/selftest.sh
+/*/.vscode/tasks.json
+/*/.vscode/vscode.code-snippets
+
 # for testing
 /.github/workflows/new.yml
 /new

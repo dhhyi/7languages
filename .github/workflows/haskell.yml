@@ -3,8 +3,10 @@ name: haskell
 on:
   push:
     paths:
+      - haskell/language.yaml
       - haskell/.devcontainer/**
       - .github/workflows/haskell.yml
+      - .templates/**
 
 jobs:
   BuildDevcontainer:
@@ -12,6 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Generate Devcontainer
+        run: bash generate.sh haskell
 
       - name: Build Devcontainer
         run: |

@@ -3,8 +3,10 @@ name: clojure
 on:
   push:
     paths:
+      - clojure/language.yaml
       - clojure/.devcontainer/**
       - .github/workflows/clojure.yml
+      - .templates/**
 
 jobs:
   BuildDevcontainer:
@@ -12,6 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Generate Devcontainer
+        run: bash generate.sh clojure
 
       - name: Build Devcontainer
         run: |

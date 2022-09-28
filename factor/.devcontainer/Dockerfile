@@ -18,5 +18,10 @@ COPY disclaimer.sh selftest.sh /
 RUN chmod +x /disclaimer.sh /selftest.sh
 
 USER vscode
+ENV HOME=/home/vscode
+
+ARG WORKSPACE
+
+RUN echo ${WORKSPACE} > ${HOME}/.factor-roots
 
 RUN echo 'export PS1="$ "' >> $HOME/.bashrc && echo '\nexport PS1="$ "' >> $HOME/.zshrc

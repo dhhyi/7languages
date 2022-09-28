@@ -3,7 +3,8 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"FACTOR_VERSION": "0.98"
+			"FACTOR_VERSION": "0.98",
+			"WORKSPACE": "${containerWorkspaceFolder}"
 		}
 	},
 	"postAttachCommand": "sh /disclaimer.sh",

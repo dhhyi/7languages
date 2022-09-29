@@ -22,6 +22,18 @@ fi
 
 echo "continuously running '$command' watching '$watch'"
 
-$command
-while inotifywait -qq -e close_write $watch; do $command; done
+inotifywait -q -m -e close_write,create --recursive $watch | \
+  (
+    while
+        if [ ! -z "$PID" ] && ps -p $PID > /dev/null
+        then
+            kill -9 $PID
+        fi
+        $command <&1 &
+        PID=$!
+        read -r filename event
+    do
+        :
+    done
+  )
 {{- end }}

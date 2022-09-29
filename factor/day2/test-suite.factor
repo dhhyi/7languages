@@ -2,6 +2,7 @@ USING: tools.test io io.streams.null kernel namespaces sequences prettyprint ;
 
 USE: day2.greeter
 USE: day2.strings
+USE: day2.sequences
 
 IN: test-suite
 

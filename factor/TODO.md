@@ -1,2 +1,5 @@
 - Day 2
   - test-suite output + interactive
+- Day 3
+  - extending tuples
+  - GUI for test-suite

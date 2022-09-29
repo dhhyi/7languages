@@ -10,8 +10,14 @@ TUPLE: cart-item name price quantity ;
 : <one-cart-item> ( -- cart-item )
     T{ cart-item { quantity 1 } } ;
 
+: <book-cart-item> ( price -- cart-item )
+    "book" swap 1 cart-item boa ;
+
 : <cart-item> ( name price quantity -- cart-item )
     cart-item boa ;
+
+: rebate ( cart-item rebate -- cart-item )
+    swap [ swap * ] change-price ;
 
 TUPLE: checkout item-count base-price taxes shipping total-price ;
 
@@ -59,6 +65,3 @@ CONSTANT: per-item-shipping 1.0
 : total ( checkout -- total )
     dup
     [ base-price>> ] [ taxes>> ] [ shipping>> ] tri + + >>total-price ;
-
-: sample-checkout ( checkout -- checkout )
-    [ gst-pst ] taxes [ per-item ] shipping total ;

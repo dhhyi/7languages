@@ -1,63 +1,17 @@
-USING: io kernel prettyprint ;
+USING: io kernel tools.test ;
 
-"------------------------" print
+{ 1 2 3 4 4 } [ 1 2 3 4 dup ] unit-test
 
-1 2 3 4
-get-datastack .
-clear
+{ 1 2 3 4 3 } [ 1 2 3 4 over ] unit-test
 
-"------------------------dup" print
+{ 1 2 3 4 2 } [ 1 2 3 4 pick ] unit-test
 
-1 2 3 4 dup
+{ 1 2 3 } [ 1 2 3 4 drop ] unit-test
 
-get-datastack .
-clear
+{ 1 2 4 } [ 1 2 3 4 nip ] unit-test
 
-"------------------------over" print
+{ 1 2 4 3 } [ 1 2 3 4 swap ] unit-test
 
-1 2 3 4 over
+{ 1 3 4 2 } [ 1 2 3 4 rot ] unit-test
 
-get-datastack .
-clear
-
-"------------------------pick" print
-
-1 2 3 4 pick
-
-get-datastack .
-clear
-
-"------------------------drop" print
-
-1 2 3 4 drop
-
-get-datastack .
-clear
-
-"------------------------nip" print
-
-1 2 3 4 nip
-
-get-datastack .
-clear
-
-"------------------------swap" print
-
-1 2 3 4 swap
-
-get-datastack .
-clear
-
-"------------------------rot" print
-
-1 2 3 4 rot
-
-get-datastack .
-clear
-
-"------------------------rot rot" print
-
-1 2 3 4 rot rot
-
-get-datastack .
-clear
+{ 1 4 2 3 } [ 1 2 3 4 rot rot ] unit-test

@@ -34,3 +34,6 @@ vscode:
     "------------------------" print
 
     $1
+  tasks:
+    - label: Deploy vocabulary
+      command: deploy-factor-vocab ${relativeFileDirname}

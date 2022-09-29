@@ -9,7 +9,7 @@ if [ -z "$factor" ]; then
     exit 1
 fi
 
-vocab=$1
+vocab=$(echo $1 | sed 's/\//./g')
 
 if [ -z "$vocab" ]; then
     echo "Usage: $0 <vocab>"

@@ -1,4 +1,4 @@
-USING: io interpolate kernel math math.parser namespaces prettyprint random sequences ;
+USING: io kernel math math.parser namespaces random sequences ;
 IN: day2.numberguess
 
 SYMBOL: tries
@@ -29,7 +29,6 @@ SYMBOL: tries
 : start ( -- )
     10 tries set
     100 random 1 +
-    dup . flush
     "Guess the number between 1 and 100" print flush
 
     dup guess

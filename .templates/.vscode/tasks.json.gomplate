@@ -16,6 +16,9 @@
   {{- $command = coll.Prepend "cont ${fileDirname}" $command -}}
   {{- $command = coll.Append "${file}" $command -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously" "command" (conv.Join $command " ")))) $tasks -}}
+
+  {{- $command = coll.Append "${input:arguments}" $command -}}
+  {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Run file continuously with arguments" "command" (conv.Join $command " ")))) $tasks -}}
 {{- end -}}
 {{- if (has $L.language "repl") -}}
   {{- $tasks = coll.Append (data.JSON (tmpl.Exec "TASK" (dict "label" "Start REPL" "command" $L.language.repl))) $tasks -}}
@@ -31,4 +34,13 @@
 	// for the documentation about the tasks.json format
 	"version": "2.0.0",
 	"tasks": {{ $tasks | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }}
+	{{- if (has $L.language "binary") }},
+	"inputs": [
+		{
+			"type": "promptString",
+			"id": "arguments",
+			"description": "Arguments.",
+			"default": "1 2 3 4 5"
+		}
+	]{{ end }}
 }{{ end }}

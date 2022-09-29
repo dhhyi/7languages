@@ -3,7 +3,7 @@ language:
   binary: factor
   binaryArgs: -run
   repl: factor
-  version: factor </dev/null ; echo
+  version: false
 devcontainer:
   name: "7 more languages in 7 weeks: Factor"
   build:

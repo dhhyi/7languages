@@ -28,7 +28,19 @@
                     "type": "string"
                 },
                 "version": {
-                    "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "boolean",
+                            "not": {
+                                "enum": [
+                                    true
+                                ]
+                            }
+                        }
+                    ]
                 }
             }
         },

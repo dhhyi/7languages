@@ -1,0 +1,2 @@
+- Day 2
+  - numberguess doesn't deploy (`You have triggered a bug in Factor.`)

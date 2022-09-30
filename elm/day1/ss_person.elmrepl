@@ -1,0 +1,6 @@
+p1 = { name = "John", age = Just 22, address = { city = "Berlin" } }
+p2 = { name = "Amy", age = Just 25, address = { city = "Bonn" } }
+p3 = { name = "Phil", age = Just 13, address = { city = "Erfurt" } }
+p4 = { name = "Emma", age = Nothing, address = { city = "Erfurt" } }
+
+List.filter (\p -> Maybe.withDefault 0 p.age > 16) [p1,p2,p3,p4]

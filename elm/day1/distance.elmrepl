@@ -1,0 +1,10 @@
+somePoint = { x = 5, y = 4 }
+
+# xDist point = abs point.x
+xDist { x } = abs x
+
+xDist somePoint
+
+someOtherPoint = { x = 5, y = 4, z = 3 }
+
+xDist someOtherPoint

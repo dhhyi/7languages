@@ -1,0 +1,5 @@
+multiply x y = x * y
+
+List.foldl multiply 1 [2,2,2]
+
+(multiply 6) 9

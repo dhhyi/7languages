@@ -1,0 +1,15 @@
+add x y = x + y
+double x = 2 * x
+
+double(add 1 2)
+
+anonymousInc = \x -> x + 1
+
+List.map anonymousInc [1,2,3]
+
+5 |> anonymousInc |> double
+double <| anonymousInc <| 5
+
+List.map double (List.range 1 5)
+
+List.filter (\x -> x < 5) (List.range 1 20)

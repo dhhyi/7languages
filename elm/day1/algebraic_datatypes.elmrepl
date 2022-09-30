@@ -1,0 +1,9 @@
+type Color = Black | White
+type Piece = Pawn | Knight | Bishop | Rook | Queen | King
+type ChessPiece = CP Color Piece
+
+piece = CP Black Queen
+
+case piece of \
+CP White _ -> White \
+CP Black _ -> Black

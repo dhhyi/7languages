@@ -7,9 +7,22 @@ script=$1
     sleep 2
     cat $script | egrep -v "^#" | while read -r line
     do
-        echo "$line" >&2
-        echo "$line"
-        sleep 1
+        if echo "$line" | egrep -q '\\$'
+        then
+            echo -n "$line" | sed -e 's/.$//' >>/tmp/buffer
+        else
+            if [ -s /tmp/buffer ]
+            then
+                echo -n "$line" >>/tmp/buffer
+                cat /tmp/buffer >&2
+                cat /tmp/buffer
+                rm /tmp/buffer
+            else
+                echo "$line" >&2
+                echo "$line"
+            fi
+            sleep 1
+        fi
     done
     echo
     sleep 1

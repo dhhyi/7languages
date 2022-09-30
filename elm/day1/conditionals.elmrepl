@@ -1,0 +1,19 @@
+x = 0
+if x < 0 then "too small" else "ok"
+
+if x < 0 then \
+  "too small" \
+else "ok"
+
+x = 5
+
+if x > 0 then "too big" \
+else if x < 0 then "too small" \
+else "just right"
+
+list = [1,2,3]
+case list of \\\n
+  head::tail -> tail \\\n
+  [] -> []
+
+#

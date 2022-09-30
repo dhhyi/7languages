@@ -1,0 +1,7 @@
+p1 = { x = 5, y = 3 }
+p2 = { x = 2, y = 9 }
+p3 = { x = 8, y = 1 }
+
+toX { x } = x
+
+List.map toX [p1,p2,p3]

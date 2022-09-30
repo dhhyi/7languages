@@ -1,0 +1,16 @@
+type Color = Black | White
+type Piece = Pawn | Knight | Bishop | Rook | Queen | King
+
+blackQueen = { color = Black, piece = Queen }
+
+# blackQueen.color
+# .color blackQueen
+
+whiteQueen = { blackQueen | color = White }
+
+position = { colum = "d", row = 1 }
+
+# homeWhiteQueen = { whiteQueen | position = position }
+homeWhiteQueen = { color = White, piece = Queen, position = position }
+
+# colorAndPosition = { homeWhiteQueen - piece }

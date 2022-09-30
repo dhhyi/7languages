@@ -23,8 +23,5 @@ jobs:
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder clojure --image-name clojure-devcontainer
 
-      - name: Show Disclaimer
-        run: docker run --rm clojure-devcontainer sh /disclaimer.sh
-
       - name: Run Selftest
         run: docker run --rm clojure-devcontainer sh /selftest.sh

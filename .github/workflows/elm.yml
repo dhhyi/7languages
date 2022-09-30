@@ -23,8 +23,5 @@ jobs:
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder elm --image-name elm-devcontainer
 
-      - name: Show Disclaimer
-        run: docker run --rm elm-devcontainer sh /disclaimer.sh
-
       - name: Run Selftest
         run: docker run --rm elm-devcontainer sh /selftest.sh

@@ -23,8 +23,5 @@ jobs:
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder factor --image-name factor-devcontainer
 
-      - name: Show Disclaimer
-        run: docker run --rm factor-devcontainer sh /disclaimer.sh
-
       - name: Run Selftest
         run: docker run --rm factor-devcontainer sh /selftest.sh

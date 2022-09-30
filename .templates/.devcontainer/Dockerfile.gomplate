@@ -74,8 +74,8 @@ RUN chmod +x /usr/local/bin/cont
 {{ end }}
 
 {{- "" }}
-COPY disclaimer.sh selftest.sh /
-RUN chmod +x /disclaimer.sh /selftest.sh
+COPY selftest.sh /
+RUN chmod +x /selftest.sh
 {{ "" }}
 
 {{- "" }}

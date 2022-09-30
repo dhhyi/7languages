@@ -21,7 +21,7 @@
 		"args": {{ $L.devcontainer.build.args | data.ToJSONPretty "\t" | strings.Indent "\t\t" | strings.Trim "\t" }}
 		{{- end }}
 	},
-	"postAttachCommand": "sh /disclaimer.sh",
+	"postAttachCommand": "sh ${containerWorkspaceFolder}/.devcontainer/disclaimer.sh",
 	"settings": {{ $settings | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
 	"extensions": {{ $extensions | data.ToJSONPretty "\t" | strings.Indent "\t" | strings.Trim "\t" }},
 	"remoteUser": "{{ $remoteUser }}"

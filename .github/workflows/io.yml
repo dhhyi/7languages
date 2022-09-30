@@ -23,8 +23,5 @@ jobs:
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder io --image-name io-devcontainer
 
-      - name: Show Disclaimer
-        run: docker run --rm io-devcontainer sh /disclaimer.sh
-
       - name: Run Selftest
         run: docker run --rm io-devcontainer sh /selftest.sh

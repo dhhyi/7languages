@@ -18,13 +18,22 @@
 {{ end -}}
 
 echo
-cat <<EOF
+
 {{- if (has $L.language "repl") }}
-Use the command "{{ $L.language.repl }}" to start a REPL.
-{{- end }}
-{{- if (has $L.language "binary") }}
-Use the command "cont <script>" to continuously evaluate a given script.
+echo "Use the command '{{ $L.language.repl }}' to start a REPL."
 {{- end }}
 
-Alternatively you can use the VSCode tasks.
-EOF
+{{- if (has $L.language "binary") }}
+echo "Use the command 'cont <script>' to continuously evaluate a given script."
+{{- end }}
+
+
+vscode=$(dirname $(dirname $0))/.vscode/tasks.json
+if [ -f "$vscode" ]
+echo
+echo "Alternatively you can use the VSCode tasks:"
+then
+    cat $vscode | egrep -v '^\s*\/\/.*' | jq -r ".tasks [] .label" | while read label; do
+        echo "- $label"
+    done
+fi

@@ -23,8 +23,5 @@ jobs:
           npm install -g @devcontainers/cli
           devcontainer build --workspace-folder ruby --image-name ruby-devcontainer
 
-      - name: Show Disclaimer
-        run: docker run --rm ruby-devcontainer sh /disclaimer.sh
-
       - name: Run Selftest
         run: docker run --rm ruby-devcontainer sh /selftest.sh

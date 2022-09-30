@@ -1,7 +1,7 @@
 Workdays = {}
 
-function Workdays:new(year, holidays)
-    local o = { year = year, holidays = holidays or {} }
+function Workdays:new(year, holidays, month)
+    local o = { year = year, holidays = holidays or {}, month = month or nil }
     setmetatable(o, self)
     self.__index = self
     return o
@@ -66,11 +66,18 @@ end
 function Workdays:__len()
     local workdays = 0
     for _, day in pairs(self) do
-        if self:isWorkDay(day.month, day.day) then
+        if (self.month == nil or self.month == day.month) and self:isWorkDay(day.month, day.day) then
             workdays = workdays + 1
         end
     end
     return workdays
+end
+
+function Workdays:__call(month)
+    if not (month >= 1 and month <= 12) then
+        return nil
+    end
+    return Workdays:new(self.year, self.holidays, month)
 end
 
 function Workdays:__tostring()

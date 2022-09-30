@@ -31,6 +31,29 @@ describe('Workdays', function()
         it('should stringify', function()
             assert.same("Year 2022 with 253 work days", tostring(wd))
         end)
+
+        it('should calculate working days for months', function()
+            assert.same(21, #wd(1))
+            assert.same(20, #wd(2))
+            assert.same(23, #wd(3))
+            assert.same(19, #wd(4))
+            assert.same(21, #wd(5))
+            assert.same(21, #wd(6))
+            assert.same(21, #wd(7))
+            assert.same(23, #wd(8))
+            assert.same(21, #wd(9))
+            assert.same(19, #wd(10))
+            assert.same(22, #wd(11))
+            assert.same(22, #wd(12))
+        end)
+
+        it('should have the same value for a year when adding the onths', function()
+            local sum = 0
+            for i = 1, 12 do
+                sum = sum + #wd(i)
+            end
+            assert.same(#wd, sum)
+        end)
     end)
 
     describe(2021, function()
@@ -63,6 +86,29 @@ describe('Workdays', function()
         it('should stringify', function()
             assert.same("Year 2021 with 255 work days", tostring(wd))
         end)
+
+        it('should calculate working days for months', function()
+            assert.same(20, #wd(1))
+            assert.same(20, #wd(2))
+            assert.same(23, #wd(3))
+            assert.same(20, #wd(4))
+            assert.same(19, #wd(5))
+            assert.same(22, #wd(6))
+            assert.same(22, #wd(7))
+            assert.same(22, #wd(8))
+            assert.same(21, #wd(9))
+            assert.same(21, #wd(10))
+            assert.same(22, #wd(11))
+            assert.same(23, #wd(12))
+        end)
+
+        it('should have the same value for a year when adding the onths', function()
+            local sum = 0
+            for i = 1, 12 do
+                sum = sum + #wd(i)
+            end
+            assert.same(#wd, sum)
+        end)
     end)
 
     describe(2020, function()
@@ -94,6 +140,29 @@ describe('Workdays', function()
 
         it('should stringify', function()
             assert.same("Year 2020 with 256 work days", tostring(wd))
+        end)
+
+        it('should calculate working days for months', function()
+            assert.same(22, #wd(1))
+            assert.same(20, #wd(2))
+            assert.same(22, #wd(3))
+            assert.same(20, #wd(4))
+            assert.same(19, #wd(5))
+            assert.same(21, #wd(6))
+            assert.same(23, #wd(7))
+            assert.same(21, #wd(8))
+            assert.same(22, #wd(9))
+            assert.same(22, #wd(10))
+            assert.same(21, #wd(11))
+            assert.same(23, #wd(12))
+        end)
+
+        it('should have the same value for a year when adding the onths', function()
+            local sum = 0
+            for i = 1, 12 do
+                sum = sum + #wd(i)
+            end
+            assert.same(#wd, sum)
         end)
     end)
 end)

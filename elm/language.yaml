@@ -9,7 +9,9 @@ devcontainer:
       NODE_VERSION: "16"
     base: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${NODE_VERSION}
     root:
-      - RUN npm i -g elm elm-test elm-format elm-review
+      - RUN npm i -g elm elm-test elm-format elm-review onchange
+      - COPY run-in-elm-repl.sh /usr/local/bin
+      - RUN chmod +x /usr/local/bin/run-in-elm-repl.sh
   remoteUser: node
   selftest: |
     cat >/tmp/helloworld.elm <<EOF
@@ -24,3 +26,6 @@ devcontainer:
 vscode:
   extensions:
     - Elmtooling.elm-ls-vscode
+  tasks:
+    - label: Run file in Elm REPL
+      command: onchange ${file} -ik -- run-in-elm-repl.sh ${file}

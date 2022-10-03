@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - io/language.yaml
-      - io/.devcontainer/**
       - .github/workflows/io.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

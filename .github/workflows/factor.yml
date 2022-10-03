@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - factor/language.yaml
-      - factor/.devcontainer/**
       - .github/workflows/factor.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - erlang/language.yaml
-      - erlang/.devcontainer/**
       - .github/workflows/erlang.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - lua/language.yaml
-      - lua/.devcontainer/**
       - .github/workflows/lua.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

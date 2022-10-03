@@ -1,25 +1,3 @@
-language:
-  name: prolog
-  repl: gprolog
-  version: gprolog --version
+extends: dcc://prolog
 devcontainer:
   name: "7 languages in 7 weeks: Prolog"
-  build:
-    args:
-      PROLOG_VERSION: 1.5.0
-    packages:
-      - build-essential
-    root:
-      - ADD http://www.gprolog.org/gprolog-${PROLOG_VERSION}.tar.gz /tmp
-      - RUN cd /tmp && tar -xvvf gprolog-${PROLOG_VERSION}.tar.gz
-      - RUN cd /tmp/gprolog-${PROLOG_VERSION}/src && ./configure && make && make install && make check
-  selftest: gprolog --query-goal "write('Hello World!\n'),halt"
-vscode:
-  settings:
-    files.associations:
-      "*.pl": prolog
-  extensions:
-    - rebornix.prolog
-  tasks:
-    - label: Start REPL on current file
-      command: gprolog --consult-file ${file}

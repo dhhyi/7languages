@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - clojure/language.yaml
-      - clojure/.devcontainer/**
       - .github/workflows/clojure.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

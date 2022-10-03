@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - prolog/language.yaml
-      - prolog/.devcontainer/**
       - .github/workflows/prolog.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

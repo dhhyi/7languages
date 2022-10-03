@@ -3,7 +3,7 @@
 MYSHELL=`ps -hp $$ | awk '{print $5}'`
 if [ "$(basename $MYSHELL)" != "bash" ]
 then
-    echo "script it written for bash only, detected $MYSHELL"
+    echo "script is written for bash only, detected $MYSHELL"
     exit 1
 fi
 
@@ -16,41 +16,38 @@ set -o pipefail
 
 export FOLDER=$1
 
-if [ ! -d node_modules ]
-then
-    echo "Installing dependencies..."
-    npm i --no-save gomplate pajv &> /dev/null
-fi
-
-pajv=$(find node_modules -name pajv -type l -print | head -n 1)
-[ -z "$pajv" ] && echo "Error: could not install pajv" && exit 1
-
-gomplate=$(find node_modules -name gomplate -type f -print | head -n 1)
-[ -z "$gomplate" ] && echo "Error: could not install gomplate" && exit 1
-
-
-$pajv validate -s .templates/language_schema.json -d $FOLDER/language.yaml --errors=text --verbose
-
-
 echo "Generating $FOLDER"
 
-find .templates -type f -name "*.gomplate" | while read -r template
-do
-    file=$(echo "$template" | sed -e 's/^.templates//g' -e 's/\.gomplate$//g')
-    if [ -f "$FOLDER$file" ]
-    then
-        rm "$FOLDER$file"
-    fi
-done
+git clean -Xfd $FOLDER
 
-export GOMPLATE_SUPPRESS_EMPTY=true
+curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - $FOLDER/language.yaml $FOLDER
 
-$gomplate --input-dir .templates \
-          --include "**/*.gomplate" \
-          --output-map=$FOLDER'/{{ .in | strings.TrimSuffix ".gomplate" }}' \
-          -d language=$FOLDER/language.yaml \
-          -d vscodesettings=.templates/.devcontainer/vscode.default.settings.json
+cat >.github/workflows/$FOLDER.yml <<EOF
+name: $FOLDER
 
-mv -f $FOLDER/workflow.yml .github/workflows/$FOLDER.yml
+on:
+  push:
+    paths:
+      - $FOLDER/language.yaml
+      - .github/workflows/$FOLDER.yml
+
+jobs:
+  BuildDevcontainer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer
+        run: bash generate.sh $FOLDER
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder $FOLDER --image-name $FOLDER-devcontainer
+
+      - name: Run Selftest
+        run: docker run --rm $FOLDER-devcontainer sh /selftest.sh
+EOF
 
 echo "Done"

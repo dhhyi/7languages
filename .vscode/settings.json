@@ -7,7 +7,7 @@
         "*.gomplate": "plaintext"
     },
     "yaml.schemas": {
-        ".templates/language_schema.json": [
+        "https://raw.githubusercontent.com/dhhyi/devcontainer-creator/main/templates/language_schema.json": [
             "language.yaml"
         ],
     }

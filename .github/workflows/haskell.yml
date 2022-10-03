@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - haskell/language.yaml
-      - haskell/.devcontainer/**
       - .github/workflows/haskell.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

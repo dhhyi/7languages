@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - ruby/language.yaml
-      - ruby/.devcontainer/**
       - .github/workflows/ruby.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

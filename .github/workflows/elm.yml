@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - elm/language.yaml
-      - elm/.devcontainer/**
       - .github/workflows/elm.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

@@ -4,9 +4,7 @@ on:
   push:
     paths:
       - scala/language.yaml
-      - scala/.devcontainer/**
       - .github/workflows/scala.yml
-      - .templates/**
 
 jobs:
   BuildDevcontainer:

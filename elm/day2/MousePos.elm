@@ -1,38 +1,60 @@
 module MousePos exposing (..)
 
 import Browser
-import Html exposing (Html, div, text)
+import Html exposing (Html, br, div, text)
 import Html.Attributes exposing (style)
 import Html.Events.Extra.Mouse as Mouse
 
 
 main : Program () Model Msg
 main =
-    Browser.sandbox { init = init, update = update, view = view }
+    Browser.sandbox
+        { init = init
+        , update = update
+        , view = view
+        }
 
 
 type alias Model =
-    ( Float, Float )
+    { position : ( Float, Float )
+    , clicks : Int
+    }
 
 
 init : Model
 init =
-    ( 0, 0 )
+    { position = ( 0, 0 )
+    , clicks = 0
+    }
 
 
 type Msg
     = MoveMsg ( Float, Float )
+    | ClickMsg
 
 
 update : Msg -> Model -> Model
-update msg _ =
+update msg model =
     case msg of
         MoveMsg data ->
-            data
+            { model | position = data }
+
+        ClickMsg ->
+            { model | clicks = model.clicks + 1 }
+
+
+formatPostion : ( Float, Float ) -> String
+formatPostion ( x, y ) =
+    "(" ++ String.fromFloat x ++ ", " ++ String.fromFloat y ++ ")"
 
 
 view : Model -> Html Msg
-view ( x, y ) =
+view model =
     div
-        [ Mouse.onMove (.clientPos >> MoveMsg), style "height" "100vh" ]
-        [ text ("move mouse (" ++ String.fromFloat x ++ ", " ++ String.fromFloat y ++ ")") ]
+        [ Mouse.onMove (.clientPos >> MoveMsg)
+        , Mouse.onClick (\_ -> ClickMsg)
+        , style "height" "100vh"
+        ]
+        [ div [] [ text ("mouse position " ++ formatPostion model.position) ]
+        , div [] [ text ("mouse clicks (" ++ String.fromInt model.clicks ++ ")") ]
+        ]

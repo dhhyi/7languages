@@ -18,7 +18,7 @@ export FOLDER=$1
 
 echo "Generating $FOLDER"
 
-git clean -Xfd $FOLDER
+git clean -Xfd $FOLDER/.devcontainer $FOLDER/.vscode
 
 curl -so- https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/bundle.js | node - $FOLDER/language.yaml $FOLDER
 

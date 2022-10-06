@@ -1,0 +1,3 @@
+- [Getting Started](https://elixir-lang.org/getting-started/introduction.html)
+- [Docs](https://elixir-lang.org/docs.html)
+- [HexDocs](https://hexdocs.pm/elixir)

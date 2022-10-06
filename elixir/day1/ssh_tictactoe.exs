@@ -41,16 +41,14 @@ defmodule TicTacToe do
     end)
   end
 
-  def place_player(board, player, point) do
-    {x, y} = point
-
+  def place_player(board, player, {x, y}) do
     board
     |> Enum.with_index()
     |> Enum.map(fn {row, row_index} ->
       row
       |> Enum.with_index()
-      |> Enum.map(fn {cell, cell_index} ->
-        if row_index == x and cell_index == y do
+      |> Enum.map(fn {cell, col_index} ->
+        if row_index == x and col_index == y do
           player
         else
           cell
@@ -62,7 +60,11 @@ defmodule TicTacToe do
   def win_in_one_move(board, player) do
     board
     |> free_places()
-    |> Enum.filter(fn point -> winner?(place_player(board, player, point)) == player end)
+    |> Enum.filter(fn point ->
+      board
+      |> place_player(player, point)
+      |> winner?() == player
+    end)
     |> sort_points()
   end
 
@@ -70,40 +72,19 @@ defmodule TicTacToe do
     board
     |> free_places()
     |> Enum.map(fn point ->
-      win_in_one_move(place_player(board, player, point), player)
+      board
+      |> place_player(player, point)
+      |> win_in_one_move(player)
     end)
     |> List.flatten()
     |> sort_points()
   end
 
   def best_move(board, player) do
-    win_in_one_move(board, player)
-    |> List.first()
-    |> case do
-      nil ->
-        win_in_one_move(board, other_player(player))
-        |> List.first()
-        |> case do
-          nil ->
-            win_in_two_moves(board, player)
-            |> List.first()
-            |> case do
-              nil ->
-                free_places(board)
-                |> sort_points()
-                |> List.first()
-
-              point ->
-                point
-            end
-
-          point ->
-            point
-        end
-
-      point ->
-        point
-    end
+    board |> win_in_one_move(player) |> List.first() ||
+      board |> win_in_one_move(other_player(player)) |> List.first() ||
+      board |> win_in_two_moves(player) |> List.first() ||
+      board |> free_places() |> sort_points() |> List.first()
   end
 
   def dump_cell(x) when x == :x or x == :o, do: to_string(x)
@@ -111,7 +92,10 @@ defmodule TicTacToe do
 
   def dump(board) do
     board
-    |> Enum.map(fn line -> Enum.map(line, fn x -> dump_cell(x) end) |> Enum.join(" ") end)
+    |> Enum.map(fn line ->
+      Enum.map(line, fn x -> dump_cell(x) end)
+      |> Enum.join(" ")
+    end)
     |> Enum.join("\n")
   end
 end

@@ -273,12 +273,12 @@ defmodule TicTacToeTest do
            ]
            |> TicTacToe.best_move(:x) == {0, 1}
 
-    assert [
-             [:o, nil, nil],
-             [nil, :x, nil],
-             [nil, nil, nil]
-           ]
-           |> TicTacToe.best_move(:x) == {2, 0}
+    assert ([
+              [:o, nil, nil],
+              [nil, :x, nil],
+              [nil, nil, nil]
+            ]
+            |> TicTacToe.best_move(:x)) in [{0, 2}, {2, 0}]
 
     assert [
              [nil, nil, nil],
@@ -289,10 +289,24 @@ defmodule TicTacToeTest do
 
     assert [
              [nil, nil, nil],
-             [nil, :o, nil],
+             [:o, nil, nil],
              [nil, nil, nil]
            ]
-           |> TicTacToe.best_move(:x) == {0, 0}
+           |> TicTacToe.best_move(:x) == {1, 1}
+
+    assert [
+             [:o, nil, nil],
+             [nil, nil, nil],
+             [nil, nil, nil]
+           ]
+           |> TicTacToe.best_move(:x) == {1, 1}
+
+    assert ([
+              [nil, nil, nil],
+              [nil, :o, nil],
+              [nil, nil, nil]
+            ]
+            |> TicTacToe.best_move(:x)) in [{0, 0}, {0, 2}, {2, 0}, {2, 2}]
 
     assert [
              [:x, :o, :x],

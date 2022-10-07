@@ -1,0 +1,2 @@
+- Day 2:
+  - enforce struct state field with protocol

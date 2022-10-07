@@ -40,7 +40,21 @@ defmodule StateMachine do
             context
           end
 
+        context =
+          if function_exported?(__MODULE__, :before, 2) do
+            apply(__MODULE__, :before, [unquote(name), context])
+          else
+            context
+          end
+
         context = StateMachine.Behavior.fire(state_machine(), context, unquote(name))
+
+        context =
+          if function_exported?(__MODULE__, :after, 2) do
+            apply(__MODULE__, :after, [unquote(name), context])
+          else
+            context
+          end
 
         context =
           if function_exported?(__MODULE__, unquote(after_name), 1) do

@@ -10,7 +10,7 @@ defmodule VidStore do
     lose: [to: :lost, calls: [&VidStore.losing/1]]
   )
 
-  state(:lost, [])
+  state(:lost, find: [to: :rented, calls: [&VidStore.finding/1]])
 
   def renting(video) do
     vid = video |> log("Renting #{video.title}")
@@ -23,6 +23,10 @@ defmodule VidStore do
 
   def losing(video) do
     video |> log("Losing #{video.title}")
+  end
+
+  def finding(video) do
+    video |> log("Finding #{video.title}")
   end
 
   def log(video, message) do

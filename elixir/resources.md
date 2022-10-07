@@ -1,3 +1,5 @@
 - [Getting Started](https://elixir-lang.org/getting-started/introduction.html)
 - [Docs](https://elixir-lang.org/docs.html)
 - [HexDocs](https://hexdocs.pm/elixir)
+- [elixir-pipes](https://github.com/batate/elixir-pipes)
+- [Module Attributes](https://elixir-lang.org/getting-started/module-attributes.html)

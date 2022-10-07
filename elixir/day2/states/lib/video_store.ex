@@ -12,6 +12,10 @@ defmodule VideoStore do
     vid = log(video, "Losing #{video.title}")
   end
 
+  def finding(video) do
+    vid = log(video, "Finding #{video.title}")
+  end
+
   def log(video, message) do
     %{video | log: [message | video.log]}
   end

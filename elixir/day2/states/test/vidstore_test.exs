@@ -20,6 +20,12 @@ defmodule VidStoreTest do
     assert Enum.count(vid.log) == 2
   end
 
+  should "rent and lose and find and return video" do
+    vid = video() |> rent() |> lose() |> find() |> return()
+    assert vid.state == :available
+    assert Enum.count(vid.log) == 4
+  end
+
   should "handle multiple transitions" do
     vid = video() |> rent |> return |> rent |> return |> rent
     assert vid.state == :rented

@@ -21,5 +21,12 @@ defmodule ConcreteTest do
     assert Enum.count(vid.log) == 4
   end
 
+  should "rent and lose and find and return video" do
+    import VideoStore.Concrete
+    vid = video() |> rent() |> lose() |> find() |> return()
+    assert vid.state == :available
+    assert Enum.count(vid.log) == 4
+  end
+
   def video, do: %Video{title: "The Matrix"}
 end

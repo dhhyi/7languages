@@ -4,7 +4,7 @@ defmodule VidStoreTest do
   use ExUnit.Case
 
   should "update count" do
-    rented_video = renting(video())
+    rented_video = rent(video())
     assert rented_video.times_rented == 1
   end
 

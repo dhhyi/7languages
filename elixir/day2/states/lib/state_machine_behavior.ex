@@ -10,6 +10,6 @@ defmodule StateMachine.Behavior do
   end
 
   def activate(context, event) do
-    Enum.reduce(event[:calls], context, & &1.(&2))
+    Enum.reduce(event[:calls] || [], context, & &1.(&2))
   end
 end

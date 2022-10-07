@@ -3,6 +3,7 @@ defmodule StateMachine do
     quote do
       import StateMachine
       @states []
+      @before_name ""
       @before_compile StateMachine
     end
   end
@@ -27,9 +28,28 @@ defmodule StateMachine do
   end
 
   def event_callback(name) do
+    before_name = :"before_#{name}"
+    after_name = :"after_#{name}"
+
     quote do
       def unquote(name)(context) do
-        StateMachine.Behavior.fire(state_machine(), context, unquote(name))
+        context =
+          if function_exported?(__MODULE__, unquote(before_name), 1) do
+            apply(__MODULE__, unquote(before_name), [context])
+          else
+            context
+          end
+
+        context = StateMachine.Behavior.fire(state_machine(), context, unquote(name))
+
+        context =
+          if function_exported?(__MODULE__, unquote(after_name), 1) do
+            apply(__MODULE__, unquote(after_name), [context])
+          else
+            context
+          end
+
+        context
       end
     end
   end

@@ -1,35 +1,30 @@
 defmodule VidStore do
   use StateMachine
 
-  state(:available,
-    rent: [to: :rented, calls: [&VidStore.renting/1]]
-  )
-
-  state(:rented,
-    return: [to: :available, calls: [&VidStore.returning/1]],
-    lose: [to: :lost, calls: [&VidStore.losing/1]]
-  )
-
-  state(:lost, find: [to: :rented, calls: [&VidStore.finding/1]])
-
-  def renting(video) do
-    vid = video |> log("Renting #{video.title}")
-    %{vid | times_rented: vid.times_rented + 1}
-  end
-
-  def returning(video) do
-    video |> log("Returning #{video.title}")
-  end
-
-  def losing(video) do
-    video |> log("Losing #{video.title}")
-  end
-
-  def finding(video) do
-    video |> log("Finding #{video.title}")
-  end
-
   def log(video, message) do
     %{video | log: [message | video.log]}
   end
+
+  state(:available,
+    rent: [to: :rented]
+  )
+
+  def before_rent(video), do: log(video, "Renting #{video.title}")
+
+  def after_rent(video) do
+    %{video | times_rented: video.times_rented + 1}
+  end
+
+  state(:rented,
+    return: [to: :available],
+    lose: [to: :lost]
+  )
+
+  def before_return(video), do: log(video, "Returning #{video.title}")
+
+  def before_lose(video), do: log(video, "Losing #{video.title}")
+
+  state(:lost, find: [to: :rented])
+
+  def before_find(video), do: log(video, "Finding #{video.title}")
 end

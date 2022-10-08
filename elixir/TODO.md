@@ -1,2 +1,9 @@
 - Day 2:
   - enforce struct state field with protocol
+- Day 3:
+  - repair auto restart of process
+  - timeout to pitcher
+  - tests for OTP database
+  - redundant video store (write both,, crash -> restore state from running process)
+  - state machine in agent
+  - persistance unsing DETS database

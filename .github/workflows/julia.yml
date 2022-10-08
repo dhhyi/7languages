@@ -1,0 +1,25 @@
+name: julia
+
+on:
+  push:
+    paths:
+      - julia/language.yaml
+      - .github/workflows/julia.yml
+
+jobs:
+  BuildDevcontainer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Generate Devcontainer
+        run: bash generate.sh julia
+
+      - name: Build Devcontainer
+        run: |
+          npm install -g @devcontainers/cli
+          devcontainer build --workspace-folder julia --image-name julia-devcontainer
+
+      - name: Run Selftest
+        run: docker run --rm julia-devcontainer sh /selftest.sh

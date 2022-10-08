@@ -5,15 +5,15 @@ defmodule VideoStore do
   end
 
   def returning(video) do
-    vid = log(video, "Returning #{video.title}")
+    log(video, "Returning #{video.title}")
   end
 
   def losing(video) do
-    vid = log(video, "Losing #{video.title}")
+    log(video, "Losing #{video.title}")
   end
 
   def finding(video) do
-    vid = log(video, "Finding #{video.title}")
+    log(video, "Finding #{video.title}")
   end
 
   def log(video, message) do

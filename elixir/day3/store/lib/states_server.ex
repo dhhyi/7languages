@@ -4,7 +4,7 @@ defmodule States.Server do
 
   def start_link(videos) do
     IO.puts("starting server")
-    GenServer.start(__MODULE__, videos, name: __MODULE__)
+    GenServer.start(__MODULE__, videos)
   end
 
   def init(videos) do
@@ -17,14 +17,14 @@ defmodule States.Server do
 
     video = videos[item]
 
-    if function_exported?(VidStore, action, 1) do
-      new_video = apply(VidStore, action, [video])
-      {:reply, new_video, Keyword.put(videos, item, new_video)}
-    else
-      # raise "Unknown action: #{action}"
+    # if function_exported?(VidStore, action, 1) do
+    new_video = apply(VidStore, action, [video])
+    {:reply, new_video, Keyword.put(videos, item, new_video)}
+    # else
+    #   raise "Unknown action: #{action}"
 
-      {:stop, "Unknown action: #{action}", videos}
-    end
+    #   {:stop, "Unknown action: #{action}", videos}
+    # end
   end
 
   def handle_cast({:add, video}, videos) do

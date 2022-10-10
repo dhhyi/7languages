@@ -3,3 +3,4 @@
 - [HexDocs](https://hexdocs.pm/elixir)
 - [elixir-pipes](https://github.com/batate/elixir-pipes)
 - [Module Attributes](https://elixir-lang.org/getting-started/module-attributes.html)
+- [Elixir Forum - Supervisor is not restarting worker](https://elixirforum.com/t/supervisor-is-not-restarting-worker/19928)

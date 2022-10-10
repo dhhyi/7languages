@@ -8,12 +8,24 @@ defmodule Store.Application do
   @impl true
   def start(_type, videos) do
     children = [
-      %{
-        id: States.Server,
-        start: {States.Server, :start_link, [videos]}
-      }
+      {DynamicSupervisor, [strategy: :one_for_one, name: DSUP]}
     ]
 
-    Supervisor.start_link(children, strategy: :one_for_one, name: SUP)
+    on_start = Supervisor.start_link(children, strategy: :one_for_one, name: SUP)
+
+    Task.start(__MODULE__, :do_stuff, [videos])
+    on_start
+  end
+
+  def do_stuff(videos) do
+    Process.sleep(1000)
+
+    spec = %{
+      id: VIDSTORE,
+      start: {States.Server, :start_link, [videos]},
+      restart: :permanent
+    }
+
+    DynamicSupervisor.start_child(DSUP, spec)
   end
 end

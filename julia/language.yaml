@@ -3,6 +3,7 @@ language:
   binary: julia
   repl: julia
 devcontainer:
+  name: "7 languages in 7 weeks: Julia"
   build:
     args:
       JULIA_BASE_VERSION: "1.8"

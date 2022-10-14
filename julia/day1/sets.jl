@@ -13,3 +13,7 @@ println(intersect(set, other))
 println(setdiff(set, other))
 println(issubset(other, set))
 println(issubset(Set([1, 2]), set))
+
+println("-----------------")
+
+println(typeof(set))

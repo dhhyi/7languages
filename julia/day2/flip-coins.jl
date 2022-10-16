@@ -1,5 +1,7 @@
 println("----------------------")
 
+t = 10000000000
+
 function flip_coin(times)
     heads = 0
     for i in 1:times
@@ -10,7 +12,7 @@ function flip_coin(times)
     return heads
 end
 
-println(@time flip_coin(10000000000))
+println(@time flip_coin(t))
 
 using Distributed
 addprocs(8)
@@ -20,4 +22,4 @@ function pflip_coin(times)
     end
 end
 
-println(@time pflip_coin(10000000000))
+println(@time pflip_coin(t))

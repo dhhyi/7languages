@@ -1,3 +1,5 @@
+using Distributed
+
 function flip_coin(times)
     heads = 0
     for _ in 1:times
@@ -7,8 +9,6 @@ function flip_coin(times)
     end
     return heads
 end
-
-using Distributed
 
 function pflip_coin(times)
     @distributed (+) for i in 1:times

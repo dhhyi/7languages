@@ -1,4 +1,4 @@
-include("flip-coins.jl")
+include("flip_coins.jl")
 
 function flip_coins_histogram(trials, times)
     bars = zeros(Int, times + 1)

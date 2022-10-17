@@ -1,4 +1,4 @@
-include("flip-coins.jl")
+include("flip_coins.jl")
 
 println("----------------------")
 

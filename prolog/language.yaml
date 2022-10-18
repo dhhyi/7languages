@@ -1,3 +1,0 @@
-extends: dcc://prolog
-devcontainer:
-  name: "7 languages in 7 weeks: Prolog"

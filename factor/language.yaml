@@ -1,6 +1,5 @@
 extends: dcc://factor
 devcontainer:
-  name: "7 more languages in 7 weeks: Factor"
   build:
     root:
       - COPY deploy.sh /usr/local/bin/deploy-factor-vocab

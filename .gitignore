@@ -9,7 +9,6 @@ node_modules
 /*/.devcontainer/selftest.sh
 /*/.vscode/tasks.json
 /*/.vscode/vscode.code-snippets
-/*/.update_devcontainer.sh
 
 # for testing
 /.github/workflows/new.yml

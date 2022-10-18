@@ -1,6 +1,5 @@
 extends: dcc://elm
 devcontainer:
-  name: "7 more languages in 7 weeks: Elm"
   build:
     root:
       - COPY run-in-elm-repl.sh /usr/local/bin

@@ -1,3 +1,0 @@
-extends: dcc://julia
-devcontainer:
-  name: "7 languages in 7 weeks: Julia"

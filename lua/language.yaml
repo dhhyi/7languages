@@ -1,6 +1,5 @@
 extends: dcc://lua
 devcontainer:
-  name: "7 more languages in 7 weeks: Lua"
   build:
     packages:
       - cmake

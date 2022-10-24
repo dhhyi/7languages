@@ -1,0 +1,7 @@
+extends: dcc://julia
+devcontainer:
+  build:
+    user:
+      - RUN julia -e 'using Pkg; Pkg.add(["Images", "TestImages", "Gtk"])'
+extras:
+  - forward-x11

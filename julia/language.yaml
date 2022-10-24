@@ -2,6 +2,6 @@ extends: dcc://julia
 devcontainer:
   build:
     user:
-      - RUN julia -e 'using Pkg; Pkg.add(["Images", "TestImages", "Gtk"])'
+      - RUN julia -e 'using Pkg; Pkg.add(["Images", "TestImages", "Gtk", "FFTW", "ImageCore"])'
 extras:
   - forward-x11

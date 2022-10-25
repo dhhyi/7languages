@@ -1,13 +1,16 @@
 include("codec.jl")
 
+println("--------------------")
 using Pkg
-Pkg.add(["ImageView"])
+if !("ImageView" ∈ keys(Pkg.project().dependencies))
+    Pkg.add(["ImageView"])
+end
 
 using ImageView, TestImages, Gtk.ShortNames, ImageCore
 
 
-# img = testimage("cameraman")
-img = testimage("lighthouse")
+img = testimage("cameraman")
+# img = testimage("lighthouse")
 img = Gray.(img)
 
 freqs = Codec.blockdct6(img)
@@ -17,6 +20,7 @@ gui = imshow_gui((300, 300), (1, 2))
 canvases = gui["canvas"]
 imshow(canvases[1, 1], img)
 imshow(canvases[1, 2], img2)
-Gtk.showall(gui["window"])
+w = Gtk.showall(gui["window"])
+Gtk.fullscreen(w)
 
 sleep(10)

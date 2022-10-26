@@ -1,6 +1,7 @@
 println("--------------------")
 
-include("codec.jl")
+# include("codec.jl")
+include("ss_codec.jl")
 
 using Pkg
 if "ImageView" ∉ keys(Pkg.project().dependencies)
@@ -9,17 +10,24 @@ end
 
 using ImageView, TestImages, Gtk.ShortNames, ImageCore
 
+Codec.setParameters(8, 6)
 
 img = testimage("cameraman")
 # img = testimage("lighthouse")
 img = Gray.(img)
 
-freqs = Codec.blockdct6(img)
+println("Image size: ", size(img))
+
+freqs = Codec.blockdct(img)
+
+println("Frequency size: ", size(freqs))
 
 # add noise
-freqs = freqs .+ 0.1 .* randn(size(freqs))
+# freqs = freqs .+ 0.1 .* randn(size(freqs))
 
-img2 = Codec.blockidct6(freqs)
+img2 = Codec.blockidct(freqs)
+
+println("Image size: ", size(img2))
 
 gui = imshow_gui((300, 300), (1, 2))
 canvases = gui["canvas"]

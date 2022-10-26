@@ -2,7 +2,10 @@ module Codec
 
 using FFTW, ImageCore
 
-function blockdct6(img)
+function setParameters(args...)
+end
+
+function blockdct(img)
     pixels = convert(Array{Float64}, img)
 
     y, x = size(pixels)
@@ -39,7 +42,7 @@ function togray(val)
     end
 end
 
-function blockidct6(freqs)
+function blockidct(freqs)
     y, x = size(freqs)
 
     bx = 1:8:x

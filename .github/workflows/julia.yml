@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh julia
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder julia --image-name julia-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm julia-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh julia --test

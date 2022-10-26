@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh lua
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder lua --image-name lua-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm lua-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh lua --test

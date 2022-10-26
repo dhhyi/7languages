@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh scala
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder scala --image-name scala-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm scala-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh scala --test

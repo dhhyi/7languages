@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh io
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder io --image-name io-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm io-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh io --test

@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh haskell
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder haskell --image-name haskell-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm haskell-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh haskell --test

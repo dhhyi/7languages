@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh clojure
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder clojure --image-name clojure-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm clojure-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh clojure --test

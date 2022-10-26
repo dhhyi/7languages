@@ -1,7 +1,7 @@
 #!/bin/bash
 
-MYSHELL=`ps -hp $$ | awk '{print $5}'`
-if [ "$(basename $MYSHELL)" != "bash" ]
+MYSHELL=$(ps -hp $$ | awk '{print $5}')
+if [ "$(basename "$MYSHELL")" != "bash" ]
 then
     echo "script is written for bash only, detected $MYSHELL"
     exit 1
@@ -15,12 +15,11 @@ set -o pipefail
 [ ! -f "$1/.update_devcontainer.sh" ] && echo "Error: $1/.update_devcontainer.sh does not exist" && exit 1
 
 export FOLDER=$1
+shift
 
-echo "Generating $FOLDER"
+sh "$FOLDER/.update_devcontainer.sh" "$@"
 
-sh "$FOLDER/.update_devcontainer.sh"
-
-cat >.github/workflows/$FOLDER.yml <<EOF
+cat >".github/workflows/$FOLDER.yml" <<EOF
 name: $FOLDER
 
 on:
@@ -36,16 +35,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh $FOLDER
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder $FOLDER --image-name $FOLDER-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm $FOLDER-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh $FOLDER --test
 EOF
-
-echo "Done"

@@ -13,13 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate Devcontainer
-        run: bash generate.sh elm
-
-      - name: Build Devcontainer
-        run: |
-          npm install -g @devcontainers/cli
-          devcontainer build --workspace-folder elm --image-name elm-devcontainer
-
-      - name: Run Selftest
-        run: docker run --rm elm-devcontainer sh /selftest.sh
+      - name: Test Devcontainer
+        run: bash generate.sh elm --test

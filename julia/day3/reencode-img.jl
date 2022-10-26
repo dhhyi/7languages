@@ -1,8 +1,9 @@
+println("--------------------")
+
 include("codec.jl")
 
-println("--------------------")
 using Pkg
-if !("ImageView" ∈ keys(Pkg.project().dependencies))
+if "ImageView" ∉ keys(Pkg.project().dependencies)
     Pkg.add(["ImageView"])
 end
 
@@ -14,6 +15,10 @@ img = testimage("cameraman")
 img = Gray.(img)
 
 freqs = Codec.blockdct6(img)
+
+# add noise
+freqs = freqs .+ 0.1 .* randn(size(freqs))
+
 img2 = Codec.blockidct6(freqs)
 
 gui = imshow_gui((300, 300), (1, 2))

@@ -1,0 +1,17 @@
+name: miniKanren
+
+on:
+  push:
+    paths:
+      - miniKanren/language.yaml
+      - .github/workflows/miniKanren.yml
+
+jobs:
+  BuildDevcontainer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test Devcontainer
+        run: bash generate.sh miniKanren --test

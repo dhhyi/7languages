@@ -54,11 +54,9 @@
                               (ageo q 21)
                               (engineero q :yes))))
 
-(println (with-db facts (run* [q]
-                              (fresh [a n]
-                                     (engineero n :yes)
-                                     (ageo n a)
-                                     (conde
-                                      [(mano n)]
-                                      [(womano n)])
-                                     (== q [n a])))))
+(println (with-db facts (run* [n a]
+                              (ageo n a)
+                              (engineero n :yes)
+                              (conde
+                               [(mano n)]
+                               [(womano n)]))))

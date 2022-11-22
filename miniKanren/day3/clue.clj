@@ -35,11 +35,11 @@
     "Mrs. Peacock killed the policeman."]
    [:mr-boddy :dead-mr-boddy
     "Mr. Boddy's body is found in the hall beaten to death with a candlestick."]
-   [:dead-mr-body :guilty-plum
+   [:dead-mr-boddy :guilty-plum
     "Mr. Plum killed Mr. Boddy thinking he was the real blackmailer."]
-   [:dead-mr-body :guilty-scarlet
+   [:dead-mr-boddy :guilty-scarlet
     "Miss Scarlet killed Mr. Boddy to keep him quiet."]
-   [:dead-mr-body :guilty-peacock
+   [:dead-mr-boddy :guilty-peacock
     "Mrs. Peacock killed Mr. Boddy."]
    [:cook :dead-cook
     "The cook is found stabbed in the kitchen."]
@@ -122,4 +122,14 @@
   (pldb/with-db story-db
     (logic/run* [q] (storyo (vec goals) q))))
 
-(print-story (first (filter #(> (count %) 11) (story-stream :guilty-wadsworth))))
+(print-story (first (filter #(> (count %) 11) (story-stream
+                                               :dead-mr-boddy
+                                            ;;    :dead-cook
+                                            ;;    :dead-motorist 
+                                            ;;    :dead-policeman 
+                                            ;;    :dead-telegram-girl 
+                                            ;;    :dead-yvette 
+                                            ;;    :guilty-wadsworth
+                                               ))))
+
+(println "END")

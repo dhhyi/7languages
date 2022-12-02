@@ -1,0 +1,17 @@
+name: idris
+
+on:
+  push:
+    paths:
+      - idris/language.yaml
+      - .github/workflows/idris.yml
+
+jobs:
+  BuildDevcontainer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test Devcontainer
+        run: bash generate.sh idris --test

@@ -3,3 +3,5 @@
 - Day 2
   - properly do the Matrix types with implementation
   - Display example
+- Day 3
+  - Do proofs and examples in idris v1

@@ -6,11 +6,3 @@ devcontainer:
     (println (run* [q] (== q "Hello World!")))
     EOF
     clojure -Sdeps '{:deps {org.clojure/core.logic {:mvn/version "1.0.1"}}}' -M /tmp/helloworld.clj
-vscode:
-  script: |
-    (ns ${TM_FILENAME/^(.*).clj$/$1/}
-      (:refer-clojure :exclude [==])
-      (:require [clojure.core.logic :refer [== run*]]))
-    (println "----------------")
-
-    $1

@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
+devcontainer:
+  build:
+    packages:
+      - ruby
+      - ruby-dev
+      - build-essential
+    root:
+      - RUN gem install rubocop
+  selftest: ruby -e 'puts "Hello World!"'
+vscode:
+  settings:
+    "[ruby]":
+      editor.defaultFormatter: misogi.ruby-rubocop
+  extensions:
+    - rebornix.Ruby
+    - misogi.ruby-rubocop

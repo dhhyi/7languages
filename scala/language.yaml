@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
+devcontainer:
+  build:
+    root:
+      - RUN mise use -g java
+      - RUN mise use -g scala
+      - ADD https://github.com/com-lihaoyi/Ammonite/releases/download/3.0.0/2.13-3.0.0-2-6342755f /usr/local/bin/amm
+      - RUN sed -i '1 i\#!/usr/bin/env sh' /usr/local/bin/amm && chmod +rx /usr/local/bin/amm
+  selftest: |
+    cat >/tmp/helloworld.scala <<EOF
+    @main def main() = {
+        println("Hello World!")
+    }
+    EOF
+    amm /tmp/helloworld.scala
+vscode:
+  settings:
+    "[scala]":
+      editor.defaultFormatter: scalameta.metals
+      editor.tabSize: 2
+    files.watcherExclude:
+      "**/target": true
+  extensions:
+    - scalameta.metals

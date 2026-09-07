@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
+devcontainer:
+  build:
+    packages:
+      - build-essential
+      - libncurses-dev
+    user:
+      - RUN mise use -g erlang
+      - RUN mise use -g elixir
+  selftest: elixir -e 'IO.puts "Hello World!"'
+vscode:
+  extensions:
+    - JakeBecker.elixir-ls
+  settings:
+    "[elixir]":
+      editor.defaultFormatter: JakeBecker.elixir-ls

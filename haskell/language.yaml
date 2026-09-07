@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
+devcontainer:
+  build:
+    packages:
+      - ghc
+      - hlint
+  selftest: |
+    cat > /tmp/helloworld.hs <<EOF
+    main = putStrLn "Hello World!"
+    EOF
+    runhaskell /tmp/helloworld.hs
+vscode:
+  extensions:
+    - dramforever.vscode-ghc-simple
+    - justusadam.language-haskell
+    - hoovercj.haskell-linter

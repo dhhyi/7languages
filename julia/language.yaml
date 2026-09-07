@@ -1,7 +1,13 @@
-extends: dcc://julia
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
 devcontainer:
   build:
+    root:
+      - RUN mise use -g julia
     user:
       - RUN julia -e 'using Pkg; Pkg.add(["Images", "TestImages", "Gtk", "FFTW", "ImageCore"])'
 extras:
   - forward-x11
+vscode:
+  extensions:
+    - julialang.language-julia

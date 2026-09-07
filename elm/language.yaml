@@ -1,10 +1,32 @@
-extends: dcc://elm
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
 devcontainer:
   build:
+    packages:
+      - libatomic1
     root:
       - COPY run-in-elm-repl.sh /usr/local/bin
       - RUN chmod +x /usr/local/bin/run-in-elm-repl.sh
+    user:
+      - RUN mise use -g node
+      - RUN mise use -g npm:elm
+      - RUN mise use -g npm:elm-test
+      - RUN mise use -g npm:elm-format
+      - RUN mise use -g npm:elm-review
+      - RUN mise use -g npm:onchange
+  selftest: |
+    cd /tmp
+    yes | elm init
+    echo 'module Main exposing (main)' > Main.elm
+    echo 'import Html exposing (text)' >> Main.elm
+    echo 'main = text "Hello World!"' >> Main.elm
+    elm make Main.elm --output=main.js
 vscode:
+  extensions:
+    - elmTooling.elm-ls-vscode
+  settings:
+    "[elm]":
+      editor.defaultFormatter: elmTooling.elm-ls-vscode
   tasks:
     - label: Run file in Elm REPL
       command: onchange ${file} -ik -- run-in-elm-repl.sh ${file}

@@ -35,6 +35,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: install @devcontainers/cli
+        run: npm install -g @devcontainers/cli
+
       - name: Test Devcontainer
         run: bash generate.sh $FOLDER --test
 EOF

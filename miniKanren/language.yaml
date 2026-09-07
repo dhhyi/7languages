@@ -1,5 +1,10 @@
-extends: dcc://clojure
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
 devcontainer:
+  build:
+    root:
+      - RUN mise use -g java
+      - RUN mise use -g clojure
   selftest: |
     cat >/tmp/helloworld.clj <<EOF
     (use 'clojure.core.logic)

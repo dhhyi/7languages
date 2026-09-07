@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
+devcontainer:
+  build:
+    packages:
+      - build-essential
+      - libncurses-dev
+      - libcrypt-dev
+      - libssl-dev
+    user:
+      - RUN mise use -g erlang
+      - RUN mise use -g rebar
+    files:
+      - type: file
+        path: $HOME/.config/rebar3/rebar.config
+        content: |
+          {plugins, [erlfmt]}.
+          {erlfmt, [write]}.
+  selftest: |
+    cat > /tmp/helloworld.erl <<EOF
+    -module(helloworld). -export([main/1]).
+    main(_) ->    io:format("Hello World!\n").
+    EOF
+    cd /tmp
+    rebar3 fmt -w helloworld.erl
+    cat helloworld.erl
+    escript helloworld.erl
+vscode:
+  settings:
+    "[erlang]":
+      editor.tabSize: 2
+      editor.defaultFormatter: szTheory.erlang-formatter
+    erlangFormatter.formatter: erlfmt
+  extensions:
+    - pgourlain.erlang
+    - szTheory.erlang-formatter

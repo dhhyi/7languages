@@ -1,10 +1,17 @@
-extends: dcc://lua
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dhhyi/devcontainer-creator/dist/language_schema.json
+extends: dcc://debian
 devcontainer:
   build:
     packages:
       - cmake
       - timidity
       - fluid-soundfont-gm
+      - build-essential
+    user:
+      - RUN mise use -g lua
+      - RUN luarocks install busted
+        && luarocks install --server=https://luarocks.org/dev luaformatter
+        && luarocks install luacheck
     root:
       - RUN git clone https://github.com/craigsapp/midifile /tmp/midifile
       - RUN cd /tmp/midifile && make library
